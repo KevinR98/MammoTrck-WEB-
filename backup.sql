@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `mammotrck` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `mammotrck`;
--- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
 -- Host: localhost    Database: mammotrck
 -- ------------------------------------------------------
--- Server version	8.0.20
+-- Server version	8.0.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -84,7 +84,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add user',4,'add_user'),(14,'Can change user',4,'change_user'),(15,'Can delete user',4,'delete_user'),(16,'Can view user',4,'view_user'),(17,'Can add content type',5,'add_contenttype'),(18,'Can change content type',5,'change_contenttype'),(19,'Can delete content type',5,'delete_contenttype'),(20,'Can view content type',5,'view_contenttype'),(21,'Can add session',6,'add_session'),(22,'Can change session',6,'change_session'),(23,'Can delete session',6,'delete_session'),(24,'Can view session',6,'view_session'),(25,'Can add densidad_mamografica',7,'add_densidad_mamografica'),(26,'Can change densidad_mamografica',7,'change_densidad_mamografica'),(27,'Can delete densidad_mamografica',7,'delete_densidad_mamografica'),(28,'Can view densidad_mamografica',7,'view_densidad_mamografica'),(29,'Can add prueba_genetica',8,'add_prueba_genetica'),(30,'Can change prueba_genetica',8,'change_prueba_genetica'),(31,'Can delete prueba_genetica',8,'delete_prueba_genetica'),(32,'Can view prueba_genetica',8,'view_prueba_genetica'),(33,'Can add profile',9,'add_profile'),(34,'Can change profile',9,'change_profile'),(35,'Can delete profile',9,'delete_profile'),(36,'Can view profile',9,'view_profile'),(37,'Can add clinic',10,'add_clinic'),(38,'Can change clinic',10,'change_clinic'),(39,'Can delete clinic',10,'delete_clinic'),(40,'Can view clinic',10,'view_clinic'),(41,'Can add sub form_historia_familiar',11,'add_subform_historia_familiar'),(42,'Can change sub form_historia_familiar',11,'change_subform_historia_familiar'),(43,'Can delete sub form_historia_familiar',11,'delete_subform_historia_familiar'),(44,'Can view sub form_historia_familiar',11,'view_subform_historia_familiar'),(45,'Can add report',12,'add_report'),(46,'Can change report',12,'change_report'),(47,'Can delete report',12,'delete_report'),(48,'Can view report',12,'view_report'),(49,'Can add form',13,'add_form'),(50,'Can change form',13,'change_form'),(51,'Can delete form',13,'delete_form'),(52,'Can view form',13,'view_form'),(53,'Can add sub form_historia_personal',14,'add_subform_historia_personal'),(54,'Can change sub form_historia_personal',14,'change_subform_historia_personal'),(55,'Can delete sub form_historia_personal',14,'delete_subform_historia_personal'),(56,'Can view sub form_historia_personal',14,'view_subform_historia_personal'),(57,'Can add terapia_hormonal',15,'add_terapia_hormonal'),(58,'Can change terapia_hormonal',15,'change_terapia_hormonal'),(59,'Can delete terapia_hormonal',15,'delete_terapia_hormonal'),(60,'Can view terapia_hormonal',15,'view_terapia_hormonal'),(61,'Can add pacient',16,'add_pacient'),(62,'Can change pacient',16,'change_pacient'),(63,'Can delete pacient',16,'delete_pacient'),(64,'Can view pacient',16,'view_pacient'),(65,'Can add parentezco',17,'add_parentezco'),(66,'Can change parentezco',17,'change_parentezco'),(67,'Can delete parentezco',17,'delete_parentezco'),(68,'Can view parentezco',17,'view_parentezco'),(69,'Can add medicamento',18,'add_medicamento'),(70,'Can change medicamento',18,'change_medicamento'),(71,'Can delete medicamento',18,'delete_medicamento'),(72,'Can view medicamento',18,'view_medicamento'),(73,'Can add sub form_antecedentes_g_o',19,'add_subform_antecedentes_g_o'),(74,'Can change sub form_antecedentes_g_o',19,'change_subform_antecedentes_g_o'),(75,'Can delete sub form_antecedentes_g_o',19,'delete_subform_antecedentes_g_o'),(76,'Can view sub form_antecedentes_g_o',19,'view_subform_antecedentes_g_o'),(77,'Can add medicamento_ subformulario',20,'add_medicamento_subformulario'),(78,'Can change medicamento_ subformulario',20,'change_medicamento_subformulario'),(79,'Can delete medicamento_ subformulario',20,'delete_medicamento_subformulario'),(80,'Can view medicamento_ subformulario',20,'view_medicamento_subformulario'),(81,'Can add mamografia',21,'add_mamografia'),(82,'Can change mamografia',21,'change_mamografia'),(83,'Can delete mamografia',21,'delete_mamografia'),(84,'Can view mamografia',21,'view_mamografia'),(85,'Can add identidad_etnica',22,'add_identidad_etnica'),(86,'Can change identidad_etnica',22,'change_identidad_etnica'),(87,'Can delete identidad_etnica',22,'delete_identidad_etnica'),(88,'Can view identidad_etnica',22,'view_identidad_etnica'),(89,'Can add tiempo_bebida',23,'add_tiempo_bebida'),(90,'Can change tiempo_bebida',23,'change_tiempo_bebida'),(91,'Can delete tiempo_bebida',23,'delete_tiempo_bebida'),(92,'Can view tiempo_bebida',23,'view_tiempo_bebida');
+INSERT INTO `auth_permission` VALUES (1,'Can add clinic',1,'add_clinic'),(2,'Can change clinic',1,'change_clinic'),(3,'Can delete clinic',1,'delete_clinic'),(4,'Can view clinic',1,'view_clinic'),(5,'Can add densidad_mamografica',2,'add_densidad_mamografica'),(6,'Can change densidad_mamografica',2,'change_densidad_mamografica'),(7,'Can delete densidad_mamografica',2,'delete_densidad_mamografica'),(8,'Can view densidad_mamografica',2,'view_densidad_mamografica'),(9,'Can add form',3,'add_form'),(10,'Can change form',3,'change_form'),(11,'Can delete form',3,'delete_form'),(12,'Can view form',3,'view_form'),(13,'Can add identidad_etnica',4,'add_identidad_etnica'),(14,'Can change identidad_etnica',4,'change_identidad_etnica'),(15,'Can delete identidad_etnica',4,'delete_identidad_etnica'),(16,'Can view identidad_etnica',4,'view_identidad_etnica'),(17,'Can add mamografia',5,'add_mamografia'),(18,'Can change mamografia',5,'change_mamografia'),(19,'Can delete mamografia',5,'delete_mamografia'),(20,'Can view mamografia',5,'view_mamografia'),(21,'Can add medicamento',6,'add_medicamento'),(22,'Can change medicamento',6,'change_medicamento'),(23,'Can delete medicamento',6,'delete_medicamento'),(24,'Can view medicamento',6,'view_medicamento'),(25,'Can add medicamento_ subformulario',7,'add_medicamento_subformulario'),(26,'Can change medicamento_ subformulario',7,'change_medicamento_subformulario'),(27,'Can delete medicamento_ subformulario',7,'delete_medicamento_subformulario'),(28,'Can view medicamento_ subformulario',7,'view_medicamento_subformulario'),(29,'Can add pacient',8,'add_pacient'),(30,'Can change pacient',8,'change_pacient'),(31,'Can delete pacient',8,'delete_pacient'),(32,'Can view pacient',8,'view_pacient'),(33,'Can add parentezco',9,'add_parentezco'),(34,'Can change parentezco',9,'change_parentezco'),(35,'Can delete parentezco',9,'delete_parentezco'),(36,'Can view parentezco',9,'view_parentezco'),(37,'Can add prueba_genetica',10,'add_prueba_genetica'),(38,'Can change prueba_genetica',10,'change_prueba_genetica'),(39,'Can delete prueba_genetica',10,'delete_prueba_genetica'),(40,'Can view prueba_genetica',10,'view_prueba_genetica'),(41,'Can add terapia_hormonal',11,'add_terapia_hormonal'),(42,'Can change terapia_hormonal',11,'change_terapia_hormonal'),(43,'Can delete terapia_hormonal',11,'delete_terapia_hormonal'),(44,'Can view terapia_hormonal',11,'view_terapia_hormonal'),(45,'Can add tiempo_bebida',12,'add_tiempo_bebida'),(46,'Can change tiempo_bebida',12,'change_tiempo_bebida'),(47,'Can delete tiempo_bebida',12,'delete_tiempo_bebida'),(48,'Can view tiempo_bebida',12,'view_tiempo_bebida'),(49,'Can add sub form_historia_personal',13,'add_subform_historia_personal'),(50,'Can change sub form_historia_personal',13,'change_subform_historia_personal'),(51,'Can delete sub form_historia_personal',13,'delete_subform_historia_personal'),(52,'Can view sub form_historia_personal',13,'view_subform_historia_personal'),(53,'Can add sub form_historia_familiar',14,'add_subform_historia_familiar'),(54,'Can change sub form_historia_familiar',14,'change_subform_historia_familiar'),(55,'Can delete sub form_historia_familiar',14,'delete_subform_historia_familiar'),(56,'Can view sub form_historia_familiar',14,'view_subform_historia_familiar'),(57,'Can add sub form_antecedentes_g_o',15,'add_subform_antecedentes_g_o'),(58,'Can change sub form_antecedentes_g_o',15,'change_subform_antecedentes_g_o'),(59,'Can delete sub form_antecedentes_g_o',15,'delete_subform_antecedentes_g_o'),(60,'Can view sub form_antecedentes_g_o',15,'view_subform_antecedentes_g_o'),(61,'Can add report',16,'add_report'),(62,'Can change report',16,'change_report'),(63,'Can delete report',16,'delete_report'),(64,'Can view report',16,'view_report'),(65,'Can add profile',17,'add_profile'),(66,'Can change profile',17,'change_profile'),(67,'Can delete profile',17,'delete_profile'),(68,'Can view profile',17,'view_profile'),(69,'Can add log entry',18,'add_logentry'),(70,'Can change log entry',18,'change_logentry'),(71,'Can delete log entry',18,'delete_logentry'),(72,'Can view log entry',18,'view_logentry'),(73,'Can add permission',19,'add_permission'),(74,'Can change permission',19,'change_permission'),(75,'Can delete permission',19,'delete_permission'),(76,'Can view permission',19,'view_permission'),(77,'Can add group',20,'add_group'),(78,'Can change group',20,'change_group'),(79,'Can delete group',20,'delete_group'),(80,'Can view group',20,'view_group'),(81,'Can add user',21,'add_user'),(82,'Can change user',21,'change_user'),(83,'Can delete user',21,'delete_user'),(84,'Can view user',21,'view_user'),(85,'Can add content type',22,'add_contenttype'),(86,'Can change content type',22,'change_contenttype'),(87,'Can delete content type',22,'delete_contenttype'),(88,'Can view content type',22,'view_contenttype'),(89,'Can add session',23,'add_session'),(90,'Can change session',23,'change_session'),(91,'Can delete session',23,'delete_session'),(92,'Can view session',23,'view_session'),(93,'Can add familiar_cancer',24,'add_familiar_cancer'),(94,'Can change familiar_cancer',24,'change_familiar_cancer'),(95,'Can delete familiar_cancer',24,'delete_familiar_cancer'),(96,'Can view familiar_cancer',24,'view_familiar_cancer'),(97,'Can add parentesco',9,'add_parentesco'),(98,'Can change parentesco',9,'change_parentesco'),(99,'Can delete parentesco',9,'delete_parentesco'),(100,'Can view parentesco',9,'view_parentesco');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +127,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$216000$ge6Tpq9VAee9$6WwyZ2fniKvkJibIsiKPKrwdzmuIhg4adiCm3O2qxJA=','2020-09-11 18:18:18.465164',1,'admin','','','diemurillo976@gmail.com',1,1,'2020-09-11 18:17:37.108044');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$216000$C1jKdMFj88xC$Egzs5pkBNRTcchezdAGOMXfR8exX9UEVaQP3VpsUzmE=','2020-10-16 22:14:33.473103',1,'admin','','','admin@email.com',1,1,'2020-10-15 23:22:02.325424');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +209,7 @@ CREATE TABLE `django_admin_log` (
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `django_admin_log_chk_1` CHECK ((`action_flag` >= 0))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,6 +218,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
+INSERT INTO `django_admin_log` VALUES (1,'2020-10-15 23:31:15.652787','1','Clinic object (1)',1,'[{\"added\": {}}]',1,1),(2,'2020-10-15 23:33:06.121627','1','Identidad_etnica object (1)',1,'[{\"added\": {}}]',4,1),(3,'2020-10-15 23:33:13.012302','2','Identidad_etnica object (2)',1,'[{\"added\": {}}]',4,1),(4,'2020-10-15 23:33:40.731163','3','Identidad_etnica object (3)',1,'[{\"added\": {}}]',4,1),(5,'2020-10-15 23:40:01.480600','1','Tiempo_bebida object (1)',1,'[{\"added\": {}}]',12,1),(6,'2020-10-15 23:40:28.410774','1','Tiempo_bebida object (1)',2,'[{\"changed\": {\"fields\": [\"Tiempo\"]}}]',12,1),(7,'2020-10-16 22:15:15.747067','2','Tiempo_bebida object (2)',1,'[{\"added\": {}}]',12,1),(8,'2020-10-16 22:15:20.209746','3','Tiempo_bebida object (3)',1,'[{\"added\": {}}]',12,1),(9,'2020-10-16 22:17:54.477045','1','Medicamento object (1)',1,'[{\"added\": {}}]',6,1),(10,'2020-10-16 22:17:57.877737','1','Medicamento_Subformulario object (1)',1,'[{\"added\": {}}]',7,1),(11,'2020-10-16 22:21:35.697493','2','Medicamento object (2)',1,'[{\"added\": {}}]',6,1),(12,'2020-10-16 22:21:39.060327','2','Medicamento_Subformulario object (2)',1,'[{\"added\": {}}]',7,1),(13,'2020-10-16 22:22:03.590319','3','Medicamento object (3)',1,'[{\"added\": {}}]',6,1),(14,'2020-10-16 22:22:07.224075','3','Medicamento_Subformulario object (3)',1,'[{\"added\": {}}]',7,1),(15,'2020-10-16 22:22:19.986533','4','Medicamento object (4)',1,'[{\"added\": {}}]',6,1),(16,'2020-10-16 22:22:31.638352','4','Medicamento_Subformulario object (4)',1,'[{\"added\": {}}]',7,1),(17,'2020-10-16 22:25:06.188023','1','Parentezco object (1)',1,'[{\"added\": {}}]',9,1),(18,'2020-10-16 22:27:37.211275','2','Parentezco object (2)',1,'[{\"added\": {}}]',9,1),(19,'2020-10-16 22:30:33.047772','3','SubForm_historia_familiar object (3)',1,'[{\"added\": {}}]',14,1),(20,'2020-10-16 22:34:45.177431','3','SubForm_historia_familiar object (3)',2,'[{\"changed\": {\"fields\": [\"Prueba genetica resultado\"]}}]',14,1),(21,'2020-10-16 22:38:01.188701','3','SubForm_historia_familiar object (3)',2,'[{\"changed\": {\"fields\": [\"Bebidas cuanto otro\"]}}]',14,1),(22,'2020-10-16 22:38:38.556941','3','SubForm_historia_familiar object (3)',2,'[{\"changed\": {\"fields\": [\"Bebidas cuanto otro\"]}}]',14,1),(23,'2020-10-16 22:41:38.305259','3','SubForm_historia_familiar object (3)',2,'[{\"changed\": {\"fields\": [\"Bebidas cuanto otro\"]}}]',14,1),(24,'2020-10-16 22:43:33.559307','3','SubForm_historia_familiar object (3)',2,'[{\"changed\": {\"fields\": [\"Bebidas cuanto otro\"]}}]',14,1),(25,'2020-10-16 22:43:50.921744','3','SubForm_historia_familiar object (3)',2,'[{\"changed\": {\"fields\": [\"Bebidas cuanto otro\"]}}]',14,1),(26,'2020-10-16 22:48:40.362315','1','Clinic object (1)',3,'',1,1),(27,'2020-10-16 22:48:45.094991','3','Tiempo_bebida object (3)',3,'',12,1),(28,'2020-10-16 22:48:47.105946','2','Tiempo_bebida object (2)',3,'',12,1),(29,'2020-10-16 22:48:48.969563','1','Tiempo_bebida object (1)',3,'',12,1),(30,'2020-10-16 22:48:54.274056','3','SubForm_historia_familiar object (3)',3,'',14,1),(31,'2020-10-16 22:49:00.528904','2','Parentezco object (2)',3,'',9,1),(32,'2020-10-16 22:49:02.336468','1','Parentezco object (1)',3,'',9,1),(33,'2020-10-16 22:49:12.251571','4','Medicamento_Subformulario object (4)',3,'',7,1),(34,'2020-10-16 22:49:14.652476','3','Medicamento_Subformulario object (3)',3,'',7,1),(35,'2020-10-16 22:49:16.336307','2','Medicamento_Subformulario object (2)',3,'',7,1),(36,'2020-10-16 22:49:18.229012','1','Medicamento_Subformulario object (1)',3,'',7,1),(37,'2020-10-16 22:49:21.925247','3','Identidad_etnica object (3)',3,'',4,1),(38,'2020-10-16 22:49:23.675878','2','Identidad_etnica object (2)',3,'',4,1),(39,'2020-10-16 22:49:25.325049','1','Identidad_etnica object (1)',3,'',4,1),(40,'2020-10-16 22:49:32.368099','4','Medicamento object (4)',3,'',6,1),(41,'2020-10-16 22:49:33.934135','3','Medicamento object (3)',3,'',6,1),(42,'2020-10-16 22:49:35.546011','2','Medicamento object (2)',3,'',6,1),(43,'2020-10-16 22:49:37.220449','1','Medicamento object (1)',3,'',6,1),(44,'2020-10-16 22:53:35.671682','2','Clinic object (2)',1,'[{\"added\": {}}]',1,1),(45,'2020-10-16 22:53:39.255718','2','Clinic object (2)',2,'[]',1,1),(46,'2020-10-16 22:53:46.932445','3','Clinic object (3)',1,'[{\"added\": {}}]',1,1),(47,'2020-10-16 22:55:24.177390','4','Identidad_etnica object (4)',1,'[{\"added\": {}}]',4,1),(48,'2020-10-16 22:55:40.961427','5','Identidad_etnica object (5)',1,'[{\"added\": {}}]',4,1),(49,'2020-10-16 22:55:46.145307','6','Identidad_etnica object (6)',1,'[{\"added\": {}}]',4,1),(50,'2020-10-16 22:55:54.117484','7','Identidad_etnica object (7)',1,'[{\"added\": {}}]',4,1),(51,'2020-10-16 22:56:06.705445','6','Identidad_etnica object (6)',3,'',4,1),(52,'2020-10-16 22:56:25.585322','8','Identidad_etnica object (8)',1,'[{\"added\": {}}]',4,1),(53,'2020-10-16 22:56:36.152335','9','Identidad_etnica object (9)',1,'[{\"added\": {}}]',4,1),(54,'2020-10-16 22:56:53.309139','10','Identidad_etnica object (10)',1,'[{\"added\": {}}]',4,1),(55,'2020-10-16 22:57:42.318831','11','Identidad_etnica object (11)',1,'[{\"added\": {}}]',4,1),(56,'2020-10-16 23:12:46.700993','4','Tiempo_bebida object (4)',1,'[{\"added\": {}}]',12,1),(57,'2020-10-16 23:12:57.941141','5','Tiempo_bebida object (5)',1,'[{\"added\": {}}]',12,1),(58,'2020-10-16 23:14:08.916465','6','Tiempo_bebida object (6)',1,'[{\"added\": {}}]',12,1),(59,'2020-10-16 23:14:18.248084','7','Tiempo_bebida object (7)',1,'[{\"added\": {}}]',12,1),(60,'2020-10-16 23:14:44.212651','7','Tiempo_bebida object (7)',3,'',12,1),(61,'2020-10-16 23:16:50.588118','5','Medicamento object (5)',1,'[{\"added\": {}}]',6,1),(62,'2020-10-16 23:17:13.648328','6','Medicamento object (6)',1,'[{\"added\": {}}]',6,1),(63,'2020-10-16 23:17:30.465103','7','Medicamento object (7)',1,'[{\"added\": {}}]',6,1),(64,'2020-10-16 23:17:40.962909','8','Medicamento object (8)',1,'[{\"added\": {}}]',6,1),(65,'2020-10-16 23:17:54.282079','9','Medicamento object (9)',1,'[{\"added\": {}}]',6,1),(66,'2020-10-16 23:18:48.500420','1','Terapia_hormonal object (1)',1,'[{\"added\": {}}]',11,1),(67,'2020-10-16 23:19:03.017993','2','Terapia_hormonal object (2)',1,'[{\"added\": {}}]',11,1),(68,'2020-10-16 23:19:22.164081','3','Terapia_hormonal object (3)',1,'[{\"added\": {}}]',11,1),(69,'2020-10-16 23:19:26.698950','4','Terapia_hormonal object (4)',1,'[{\"added\": {}}]',11,1),(70,'2020-10-16 23:20:27.417500','1','Prueba_genetica object (1)',1,'[{\"added\": {}}]',10,1),(71,'2020-10-16 23:20:34.208750','2','Prueba_genetica object (2)',1,'[{\"added\": {}}]',10,1),(72,'2020-10-16 23:20:43.586538','3','Prueba_genetica object (3)',1,'[{\"added\": {}}]',10,1),(73,'2020-10-16 23:20:53.796113','4','Prueba_genetica object (4)',1,'[{\"added\": {}}]',10,1),(74,'2020-10-16 23:21:00.883235','5','Prueba_genetica object (5)',1,'[{\"added\": {}}]',10,1),(75,'2020-10-16 23:21:09.398347','6','Prueba_genetica object (6)',1,'[{\"added\": {}}]',10,1),(76,'2020-10-16 23:21:14.573816','7','Prueba_genetica object (7)',1,'[{\"added\": {}}]',10,1),(77,'2020-10-16 23:21:38.347244','3','Parentezco object (3)',1,'[{\"added\": {}}]',9,1),(78,'2020-10-16 23:21:46.647348','4','Parentezco object (4)',1,'[{\"added\": {}}]',9,1),(79,'2020-10-16 23:21:56.515381','5','Parentezco object (5)',1,'[{\"added\": {}}]',9,1),(80,'2020-10-16 23:22:07.134010','6','Parentezco object (6)',1,'[{\"added\": {}}]',9,1),(81,'2020-10-16 23:22:17.077464','7','Parentezco object (7)',1,'[{\"added\": {}}]',9,1);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,7 +235,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +244,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(10,'main','clinic'),(7,'main','densidad_mamografica'),(13,'main','form'),(22,'main','identidad_etnica'),(21,'main','mamografia'),(18,'main','medicamento'),(20,'main','medicamento_subformulario'),(16,'main','pacient'),(17,'main','parentezco'),(9,'main','profile'),(8,'main','prueba_genetica'),(12,'main','report'),(19,'main','subform_antecedentes_g_o'),(11,'main','subform_historia_familiar'),(14,'main','subform_historia_personal'),(15,'main','terapia_hormonal'),(23,'main','tiempo_bebida'),(6,'sessions','session');
+INSERT INTO `django_content_type` VALUES (18,'admin','logentry'),(20,'auth','group'),(19,'auth','permission'),(21,'auth','user'),(22,'contenttypes','contenttype'),(1,'main','clinic'),(2,'main','densidad_mamografica'),(24,'main','familiar_cancer'),(3,'main','form'),(4,'main','identidad_etnica'),(5,'main','mamografia'),(6,'main','medicamento'),(7,'main','medicamento_subformulario'),(8,'main','pacient'),(9,'main','parentesco'),(17,'main','profile'),(10,'main','prueba_genetica'),(16,'main','report'),(15,'main','subform_antecedentes_g_o'),(14,'main','subform_historia_familiar'),(13,'main','subform_historia_personal'),(11,'main','terapia_hormonal'),(12,'main','tiempo_bebida'),(23,'sessions','session');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -260,7 +261,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,7 +270,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2020-09-11 00:06:59.990812'),(2,'auth','0001_initial','2020-09-11 00:07:00.210229'),(3,'admin','0001_initial','2020-09-11 00:07:00.773784'),(4,'admin','0002_logentry_remove_auto_add','2020-09-11 00:07:00.902819'),(5,'admin','0003_logentry_add_action_flag_choices','2020-09-11 00:07:00.915027'),(6,'contenttypes','0002_remove_content_type_name','2020-09-11 00:07:01.112028'),(7,'auth','0002_alter_permission_name_max_length','2020-09-11 00:07:01.252217'),(8,'auth','0003_alter_user_email_max_length','2020-09-11 00:07:01.288472'),(9,'auth','0004_alter_user_username_opts','2020-09-11 00:07:01.300440'),(10,'auth','0005_alter_user_last_login_null','2020-09-11 00:07:01.364738'),(11,'auth','0006_require_contenttypes_0002','2020-09-11 00:07:01.369412'),(12,'auth','0007_alter_validators_add_error_messages','2020-09-11 00:07:01.382243'),(13,'auth','0008_alter_user_username_max_length','2020-09-11 00:07:01.466036'),(14,'auth','0009_alter_user_last_name_max_length','2020-09-11 00:07:01.543262'),(15,'auth','0010_alter_group_name_max_length','2020-09-11 00:07:01.574245'),(16,'auth','0011_update_proxy_permissions','2020-09-11 00:07:01.588205'),(17,'auth','0012_alter_user_first_name_max_length','2020-09-11 00:07:01.663380'),(18,'sessions','0001_initial','2020-09-11 00:07:01.695459'),(19,'main','0001_initial','2020-10-13 01:19:55.357170');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2020-10-15 23:11:54.873262'),(2,'auth','0001_initial','2020-10-15 23:11:55.092179'),(3,'admin','0001_initial','2020-10-15 23:11:55.550106'),(4,'admin','0002_logentry_remove_auto_add','2020-10-15 23:11:55.625908'),(5,'admin','0003_logentry_add_action_flag_choices','2020-10-15 23:11:55.631892'),(6,'contenttypes','0002_remove_content_type_name','2020-10-15 23:11:55.711716'),(7,'auth','0002_alter_permission_name_max_length','2020-10-15 23:11:55.749621'),(8,'auth','0003_alter_user_email_max_length','2020-10-15 23:11:55.769568'),(9,'auth','0004_alter_user_username_opts','2020-10-15 23:11:55.776549'),(10,'auth','0005_alter_user_last_login_null','2020-10-15 23:11:55.810484'),(11,'auth','0006_require_contenttypes_0002','2020-10-15 23:11:55.812478'),(12,'auth','0007_alter_validators_add_error_messages','2020-10-15 23:11:55.819460'),(13,'auth','0008_alter_user_username_max_length','2020-10-15 23:11:55.857359'),(14,'auth','0009_alter_user_last_name_max_length','2020-10-15 23:11:55.898284'),(15,'auth','0010_alter_group_name_max_length','2020-10-15 23:11:55.913244'),(16,'auth','0011_update_proxy_permissions','2020-10-15 23:11:55.920225'),(17,'auth','0012_alter_user_first_name_max_length','2020-10-15 23:11:55.958136'),(18,'main','0001_initial','2020-10-15 23:11:56.734745'),(19,'sessions','0001_initial','2020-10-15 23:11:57.752387'),(20,'main','0002_auto_20201016_1630','2020-10-16 22:30:06.566849'),(21,'main','0003_auto_20201016_1645','2020-10-16 22:45:54.736552'),(22,'main','0004_auto_20201016_1725','2020-10-16 23:26:00.235886'),(23,'main','0005_delete_densidad_mamografica','2020-10-16 23:28:23.076629');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,7 +296,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('st0hve867vfx4aebtndk3j1x1an28ey1','.eJxVjEEOgjAURO_StWmgtKV16Z4zkP_7B0FNSSisjHcXEha6nHlv5q162tax3wqWfhJ1VbW6_HZM6Yl8AHlQvs86zXldJtaHok9adDcLXrfT_TsYqYz72gemWiq4Co0LgyB4wHpn91SbmJh8BTM4jhzgGU0kj2hsagWtjaQ-X-zyOEw:1kGnco:aqb4FedVU-DART8Xax8WpGdSrQCBhUElN4i1s0nvde8','2020-09-25 18:18:18.470667');
+INSERT INTO `django_session` VALUES ('7n4usf581r5skdsji607bjajsuydifr2','.eJxVjDsOwyAQBe9CHSHMz0vK9D4DWmAJTiKQjF1FuXuE5CJp38y8N_N47MUfnTa_JnZlE7v8bgHjk-oA6YH13nhsdd_WwIfCT9r50hK9bqf7d1Cwl1ETmDmBdSkblKR1VEKiDaCMpaxTcKgkGiUtSBQOgNxsLKhJg84CHPt8Ad_kNwc:1kTCZf:q32q8eMVZ0faTmS3so8ZA-nzZVwyaPD_aXdh4iuvbXs','2020-10-29 23:22:19.256700'),('kgnvopnf04ba1y88jrocppcw09n64jw2','.eJxVjDsOwyAQBe9CHSHMz0vK9D4DWmAJTiKQjF1FuXuE5CJp38y8N_N47MUfnTa_JnZlE7v8bgHjk-oA6YH13nhsdd_WwIfCT9r50hK9bqf7d1Cwl1ETmDmBdSkblKR1VEKiDaCMpaxTcKgkGiUtSBQOgNxsLKhJg84CHPt8Ad_kNwc:1kTXzd:Lmo0VgpBJInqL8JaCWay_VzTrRTigYLD3rjQXtdPc6A','2020-10-30 22:14:33.473103');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,7 +311,7 @@ CREATE TABLE `main_clinic` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,30 +320,32 @@ CREATE TABLE `main_clinic` (
 
 LOCK TABLES `main_clinic` WRITE;
 /*!40000 ALTER TABLE `main_clinic` DISABLE KEYS */;
+INSERT INTO `main_clinic` VALUES (2,'Marcial Fallas'),(3,'San Juan de Dios');
 /*!40000 ALTER TABLE `main_clinic` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `main_densidad_mamografica`
+-- Table structure for table `main_familiar_cancer`
 --
 
-DROP TABLE IF EXISTS `main_densidad_mamografica`;
+DROP TABLE IF EXISTS `main_familiar_cancer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `main_densidad_mamografica` (
+CREATE TABLE `main_familiar_cancer` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `tipo_densidad` varchar(40) DEFAULT NULL,
+  `familiares_cancer_tipo` varchar(40) DEFAULT NULL,
+  `familiares_cancer_parentezco` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `main_densidad_mamografica`
+-- Dumping data for table `main_familiar_cancer`
 --
 
-LOCK TABLES `main_densidad_mamografica` WRITE;
-/*!40000 ALTER TABLE `main_densidad_mamografica` DISABLE KEYS */;
-/*!40000 ALTER TABLE `main_densidad_mamografica` ENABLE KEYS */;
+LOCK TABLES `main_familiar_cancer` WRITE;
+/*!40000 ALTER TABLE `main_familiar_cancer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `main_familiar_cancer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -448,7 +451,7 @@ CREATE TABLE `main_identidad_etnica` (
   `id` int NOT NULL AUTO_INCREMENT,
   `identidad` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -457,6 +460,7 @@ CREATE TABLE `main_identidad_etnica` (
 
 LOCK TABLES `main_identidad_etnica` WRITE;
 /*!40000 ALTER TABLE `main_identidad_etnica` DISABLE KEYS */;
+INSERT INTO `main_identidad_etnica` VALUES (4,'Indígena'),(5,'Afrodescendiente'),(7,'Mulata'),(8,'Origen asiatico'),(9,'Mestiza'),(10,'Blanca'),(11,'Otra');
 /*!40000 ALTER TABLE `main_identidad_etnica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -494,7 +498,7 @@ CREATE TABLE `main_medicamento` (
   `id` int NOT NULL AUTO_INCREMENT,
   `medicamento` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -503,6 +507,7 @@ CREATE TABLE `main_medicamento` (
 
 LOCK TABLES `main_medicamento` WRITE;
 /*!40000 ALTER TABLE `main_medicamento` DISABLE KEYS */;
+INSERT INTO `main_medicamento` VALUES (5,'Tamoxifeno'),(6,'Anastrozol'),(7,'Metformina'),(8,'Bifosfonatos'),(9,'Aspirina');
 /*!40000 ALTER TABLE `main_medicamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,7 +525,7 @@ CREATE TABLE `main_medicamento_subformulario` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_medicamento_id` (`id_medicamento_id`),
   CONSTRAINT `main_medicamento_sub_id_medicamento_id_d7a94cee_fk_main_medi` FOREIGN KEY (`id_medicamento_id`) REFERENCES `main_medicamento` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -558,26 +563,27 @@ LOCK TABLES `main_pacient` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `main_parentezco`
+-- Table structure for table `main_parentesco`
 --
 
-DROP TABLE IF EXISTS `main_parentezco`;
+DROP TABLE IF EXISTS `main_parentesco`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `main_parentezco` (
+CREATE TABLE `main_parentesco` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `tipo_parentezco` varchar(40) DEFAULT NULL,
+  `tipo_parentesco` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `main_parentezco`
+-- Dumping data for table `main_parentesco`
 --
 
-LOCK TABLES `main_parentezco` WRITE;
-/*!40000 ALTER TABLE `main_parentezco` DISABLE KEYS */;
-/*!40000 ALTER TABLE `main_parentezco` ENABLE KEYS */;
+LOCK TABLES `main_parentesco` WRITE;
+/*!40000 ALTER TABLE `main_parentesco` DISABLE KEYS */;
+INSERT INTO `main_parentesco` VALUES (3,'Madre'),(4,'Tía (Materna)'),(5,'Tía (Paterna)'),(6,'Abuela (Paterna)'),(7,'Abuela (Materna)');
+/*!40000 ALTER TABLE `main_parentesco` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -619,7 +625,7 @@ CREATE TABLE `main_prueba_genetica` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tipo_prueba_genetica` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -628,6 +634,7 @@ CREATE TABLE `main_prueba_genetica` (
 
 LOCK TABLES `main_prueba_genetica` WRITE;
 /*!40000 ALTER TABLE `main_prueba_genetica` DISABLE KEYS */;
+INSERT INTO `main_prueba_genetica` VALUES (1,'BRCA1'),(2,'BRCA2'),(3,'TP53'),(4,'PTEN'),(5,'CDH1'),(6,'STK11'),(7,'Otro');
 /*!40000 ALTER TABLE `main_prueba_genetica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -752,10 +759,8 @@ CREATE TABLE `main_subform_historia_familiar` (
   `bebidas_cuanto_otro` varchar(40) DEFAULT NULL,
   `familiares_mama` tinyint(1) DEFAULT NULL,
   `familiares_cancer` tinyint(1) DEFAULT NULL,
-  `familiares_cancer_tipo` varchar(40) DEFAULT NULL,
-  `familiares_cancer_parentezco` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -777,13 +782,13 @@ DROP TABLE IF EXISTS `main_subform_historia_familiar_parentesco`;
 CREATE TABLE `main_subform_historia_familiar_parentesco` (
   `id` int NOT NULL AUTO_INCREMENT,
   `subform_historia_familiar_id` int NOT NULL,
-  `parentezco_id` int NOT NULL,
+  `parentesco_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `main_subform_historia_fa_subform_historia_familia_0a0ee1fb_uniq` (`subform_historia_familiar_id`,`parentezco_id`),
-  KEY `main_subform_histori_parentezco_id_4fdbe63b_fk_main_pare` (`parentezco_id`),
-  CONSTRAINT `main_subform_histori_parentezco_id_4fdbe63b_fk_main_pare` FOREIGN KEY (`parentezco_id`) REFERENCES `main_parentezco` (`id`),
+  UNIQUE KEY `main_subform_historia_fa_subform_historia_familia_0a0ee1fb_uniq` (`subform_historia_familiar_id`,`parentesco_id`),
+  KEY `main_subform_histori_parentesco_id_a61df8b8_fk_main_pare` (`parentesco_id`),
+  CONSTRAINT `main_subform_histori_parentesco_id_a61df8b8_fk_main_pare` FOREIGN KEY (`parentesco_id`) REFERENCES `main_parentesco` (`id`),
   CONSTRAINT `main_subform_histori_subform_historia_fam_779fd55e_fk_main_subf` FOREIGN KEY (`subform_historia_familiar_id`) REFERENCES `main_subform_historia_familiar` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -793,6 +798,34 @@ CREATE TABLE `main_subform_historia_familiar_parentesco` (
 LOCK TABLES `main_subform_historia_familiar_parentesco` WRITE;
 /*!40000 ALTER TABLE `main_subform_historia_familiar_parentesco` DISABLE KEYS */;
 /*!40000 ALTER TABLE `main_subform_historia_familiar_parentesco` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `main_subform_historia_familiar_parentesco_tipo`
+--
+
+DROP TABLE IF EXISTS `main_subform_historia_familiar_parentesco_tipo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `main_subform_historia_familiar_parentesco_tipo` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `subform_historia_familiar_id` int NOT NULL,
+  `familiar_cancer_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `main_subform_historia_fa_subform_historia_familia_8dc2c455_uniq` (`subform_historia_familiar_id`,`familiar_cancer_id`),
+  KEY `main_subform_histori_familiar_cancer_id_cb10beb1_fk_main_fami` (`familiar_cancer_id`),
+  CONSTRAINT `main_subform_histori_familiar_cancer_id_cb10beb1_fk_main_fami` FOREIGN KEY (`familiar_cancer_id`) REFERENCES `main_familiar_cancer` (`id`),
+  CONSTRAINT `main_subform_histori_subform_historia_fam_c652e6a2_fk_main_subf` FOREIGN KEY (`subform_historia_familiar_id`) REFERENCES `main_subform_historia_familiar` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `main_subform_historia_familiar_parentesco_tipo`
+--
+
+LOCK TABLES `main_subform_historia_familiar_parentesco_tipo` WRITE;
+/*!40000 ALTER TABLE `main_subform_historia_familiar_parentesco_tipo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `main_subform_historia_familiar_parentesco_tipo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -811,7 +844,7 @@ CREATE TABLE `main_subform_historia_familiar_prueba_genetica_resultado` (
   KEY `main_subform_histori_tiempo_bebida_id_7728850b_fk_main_tiem` (`tiempo_bebida_id`),
   CONSTRAINT `main_subform_histori_subform_historia_fam_140f5741_fk_main_subf` FOREIGN KEY (`subform_historia_familiar_id`) REFERENCES `main_subform_historia_familiar` (`id`),
   CONSTRAINT `main_subform_histori_tiempo_bebida_id_7728850b_fk_main_tiem` FOREIGN KEY (`tiempo_bebida_id`) REFERENCES `main_tiempo_bebida` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -856,15 +889,18 @@ CREATE TABLE `main_subform_historia_personal` (
   `diabetes_tipo` smallint unsigned DEFAULT NULL,
   `radiacion` tinyint(1) DEFAULT NULL,
   `bebidas_cuanto_id` int NOT NULL,
+  `identidad_etnica_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `bebidas_cuanto_id` (`bebidas_cuanto_id`),
+  UNIQUE KEY `identidad_etnica_id` (`identidad_etnica_id`),
   CONSTRAINT `main_subform_histori_bebidas_cuanto_id_965abac8_fk_main_tiem` FOREIGN KEY (`bebidas_cuanto_id`) REFERENCES `main_tiempo_bebida` (`id`),
+  CONSTRAINT `main_subform_histori_identidad_etnica_id_16d84215_fk_main_iden` FOREIGN KEY (`identidad_etnica_id`) REFERENCES `main_identidad_etnica` (`id`),
   CONSTRAINT `main_subform_historia_personal_chk_1` CHECK ((`peso` >= 0)),
   CONSTRAINT `main_subform_historia_personal_chk_2` CHECK ((`talla` >= 0)),
   CONSTRAINT `main_subform_historia_personal_chk_3` CHECK ((`imc` >= 0)),
   CONSTRAINT `main_subform_historia_personal_chk_4` CHECK ((`fuma_edad` >= 0)),
   CONSTRAINT `main_subform_historia_personal_chk_5` CHECK ((`diabetes_tipo` >= 0))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -874,34 +910,6 @@ CREATE TABLE `main_subform_historia_personal` (
 LOCK TABLES `main_subform_historia_personal` WRITE;
 /*!40000 ALTER TABLE `main_subform_historia_personal` DISABLE KEYS */;
 /*!40000 ALTER TABLE `main_subform_historia_personal` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `main_subform_historia_personal_identidad_etnica`
---
-
-DROP TABLE IF EXISTS `main_subform_historia_personal_identidad_etnica`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `main_subform_historia_personal_identidad_etnica` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `subform_historia_personal_id` int NOT NULL,
-  `identidad_etnica_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `main_subform_historia_pe_subform_historia_persona_3445138f_uniq` (`subform_historia_personal_id`,`identidad_etnica_id`),
-  KEY `main_subform_histori_identidad_etnica_id_ee4fe75b_fk_main_iden` (`identidad_etnica_id`),
-  CONSTRAINT `main_subform_histori_identidad_etnica_id_ee4fe75b_fk_main_iden` FOREIGN KEY (`identidad_etnica_id`) REFERENCES `main_identidad_etnica` (`id`),
-  CONSTRAINT `main_subform_histori_subform_historia_per_d6c8f29a_fk_main_subf` FOREIGN KEY (`subform_historia_personal_id`) REFERENCES `main_subform_historia_personal` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `main_subform_historia_personal_identidad_etnica`
---
-
-LOCK TABLES `main_subform_historia_personal_identidad_etnica` WRITE;
-/*!40000 ALTER TABLE `main_subform_historia_personal_identidad_etnica` DISABLE KEYS */;
-/*!40000 ALTER TABLE `main_subform_historia_personal_identidad_etnica` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -920,7 +928,7 @@ CREATE TABLE `main_subform_historia_personal_medicamento` (
   KEY `main_subform_histori_medicamento_subformu_3d89874e_fk_main_medi` (`medicamento_subformulario_id`),
   CONSTRAINT `main_subform_histori_medicamento_subformu_3d89874e_fk_main_medi` FOREIGN KEY (`medicamento_subformulario_id`) REFERENCES `main_medicamento_subformulario` (`id`),
   CONSTRAINT `main_subform_histori_subform_historia_per_d54e3179_fk_main_subf` FOREIGN KEY (`subform_historia_personal_id`) REFERENCES `main_subform_historia_personal` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -943,7 +951,7 @@ CREATE TABLE `main_terapia_hormonal` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tipo_terapia` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -952,6 +960,7 @@ CREATE TABLE `main_terapia_hormonal` (
 
 LOCK TABLES `main_terapia_hormonal` WRITE;
 /*!40000 ALTER TABLE `main_terapia_hormonal` DISABLE KEYS */;
+INSERT INTO `main_terapia_hormonal` VALUES (1,'Sistémico (Oral)'),(2,'Tópico (Crema o Parche)'),(3,'Intravaginal (Óvulos o Anillo)'),(4,'No sabe');
 /*!40000 ALTER TABLE `main_terapia_hormonal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -966,7 +975,7 @@ CREATE TABLE `main_tiempo_bebida` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tiempo` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -975,6 +984,7 @@ CREATE TABLE `main_tiempo_bebida` (
 
 LOCK TABLES `main_tiempo_bebida` WRITE;
 /*!40000 ALTER TABLE `main_tiempo_bebida` DISABLE KEYS */;
+INSERT INTO `main_tiempo_bebida` VALUES (4,'más de tres a la semana'),(5,'más de dos al día'),(6,'Otro');
 /*!40000 ALTER TABLE `main_tiempo_bebida` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -987,4 +997,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-12 19:35:13
+-- Dump completed on 2020-10-16 17:30:16
