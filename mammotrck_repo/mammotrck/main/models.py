@@ -35,6 +35,7 @@ class Pacient(models.Model):
 class Identidad_etnica(models.Model):
     identidad = models.CharField(max_length=40, null=True)
 
+
 class Tiempo_bebida(models.Model):
     tiempo = models.CharField(max_length=40, null=True)
 
