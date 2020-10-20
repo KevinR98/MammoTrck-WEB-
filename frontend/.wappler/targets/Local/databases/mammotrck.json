@@ -1,0 +1,1737 @@
+{
+  "type": "mysql",
+  "connection": {
+    "host": "localhost",
+    "port": 3306,
+    "user": "djangouser",
+    "password": "2210Sql",
+    "database": "mammotrck"
+  },
+  "direct": true,
+  "schema": {
+    "tables": {
+      "main_tiempo_bebida": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "tiempo": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "main_subform_historia_familiar": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "created_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "updated_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "prueba_genetica": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "bebidas_cuanto_otro": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "familiares_mama": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "familiares_cancer": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "main_subform_antecedentes_g_o_terapia_hormonal_tipo": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "subform_antecedentes_g_o_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "terapia_hormonal_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "main_subform_antecedentes_g_o": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "created_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "updated_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "manopausa_aplica": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "edad_menstruacion": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "edad_manopausa": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "parto_aplica": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "parto_cantidad": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "edad_ult_hijo": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "lactancia_aplica": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "lactancia_tiempo": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "anticonceptivos_aplica": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "anticonceptivos_cuanto": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "anticonceptivos_ult_vez": {
+            "db": {
+              "type": "date",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "terapia_hormonal_aplica": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "terapia_hormonal_tiempo": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "biopsia_aplica": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "biopsia_cuantas": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "biopsia_resultado": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "main_report": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "created_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "updated_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "contenido": {
+            "db": {
+              "type": "string",
+              "maxLength": 500,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "densidad_mamografica_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "comment": "",
+              "nullable": false,
+              "references": "id",
+              "inTable": "main_tiempo_bebida",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "formulario_id": {
+            "db": {
+              "type": "reference",
+              "maxLength": 15,
+              "primary": false,
+              "comment": "",
+              "nullable": false,
+              "references": "id_form",
+              "inTable": "main_form",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        }
+      },
+      "main_prueba_genetica": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "tipo_prueba_genetica": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "main_subform_historia_familiar_parentesco": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "subform_historia_familiar_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "parentesco_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "main_subform_historia_familiar_parentesco_tipo": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "subform_historia_familiar_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "familiar_cancer_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "main_subform_historia_familiar_prueba_genetica_resultado": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "subform_historia_familiar_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "tiempo_bebida_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "main_subform_historia_personal": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "created_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "updated_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "nombre": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "cedula": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "fecha_de_nacimiento": {
+            "db": {
+              "type": "date",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "nacionalidad": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "identidad_etnica_otro": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "peso": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "talla": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "imc": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "fuma": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "fuma_edad": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "fuma_actualmente": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "fuma_cuanto": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "bebidas": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "bebidas_cuanto_otro": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "actividad_fisica": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "actividad_fisica_cuanto": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "consume_alimentos_con_grasa": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "consume_veg_frut_gram": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "diabetes": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "diabetes_tipo": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "radiacion": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "bebidas_cuanto_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "comment": "",
+              "nullable": false,
+              "references": "id",
+              "inTable": "main_tiempo_bebida",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "identidad_etnica_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "comment": "",
+              "nullable": false,
+              "references": "id",
+              "inTable": "main_identidad_etnica",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        }
+      },
+      "main_subform_historia_personal_medicamento": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "subform_historia_personal_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "medicamento_subformulario_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "main_terapia_hormonal": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "tipo_terapia": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "main_form": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "created_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "updated_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "id_form": {
+            "db": {
+              "type": "string",
+              "maxLength": 15,
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "submitted_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "habilitado": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "completed": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "SubForm_antecedentes_g_o_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "SubForm_historia_familiar_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "SubForm_historia_personal_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "main_form_id_pacient": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "form_id": {
+            "db": {
+              "type": "string",
+              "maxLength": 15,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "pacient_id": {
+            "db": {
+              "type": "reference",
+              "maxLength": 15,
+              "primary": false,
+              "comment": "",
+              "nullable": false,
+              "references": "id_pacient",
+              "inTable": "main_pacient",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        }
+      },
+      "main_form_urls_imgs": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "form_id": {
+            "db": {
+              "type": "string",
+              "maxLength": 15,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "mamografia_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "comment": "",
+              "nullable": false,
+              "references": "id",
+              "inTable": "main_mamografia",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        }
+      },
+      "main_identidad_etnica": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "identidad": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "main_mamografia": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "url_imagen": {
+            "db": {
+              "type": "string",
+              "maxLength": 200,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "main_medicamento": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "medicamento": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "main_medicamento_subformulario": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "cuanto": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "id_medicamento_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "comment": "",
+              "nullable": false,
+              "references": "id",
+              "inTable": "main_medicamento",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        }
+      },
+      "main_pacient": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "created_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "updated_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "name": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "id_pacient": {
+            "db": {
+              "type": "string",
+              "maxLength": 15,
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "main_parentesco": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "tipo_parentesco": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "main_profile": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "user_id": {
+            "db": {
+              "type": "integer",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "created_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "updated_at": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "clinic_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "comment": "",
+              "nullable": false,
+              "references": "id",
+              "inTable": "main_clinic",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        }
+      },
+      "django_admin_log": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "action_time": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "object_id": {
+            "db": {
+              "type": "text",
+              "maxLength": 4294967295,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "object_repr": {
+            "db": {
+              "type": "string",
+              "maxLength": 200,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "action_flag": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "change_message": {
+            "db": {
+              "type": "text",
+              "maxLength": 4294967295,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "content_type_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "comment": "",
+              "nullable": true,
+              "references": "id",
+              "inTable": "django_content_type",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "user_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "comment": "",
+              "nullable": false,
+              "references": "id",
+              "inTable": "auth_user",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        }
+      },
+      "django_content_type": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "app_label": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "model": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "django_migrations": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "app": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "name": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "applied": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "django_session": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "session_key": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "session_data": {
+            "db": {
+              "type": "text",
+              "maxLength": 4294967295,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "expire_date": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "main_clinic": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "name": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "main_familiar_cancer": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "familiares_cancer_tipo": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "familiares_cancer_parentezco": {
+            "db": {
+              "type": "string",
+              "maxLength": 40,
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "auth_user_groups": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "user_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "group_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "auth_user": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "password": {
+            "db": {
+              "type": "string",
+              "maxLength": 128,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "last_login": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": true
+            }
+          },
+          "is_superuser": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "username": {
+            "db": {
+              "type": "string",
+              "maxLength": 150,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "first_name": {
+            "db": {
+              "type": "string",
+              "maxLength": 150,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "last_name": {
+            "db": {
+              "type": "string",
+              "maxLength": 150,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "email": {
+            "db": {
+              "type": "string",
+              "maxLength": 254,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "is_staff": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "is_active": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "date_joined": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "auth_permission": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "name": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "content_type_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "codename": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "auth_group_permissions": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "group_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "permission_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "auth_user_user_permissions": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "user_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "permission_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      },
+      "auth_group": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mammotrck",
+          "collation": "utf8mb4_0900_ai_ci",
+          "comment": ""
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "comment": "",
+              "nullable": false
+            }
+          },
+          "name": {
+            "db": {
+              "type": "string",
+              "maxLength": 150,
+              "primary": false,
+              "comment": "",
+              "nullable": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

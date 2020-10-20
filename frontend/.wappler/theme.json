@@ -1,0 +1,8 @@
+{
+  "basic": {
+    "headings-font-family": "Roboto:400",
+    "font-family-base": "Roboto:400",
+    "enable-shadows": true
+  },
+  "advanced": {}
+}
