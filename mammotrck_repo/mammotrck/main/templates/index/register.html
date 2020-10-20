@@ -1,20 +1,21 @@
+{% load static %}
 <!doctype html>
 <html is="dmx-app">
 
 <head>
-    <script src="dmxAppConnect/dmxAppConnect.js"></script>
+    <script src="{% static 'index/frontend/dmxAppConnect/dmxAppConnect.js'  %}"></script>
     <meta charset="UTF-8">
     <title>Register</title>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="bootstrap/4/css/bootstrap.min.css" />
-    <script src="dmxAppConnect/dmxBootstrap4Collapse/dmxBootstrap4Collapse.js" defer=""></script>
-    <script src="dmxAppConnect/dmxTyped/dmxTyped.js" defer=""></script>
-    <script src="dmxAppConnect/dmxTyped/typed.min.js" defer=""></script>
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="dmxAppConnect/dmxValidator/dmxValidator.css" />
-    <script src="dmxAppConnect/dmxValidator/dmxValidator.js" defer=""></script>
+    <link rel="stylesheet" href="{% static 'index/frontend/bootstrap/4/css/bootstrap.min.css'  %}" />
+    <script src="{% static 'index/frontend/dmxAppConnect/dmxBootstrap4Collapse/dmxBootstrap4Collapse.js'  %}" defer=""></script>
+    <script src="{% static 'index/frontend/dmxAppConnect/dmxTyped/dmxTyped.js'  %}" defer=""></script>
+    <script src="{% static 'index/frontend/dmxAppConnect/dmxTyped/typed.min.js'  %}" defer=""></script>
+    <link rel="stylesheet" href="{% static 'index/frontend/css/style.css'  %}" />
+    <link rel="stylesheet" href="{% static 'index/frontend/dmxAppConnect/dmxValidator/dmxValidator.css'  %}" />
+    <script src="{% static 'index/frontend/dmxAppConnect/dmxValidator/dmxValidator.js'  %}" defer=""></script>
 </head>
 
 <body id="login" class="style8">
@@ -22,7 +23,7 @@
         <div class="row style8">
             <div class="text-center col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 offset-xl-4 col-xl-7 style26">
                 <div class="d-block p-4 bg-transparent">
-                    <img src="assets/images/1598155-200.png">
+                    <img src="{% static 'index/frontend/assets/images/1598155-200.png'  %}">
                 </div>
                 <div class="card style3">
                     <div class="card-body style2">
@@ -75,8 +76,8 @@
             </div>
         </div>
     </div>
-    <script src="bootstrap/4/js/popper.min.js"></script>
-    <script src="bootstrap/4/js/bootstrap.min.js"></script>
+    <script src="{% static 'index/frontend/bootstrap/4/js/popper.min.js'  %}"></script>
+    <script src="{% static 'index/frontend/bootstrap/4/js/bootstrap.min.js'  %}"></script>
 </body>
 
 </html>

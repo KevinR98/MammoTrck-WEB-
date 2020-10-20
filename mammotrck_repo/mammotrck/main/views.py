@@ -70,15 +70,15 @@ def registration(request):
                 return render(request, 'index/pacientes.html')
 
             else:
-                error_page(request, 400, 'Error en la información recibida.')
+                return error_page(request, 400, 'Error en la información recibida.')
 
         if request.method == 'GET':
             form = RegistrationForm()
             context = {'form': form}
-            render(request, 'index/registration.html', context)
+            return render(request, 'index/register.html', context)
 
     else:
-        error_page(request, 400, 'Ya existe un usuario logueado.')
+        return error_page(request, 400, 'Ya existe un usuario logueado.')
 
 
 

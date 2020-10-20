@@ -7,9 +7,6 @@ import json
 import csv
 import os
 import time
-import numpy as np
-import requests
-
 class web_client:
     def __init__(self):
         self.name = "web"

@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.db.models.query import QuerySet
 from django.forms.models import model_to_dict
 from io import BytesIO
-import requests
+#import requests
 import json
 
 

@@ -1,62 +1,49 @@
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html is="dmx-app">
+
 <head>
-    <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="{% static 'index/assets/materialize/css/materialize.min.css'  %}"  media="screen,projection"/>
-
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+    <script src="{% static 'index/frontend/dmxAppConnect/dmxAppConnect.js'  %}"></script>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Sign In</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'index/frontend/bootstrap/4/css/bootstrap.min.css'  %}" />
+    <script src="{% static 'index/frontend/dmxAppConnect/dmxBootstrap4Collapse/dmxBootstrap4Collapse.js'  %}" defer=""></script>
+    <script src="{% static 'index/frontend/dmxAppConnect/dmxTyped/dmxTyped.js'  %}" defer=""></script>
+    <script src="{% static 'index/frontend/dmxAppConnect/dmxTyped/typed.min.js'  %}" defer=""></script>
+    <link rel="stylesheet" href="{% static 'index/frontend/css/style.css'  %}" />
+    <link rel="stylesheet" href="{% static 'index/frontend/dmxAppConnect/dmxValidator/dmxValidator.css'  %}" />
+    <script src="{% static 'index/frontend/dmxAppConnect/dmxValidator/dmxValidator.js'  %}"  defer=""></script>
 </head>
-<style>
-    body {
-      background: #555;
-    }
 
-    .content {
-      border-radius: 25px;
-      width: 381px;
-      height: 380px;
-    }
-
-
-</style>
-    <body>
-        <div class="container">
-                <div class="card content center-align">
-                    <div class="card-content">
-                        <span class="card-title left-align"> Iniciar sesión </span>
-
-                        <div class="input-field col s12">
-                          <input id="email" type="email" class="validate">
-                          <label for="email">Nombre</label>
-                          <span class="helper-text" data-error="wrong" data-success="right">Ingrese su nombre de correo registrado</span>
-                        </div>
-
-                        <div class="input-field col s12">
-                          <input id="email" type="password" class="validate">
-                          <label for="email">Contraseña</label>
-                          <span class="helper-text" data-error="wrong" data-success="right">Ingrese su contraseña</span>
-                        </div>
-
-                        <a class="btn center-align">INICIAR SESIÓN</a>
-
-                    </div>
-
+<body id="login" class="style8">
+    <div class="container wappler-block pt-5 pb-5 style8">
+        <div class="row style8">
+            <div class="text-center col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 style7 col-xl-4 offset-xl-4">
+                <div class="d-block p-4 bg-transparent">
+                    <img src="{% static 'index/frontend/assets/images/1598155-200.png'  %}">
                 </div>
+                <div class="card style3">
+                    <div class="card-body style2">
 
-                <p> ¿Aún no tiene una cuenta? Crear cuenta </p>
 
+                        <h4 class="card-title text-xl-left style5">Iniciar sesión</h4>
+
+                        <div class="row justify-content-xl-center no-gutters style11"><input id="text1" name="text1" type="text" class="form-control style4" placeholder="Correo electrónico" data-rule-email="" data-msg-required=""></div>
+                        <input id="text2" name="text2" type="password" class="form-control style6" placeholder="Contraseña" data-msg-required=""><a href="#" class="btn btn-primary style1">Sign In</a>
+                    </div>
+                </div>
             </div>
-    </body>
-
-    <script type="text/javascript" src="{% static 'index/assets/materialize/js/materialize.min.js'  %}"></script>
+        </div>
+        <div class="row justify-content-xl-center no-gutters row-cols-xl-1 text-xl-center">
+            <p class="style12">¿Aún no tiene una cuenta? <a href="#">Crear una</a></p>
+        </div>
+    </div>
+    <script src="{% static 'index/frontend/bootstrap/4/js/popper.min.js'  %}"></script>
+    <script src="{% static 'index/frontend/bootstrap/4/js/bootstrap.min.js'  %}"></script>
 </body>
-</html>
 
+</html>
