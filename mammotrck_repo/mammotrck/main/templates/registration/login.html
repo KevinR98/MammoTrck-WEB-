@@ -31,10 +31,21 @@
 
 
                         <h4 class="card-title text-xl-left style5">Iniciar sesión</h4>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="row justify-content-xl-center no-gutters style11">
 
-                        <div class="row justify-content-xl-center no-gutters style11"><input id="text1" name="text1" type="text" class="form-control style4" placeholder="Correo electrónico" data-rule-email="" data-msg-required=""></div>
-                        <input id="text2" name="text2" type="password" class="form-control style6" placeholder="Contraseña" data-msg-required=""><a href="#" class="btn btn-primary style1">Sign In</a>
-                    </div>
+
+                        <input id="text1" name="username" type="email" class="form-control style4" placeholder="Correo electrónico" data-rule-email="" data-msg-required=""></div>
+                        <input id="text2" name="password" type="password" class="form-control style6" placeholder="Contraseña" data-msg-required="">
+                        <button href="#" class="btn btn-primary style1" type="submit">Sign In</button>
+
+                        {% if form.errors %}
+                            <p style="color: red">*Contraseña o usuario incorrectos.</p>
+                        {% endif %}
+
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

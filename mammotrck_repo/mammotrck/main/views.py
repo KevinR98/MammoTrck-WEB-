@@ -1,4 +1,5 @@
-from django.contrib.auth import user_login_failed, user_logged_in, user_logged_out, authenticate, login
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.signals import user_login_failed, user_logged_in, user_logged_out
 from django.core.checks import messages
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
@@ -15,19 +16,19 @@ def index(request):
 
 @receiver(user_login_failed)
 def user_login_failed_callback(sender, credentials, **kwargs):
-    print(sender)
+    print("login failed", sender)
     message = "Login fallido con credenciales: {}".format(credentials)
     return HttpResponse(status=412, content=message)
 
 @receiver(user_logged_in)
-def user_login_in_callback(sender, credentials, **kwargs):
-    print(sender)
+def user_logged_in_callback(sender, credentials, **kwargs):
+    print("login success", sender)
     message = "Se logueo correctamente el usuario: {}".format(credentials)
     return HttpResponse(status=202, content=message)
 
 @receiver(user_logged_out)
-def user_login_out_callback(sender, credentials, **kwargs):
-    print(sender)
+def user_logged_out_callback(sender, credentials, **kwargs):
+    print("login out", sender)
     message = "Se deslogueo correctamente el usuario: {}".format(credentials)
     return HttpResponse(status=202, content=message)
 
