@@ -291,6 +291,28 @@ h3.section-title {
 .style53 {
     font-size: 1rem;
   }
+.style55 {
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+  }
+.style56 {
+    margin-top: -3px;
+    margin-right: 6px;
+  }
+.style57 {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+.style58 {
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+  }
 }
 #Register {
 }
@@ -353,7 +375,7 @@ aside.style29 {
   padding-bottom: 0px;
 }
 .style43 {
-  font-size: 0.8rem;
+  font-size: 0.8rem !important;
 }
 .style45 {
   margin-right: 10px;
@@ -373,6 +395,48 @@ aside.style29 {
 }
 .style54 {
   font-size: 0.8rem;
+}
+link {
+}
+.style56 {
+  margin-top: 2px;
+  margin-right: 7px;
+}
+.style59 {
+  font-weight: bold;
+}
+.wappler-temp {
+}
+.wappler-temp {
+}
+.wappler-temp {
+}
+.wappler-temp {
+}
+.wappler-temp {
+}
+.style60 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.style58 {
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+.style61 {
+  font-size: 2rem;
+}
+.style62 {
+  margin-bottom: -11px;
+  margin-left: 20px;
+  padding-bottom: 0px;
+}
+.style63 {
+}
+.style64 {
+  margin-left: 20px;
 }
 
   }
