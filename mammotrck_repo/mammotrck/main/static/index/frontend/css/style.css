@@ -313,6 +313,13 @@ h3.section-title {
     border-bottom-left-radius: 18px;
     border-bottom-right-radius: 18px;
   }
+.style65 {
+    background-color: #99a2ab;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+  }
 }
 #Register {
 }

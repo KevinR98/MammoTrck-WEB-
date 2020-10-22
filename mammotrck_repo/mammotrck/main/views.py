@@ -1,27 +1,36 @@
+from datetime import datetime
+import random
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.signals import user_login_failed, user_logged_in, user_logged_out
-from django.core.checks import messages
+from django.contrib import messages
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .models import User, Pacient, Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar
+from .models import User, Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
+    Clinic, Patient
 from .forms import RegistrationForm
 
 from .Clients import ClientFactory
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    if not request.user.is_authenticated:
+        if request.method == 'GET':
+            return render(request, 'index/index.html')
+
+    else:
+        error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
 
 @receiver(user_login_failed)
 def user_login_failed_callback(sender, credentials, **kwargs):
     print("login failed", sender)
     message = "Login fallido con credenciales: {}".format(credentials)
     return HttpResponse(status=412, content=message)
-
+"""
 @receiver(user_logged_in)
-def user_logged_in_callback(sender, credentials, **kwargs):
+def user_logged_in_callback(sender, request, user, credentials, **kwargs):
     print("login success", sender)
     message = "Se logueo correctamente el usuario: {}".format(credentials)
     return HttpResponse(status=202, content=message)
@@ -31,6 +40,7 @@ def user_logged_out_callback(sender, credentials, **kwargs):
     print("login out", sender)
     message = "Se deslogueo correctamente el usuario: {}".format(credentials)
     return HttpResponse(status=202, content=message)
+"""
 
 #client = ClientFactory.get_client(request)
 
@@ -41,44 +51,53 @@ def error_page(request, status, message):
 
 def registration(request):
 
+    list_clinics_db = Clinic.objects.all().values()
+    list_clinics = []
+    for element in list_clinics_db:
+        list_clinics += [(element['id'], element['name'])]
+
     if not request.user.is_authenticated:
+        print('lol')
         if request.method == 'POST':
+            print('verificando')
             form = RegistrationForm(request.POST)
 
             if form.is_valid():
-
+                print("Creando cuenta...")
                 if User.objects.filter(email=request.POST['correo_electronico']):
-                    messages.error(request, 'Correo asociado a una cuenta distinta.')
-                    return render(request, 'index/registration.html', {'form' : RegistrationForm()})
+                    #messages.error(request, 'Correo asociado a una cuenta distinta.')
+                    print("Correo ya existe")
+                    return redirect('/patients/')
 
-                new_user = User(
-                    username=request.POST['correo_electronico'],
-                    email=request.POST['correo_electronico'],
-                    name=request.POST['nombre']
-                )
-
-                new_user.set_password(request.POST['contrasena'])
+                new_user = User.objects.create_user(request.POST['correo_electronico'], request.POST['correo_electronico'], request.POST['contrasena'])
+                new_user.firstname = request.POST['nombre']
                 new_user.save()
 
-                new_user.profile.clinic = request.POST['clinica']
+                indice = [element[0] for element in list_clinics].index(int(request.POST['clinica']))
+                print(list_clinics_db[indice]['name'])
 
+                new_user.profile.clinic = Clinic.objects.filter(pk=int(request.POST['clinica'])).get()
                 new_user.save()
-                messages.INFO(request, 'Nuevo usuario agregado')
 
                 user = authenticate(username=new_user.username, password=request.POST['contrasena'])
-                login(request, user)
+                if user is not None:
+                    login(request, user)
 
-                return render(request, 'index/pacientes.html')
+                print("Usuario creado.")
+                return redirect('/patients/')
 
             else:
+                print(form.errors)
                 return error_page(request, 400, 'Error en la información recibida.')
 
         if request.method == 'GET':
-            form = RegistrationForm()
+            form = RegistrationForm(list_clinics=list_clinics)
+
             context = {'form': form}
             return render(request, 'index/register.html', context)
 
     else:
+        print(request.user.username)
         return error_page(request, 400, 'Ya existe un usuario logueado.')
 
 
@@ -87,28 +106,53 @@ def pacientes(request):
 
     if request.user.is_authenticated:
         if request.method == 'GET':
-            list_pacients = Pacient.objects
+            list_patients_db = Patient.objects.all().values()
+            list_patients = []
+            date = datetime.today().strftime("%d/%m/%y")
 
-            context = {'pacients' : list_pacients}
+            for patient in list_patients_db:
+                patient_dict = {}
+
+                patient_dict['id'] = patient['id_patient']
+                patient_dict['first_date'] = patient['created_at'].strftime("%d/%m/%y %H:%M:%S")
+                patient_dict['last_date'] = patient['created_at'].strftime("%d/%m/%y %H:%M:%S")
+                patient_dict['form_quantity'] = 25
+
+                list_patients += [patient_dict]
+
+            context = {'username': request.user.username, 'user_id': request.user.pk, 'current_date': date, 'list_patients' : list_patients}
             return render(request, 'index/pacientes.html', context)
 
     else:
-        error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
-
-    render(request, 'index/pacientes.html')
+        return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
 
 
 
 def lista_formularios(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
-            list_forms = Form.objects.filter(id_pacient=request.GET['id_pacient']) #Pasar por parametro id del paciente
+            list_forms_db = Form.objects.filter(id_patient=request.GET['id_patient']).values()
+            patient = Patient.objects.get(id_patient=request.GET['id_patient'])
+            date = datetime.today().strftime("%d/%m/%y")
 
-            context = {'pacients' : list_forms}
-            return render(request, 'index/forms.html', context)
+            list_forms = []
+            for form in list_forms_db:
+                form_dict = {}
+                form_dict['id'] = form['id_form']
+                form_dict['date_created'] = form['created_at'].strftime("%d/%m/%y %H:%M:%S")
+                form_dict['sate'] = form['habilitado']
+
+                list_forms += [form_dict]
+
+
+            context = {'patient_id':request.GET['id_patient'], 'patient_name':patient.name , 'username': request.user.username, 'user_id': request.user.pk, 'current_date': date,
+                        'list_forms': list_forms}
+
+            return render(request, 'index/formularios.html', context)
+
 
     else:
-        error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
 
 
 def deshabilitar_formulario(request):
@@ -129,22 +173,18 @@ def deshabilitar_formulario(request):
 
 def agregar_formulario(request):
     if request.user.is_authenticated:
-        new_subform_historia_familiar = SubForm_historia_familiar()
-        new_subform_antecedentes = SubForm_antecedentes_g_o()
-        new_subform_historia_personal = SubForm_historia_personal()
+        patient = Patient.objects.get(id_patient=request.GET['id_patient'])
 
-        new_subform_historia_familiar.save()
-        new_subform_antecedentes.save()
-        new_subform_historia_personal.save()
+        clinic_name = request.user.profile.clinic.acronym
+        id = clinic_name + str(random.randint(0, 1000))
+        while Form.objects.filter(id_form=id):
+            id = clinic_name + str(random.randint(0, 100))
 
-        new_form = Form(
-            SubForm_historia_personal = new_subform_historia_personal.id,
-            SubForm_antecedentes_g_o = new_subform_antecedentes.id,
-            SubForm_historia_familiar = new_subform_historia_familiar.id
-        )
 
+        new_form = Form.objects.create(id_form=id, id_patient=patient)
         new_form.save()
-        return redirect('/forms/')
+
+        return redirect('/forms/?id_patient='+request.GET['id_patient'])
 
     else:
         error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')

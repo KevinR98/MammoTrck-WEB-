@@ -26,52 +26,49 @@
                     <img src="{% static 'index/frontend/assets/images/1598155-200.png'  %}">
                 </div>
                 <div class="card style3">
-                    <div class="card-body style2">
-                        <div class="row">
-                            <div class="col">
-                                <h4 class="card-title text-xl-left style5">Creación de cuenta</h4>
-                                <div class="row style13 no-gutters"><input id="text1" name="text1" type="text" class="form-control style4" placeholder="Nombre Completo" data-msg-required="" data-msg-email="" required=""></div>
-                                <div class="row style14 no-gutters">
-                                    <input id="text2" name="text2" class="form-control" placeholder="Correo electrónico" required="" data-rule-email="" type="email">
-                                </div>
-                                <div class="row no-gutters style15">
-                                    <input id="text3" name="text3" type="password" class="form-control" placeholder="Contraseña" required="">
-                                </div>
-                                <div class="row no-gutters style16">
-                                    <select id="select1" class="custom-select style17" required="">
-                                        <option value="1">Marcial Fallas</option>
-                                        <option value="2">San Juan de Dios</option>
-                                    </select>
-                                    <p class="style19">Seleccione el hospital o clínica respectivo</p>
+                    <form method="POST" onsubmit="checkPassword(this)" action="{%url 'registration' %}">
+                        {% csrf_token %}
+                        <div class="card-body style2">
+                            <div class="row">
+                                <div class="col">
+                                    <h4 class="card-title text-xl-left style5">Creación de cuenta</h4>
+                                    <div class="row style13 no-gutters">
+                                        {{form.nombre}}
+                                    </div>
+                                    <div class="row style14 no-gutters">
+                                        {{form.correo_electronico}}
+                                    </div>
+                                    <div class="row no-gutters style15">
+                                        {{form.contrasena}}
+                                    </div>
+                                    <div class="row no-gutters style16">
+                                        {{form.clinica}}
+                                        <p class="style19">Seleccione el hospital o clínica respectivo</p>
+                                    </div>
+
 
                                 </div>
-                            </div>
-                            <div class="col style28">
+                                <div class="col style28">
 
-                                <div class="row no-gutters style22">
-                                    <input id="text4" name="text4" type="password" class="form-control" placeholder="Confirmar Contraseña" required="" data-msg-pattern="" data-rule-equalto="text3">
-                                </div>
-                                <div class="row no-gutters">
-                                    <select id="select2" class="form-control style25" required="">
-                                        <option value="1">Asistente</option>
-                                        <option value="2">Médico</option>
-                                        <option value="3">Administrador</option>
-                                    </select>
-                                    <p class="style24">Seleccione el tipo de cuenta</p>
-
+                                    <!--div class="row no-gutters style22">
+                                        <input id="password2" name="password2" type="password"  placeholder="Confirmar Contraseña" required="" data-msg-pattern="" data-rule-equalto="text3">
+                                    </div-->
+                                    <div class="row no-gutters">
+                                        {{form.rol}}
+                                        <p class="style24">Seleccione el tipo de cuenta</p>
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="row justify-content-xl-center no-gutters style11">
+                                <div class="col style29">
+                                    <button href="#" type="submit" class="btn btn-primary style1" dmx-style:style1="text4.invalid">Crear Cuenta </button>
+                                </div>
+                            </div>
+
                         </div>
 
-
-
-
-                        <div class="row justify-content-xl-center no-gutters style11">
-                            <div class="col style29"><a href="#" class="btn btn-primary style1" dmx-style:style1="text4.invalid">Crear Cuenta
-                                </a></div>
-                        </div>
-
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -81,3 +78,10 @@
 </body>
 
 </html>
+
+<script>
+    function checkPassword(form){
+        return true;
+    }
+
+</script>

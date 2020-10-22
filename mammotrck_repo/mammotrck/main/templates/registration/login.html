@@ -27,22 +27,23 @@
                     <img src="{% static 'index/frontend/assets/images/1598155-200.png'  %}">
                 </div>
                 <div class="card style3">
+                    <form method="POST">
                     <div class="card-body style2">
 
-
                         <h4 class="card-title text-xl-left style5">Iniciar sesión</h4>
-                    <form method="POST">
+
                         {% csrf_token %}
                         <div class="row justify-content-xl-center no-gutters style11">
+                            <input id="text1" name="username" type="email" class="form-control style4" placeholder="Correo electrónico" data-rule-email="" data-msg-required="">
+                        </div>
 
+                            <input id="text2" name="password" type="password" class="form-control style6" placeholder="Contraseña" data-msg-required="">
+                            <button href="#" class="btn btn-primary style1" type="submit">Sign In</button>
 
-                        <input id="text1" name="username" type="email" class="form-control style4" placeholder="Correo electrónico" data-rule-email="" data-msg-required=""></div>
-                        <input id="text2" name="password" type="password" class="form-control style6" placeholder="Contraseña" data-msg-required="">
-                        <button href="#" class="btn btn-primary style1" type="submit">Sign In</button>
-
-                        {% if form.errors %}
-                            <p style="color: red">*Contraseña o usuario incorrectos.</p>
-                        {% endif %}
+                            {% if form.errors %}
+                                {{form.errors}}
+                                <p style="color: red">*Contraseña o usuario incorrectos.</p>
+                            {% endif %}
 
                         </div>
                     </form>
@@ -50,7 +51,7 @@
             </div>
         </div>
         <div class="row justify-content-xl-center no-gutters row-cols-xl-1 text-xl-center">
-            <p class="style12">¿Aún no tiene una cuenta? <a href="#">Crear una</a></p>
+            <p class="style12">¿Aún no tiene una cuenta? <a href="{% url 'registration' %}">Crear una</a></p>
         </div>
     </div>
     <script src="{% static 'index/frontend/bootstrap/4/js/popper.min.js'  %}"></script>
