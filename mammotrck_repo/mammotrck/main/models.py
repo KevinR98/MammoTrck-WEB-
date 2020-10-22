@@ -1,10 +1,13 @@
-from django.contrib.auth import get_user_model
+# Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
+
 
 class Clinic(models.Model):
     name = models.CharField(max_length=40, null=True)
+    acronym = models.CharField(max_length=40, null=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(User,
@@ -15,26 +18,33 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    clinic = models.OneToOneField(Clinic,
-                                  on_delete=models.PROTECT,
-                                  default=1)
+    clinic = models.ForeignKey(Clinic, on_delete=models.PROTECT, default=2, null=True)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    print("signal")
+    if created:
+        print("hola")
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 
-class Pacient(models.Model):
+class Patient(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     name = models.CharField(max_length=40, null=True)
 
-    id_pacient = models.CharField(primary_key=True, max_length=15)
-
+    id_patient = models.CharField(primary_key=True, max_length=15)
 
 
 # Clases de subformulario Historia Personal ============================================================================
 
 class Identidad_etnica(models.Model):
     identidad = models.CharField(max_length=40, null=True)
-
 
 class Tiempo_bebida(models.Model):
     tiempo = models.CharField(max_length=40, null=True)
@@ -47,17 +57,15 @@ class Medicamento_Subformulario(models.Model):
     cuanto = models.CharField(max_length=40, null=True)
 
 class SubForm_historia_personal(models.Model):
-    class Identidad_etnica(models.Model):
-        identidad = models.CharField(max_length=40, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     nombre = models.CharField(max_length=40, null=True)
     cedula = models.CharField(max_length=40, null=True)
-    fecha_de_nacimiento = models.DateField()
+    fecha_de_nacimiento = models.DateField(null=True)
     nacionalidad = models.CharField(max_length=40, null=True)
-    identidad_etnica = models.OneToOneField(Identidad_etnica, on_delete=models.PROTECT, default=1)
+    identidad_etnica = models.ForeignKey(Identidad_etnica, on_delete=models.PROTECT, default=1, null=True, blank=True)
     identidad_etnica_otro = models.CharField(max_length=40, null=True)
 
     peso = models.PositiveSmallIntegerField(null=True)
@@ -70,7 +78,7 @@ class SubForm_historia_personal(models.Model):
     fuma_cuanto = models.CharField(max_length=40, null=True)
 
     bebidas = models.BooleanField(max_length=1, null=True, blank=True)
-    bebidas_cuanto = models.OneToOneField(Tiempo_bebida, on_delete=models.PROTECT, default=1)
+    bebidas_cuanto = models.ForeignKey(Tiempo_bebida, on_delete=models.PROTECT, default=1, null=True, blank=True)
     bebidas_cuanto_otro = models.CharField(max_length=40, null=True)
 
     actividad_fisica = models.BooleanField(max_length=1, null=True, blank=True)
@@ -113,7 +121,7 @@ class SubForm_antecedentes_g_o(models.Model):
 
     anticonceptivos_aplica = models.BooleanField(max_length=1, null=True, blank=True)
     anticonceptivos_cuanto = models.PositiveSmallIntegerField(null=True)
-    anticonceptivos_ult_vez = models.DateField()
+    anticonceptivos_ult_vez = models.DateField(null=True)
 
     terapia_hormonal_aplica = models.BooleanField(max_length=1, null=True, blank=True)
     terapia_hormonal_tipo = models.ManyToManyField(Terapia_hormonal)
@@ -122,6 +130,7 @@ class SubForm_antecedentes_g_o(models.Model):
     biopsia_aplica = models.BooleanField(max_length=1, null=True, blank=True)
     biopsia_cuantas = models.PositiveSmallIntegerField(null=True)
     biopsia_resultado = models.CharField(max_length=40, null=True)
+
 
 
 
@@ -151,9 +160,14 @@ class SubForm_historia_familiar(models.Model):
     familiares_cancer = models.BooleanField(max_length=1, null=True, blank=True)
     parentesco_tipo = models.ManyToManyField(Familiar_cancer)
 
+    #form_id = models.OneToOneField(Form, on_delete=models.PROTECT, default=2, null=True)
+    familiares_cancer_tipo = models.CharField(max_length=40, null=True)
+    familiares_cancer_parentezco = models.CharField(max_length=40, null=True)
+
 
 
 # ------------------------------------------------------------------------------------------------
+
 
 class Mamografia(models.Model):
     url_imagen = models.URLField(null=True)
@@ -162,12 +176,8 @@ class Form(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    SubForm_historia_personal = models.OneToOneField(SubForm_historia_personal, on_delete=models.CASCADE, default=1)
-    SubForm_antecedentes_g_o = models.OneToOneField(SubForm_antecedentes_g_o, on_delete=models.CASCADE, default=1)
-    SubForm_historia_familiar = models.OneToOneField(SubForm_historia_familiar, on_delete=models.CASCADE, default=1)
-
     id_form = models.CharField(primary_key=True, max_length=15)
-    id_pacient = models.ManyToManyField(Pacient)
+    id_patient = models.ForeignKey(Patient, on_delete=models.PROTECT, default=2, null=True)
     submitted_at = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     habilitado = models.BooleanField(max_length=1, null=True, blank=True)
@@ -175,6 +185,28 @@ class Form(models.Model):
 
     urls_imgs = models.ManyToManyField(Mamografia)
 
+    subform_hist_per = models.OneToOneField(SubForm_historia_personal, on_delete=models.PROTECT, default=2, null=True)
+    subform_ant_g_o = models.OneToOneField(SubForm_antecedentes_g_o, on_delete=models.PROTECT, default=2, null=True)
+    subform_hist_fam = models.OneToOneField(SubForm_historia_familiar, on_delete=models.PROTECT, default=2, null=True)
+
+
+
+
+@receiver(pre_save, sender=Form)
+def create_forms(sender, instance, **kwargs):
+        instance.subform_hist_per = SubForm_historia_personal.objects.create()
+        instance.subform_ant_g_o = SubForm_antecedentes_g_o.objects.create()
+        instance.subform_hist_fam = SubForm_historia_familiar.objects.create()
+
+"""
+#TODO recivar metodo para guardado en escalada
+@receiver(post_save, sender=Form)
+def save_profile(sender, instance, **kwargs):
+    print("probando......")
+    instance.subForm_historia_familiar.save()
+    instance.subForm_antecedentes_g_o.save()
+    instance.subForm_historia_familiar.save()
+"""
 
 class Report(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)

@@ -5,7 +5,7 @@ from .models import *
 
 admin.site.register(Clinic)
 admin.site.register(Profile)
-admin.site.register(Pacient)
+admin.site.register(Patient)
 admin.site.register(Identidad_etnica)
 admin.site.register(Tiempo_bebida)
 admin.site.register(Medicamento)
