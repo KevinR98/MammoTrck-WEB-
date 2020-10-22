@@ -215,9 +215,8 @@ $(document).ready(function () {
                     $(win.document.body)
                         .css('font-size', '10pt')
                         .prepend(
-                            '<h4>Title Test</h4>',
-                            //  Background table picture in print version is here
-                            '<img src="http://i.imgur.com/w931ov4.png" style="position: fixed;  top: 50%;  left: 50%;  transform: translate(-50%, -50%);" />'
+                            '<h4>Datos MammoTrck</h4>'
+
                         );
 
                     $(win.document.body).find('table')

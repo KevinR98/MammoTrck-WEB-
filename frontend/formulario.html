@@ -1,0 +1,975 @@
+<!doctype html>
+<html is="dmx-app" style="width: 100vw; height: 100%;">
+
+<head>
+    <script src="dmxAppConnect/dmxAppConnect.js"></script>
+    <meta charset="UTF-8">
+    <title>Formulario</title>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="bootstrap/4/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="dmxAppConnect/dmxBootstrap4Navigation/dmxBootstrap4Navigation.js" defer=""></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="css/table.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+
+    <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+
+    <script src="dmxAppConnect/dmxBootstrap4Collapse/dmxBootstrap4Collapse.js" defer=""></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote/dist/summernote-lite.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/summernote/dist/summernote-lite.min.js"></script>
+    <script src="dmxAppConnect/dmxSummernote/dmxSummernote.js" defer=""></script>
+    <script src="dmxAppConnect/dmxTyped/dmxTyped.js" defer=""></script>
+    <script src="dmxAppConnect/dmxTyped/typed.min.js" defer=""></script>
+    <script src="dmxAppConnect/dmxRouting/dmxRouting.js" defer=""></script>
+    <script src="dmxAppConnect/dmxDataTraversal/dmxDataTraversal.js" defer=""></script>
+</head>
+
+<body id="formulario" class="style32" style="width: 100vw; height: 100vh; margin: 0 auto;">
+
+    <div style="width: 100%; height: 100%;">
+        <div class="row style36 justify-content-xl-start row-cols-xl-7" style="margin-bottom: 0px;">
+            <div class="col-12 col-md-4 col-lg-3 style35 col-xl align-self-xl-stretch offset-xl-0 w-auto border-right border-dark col-xl-2">
+                <div class="contentArea style40">
+                    <section class="style80">
+                        <p id="nombre_usuario" class="style37"><b>Nombre del Usuario</b></p>
+                        <p id="id_usuario" class="style39">ID del Usuario</p>
+                        <p id="fecha_hoy"><b class="style54">Fecha de hoy</b></p>
+                    </section>
+                    <section class="style84">
+                        <div class="row">
+                            <i class="material-icons style56">star</i><button id="boton_formularios" class="btn newbutton active" style="all: unset; cursor: pointer;">Formularios</button>
+                        </div>
+                        <div class="row">
+
+                            <i class="material-icons style56">star</i><button id="boton_linea_tiempo" class="btn newbutton active" style="all: unset; cursor: pointer;">Línea de tiempo</button>
+
+                        </div>
+                    </section>
+                    <section class="style81">
+                        <div class="d-block p-4 bg-transparent style42">
+                            <img src="assets/images/1598155-200.png" class="style41">
+                        </div>
+                        <section class="style83">
+                            <div class="row">
+                                <i class="material-icons style56">info</i><button id="boton_informacion" class="btn newbutton active" style="all: unset; cursor: pointer;">Información</button>
+                            </div>
+                            <div class="row">
+                                <i class="material-icons style56">logout</i> <button id="boton_logout" class="btn newbutton active" style="all: unset; cursor: pointer;" data-toggle="button">Cerrar sesión</button>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-9 col-12 offset-0 bg-light style52 col-xl-10" style="display: flex !important; flex-flow: column !important;">
+                <header class="style50">
+                    <div class="row"><i class="material-icons style56">arrow_back</i> <button id="btn3" class="btn newbutton active style59" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
+                                id="boton_volver">Volver</span></button></div>
+
+
+                </header>
+
+                <header style="" class="bg-white">
+                    <div class="row style72">
+                        <p id="id_formulario">ID Formulario</p>
+                    </div>
+                    <div class="row style62">
+                        <p><span class="style61" id="fecha_formulario">Formulario Fecha/No registrado</span></p>
+                    </div>
+                    <div class="row style64">
+                        <p id="nombre_paciente">Nombre Apellido Apellido de la paciente</p>
+                    </div>
+
+
+                </header>
+
+                <section class="style82" style="flex: 1;">
+                    <ul class="nav nav-tabs justify-content-xl-start" id="navTabs1_tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" id="navTabs1_1_tab" data-toggle="tab" href="#" data-target="#navTabs1_1" role="tab" aria-controls="navTabs1_1" aria-selected="true">HISTORIA PERSONAL</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="navTabs1_2_tab" data-toggle="tab" href="#" data-target="#navTabs1_2" role="tab" aria-controls="navTabs1_2" aria-selected="false">ANTECEDENTES GINECO-OBSTÉTRICOS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="navTabs1_3_tab" data-toggle="tab" href="#" data-target="#navTabs1_3" role="tab" aria-controls="navTabs1_3" aria-selected="false">HISTORIA FAMILIAR</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content style82" id="navTabs1_content">
+                        <div class="tab-pane fade show active style91" id="navTabs1_1" role="tabpanel">
+                            <div class="row style71">
+
+                                <div class="col style105">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="input1" name="input1">
+                                        <label class="form-check-label style70" for="input1" style="font-size: 0.8rem !important; padding-left: 25px;">Filtros de Información</label>
+                                    </div><button id="btn1" class="btn newbutton active style73" style="all: unset; cursor: pointer; text-decoration: underline;">Editar filtros</button>
+                                </div>
+
+
+                                <div class="col style73">
+                                    <div class="col class106">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="edit1" name="edit1">
+                                            <label class="form-check-label style70" for="edit1" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
+                                        </div><button id="save1" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" hidden>Guardar Cambios</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row no-gutters style69 row-cols-xl-7" style="flex-grow: 1;">
+                                <div class="col style79 col-xl">
+                                    <div class="card style75 no-gutters">
+                                        <section class="style87">
+                                            <div class="row style88" style="">
+
+                                                <form is="dmx-serverconnect-form" id="form_historia_personal" method="post" action="" dmx-generator="bootstrap4" dmx-form-type="vertical" class="style99">
+                                                    <div class="col style86">
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_hospital">Hospital</label>
+                                                                    <select id="inp_hospital" class="form-control" name="hospital">
+                                                                        <option value="1">Option One</option>
+                                                                        <option value="2">Option Two</option>
+                                                                        <option value="3">Option Three</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_fecha">Fecha</label>
+                                                                    <input type="date" class="form-control" id="inp_fecha" name="fecha" aria-describedby="inp_fecha_help" placeholder="Enter Fecha">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_nombre">Nombre</label>
+                                                                    <input type="text" class="form-control" id="inp_nombre" name="nombre" aria-describedby="inp_nombre_help" placeholder="Enter Nombre">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_cedula">Cédula</label>
+                                                                    <input type="text" class="form-control" id="inp_cedula" name="cedula" aria-describedby="inp_cedula_help" placeholder="Enter Cédula">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_fecha_nacimiento">Fecha de nacimiento</label>
+                                                                    <input type="date" class="form-control" id="inp_fecha_nacimiento" name="fecha_nacimiento" aria-describedby="inp_fecha_nacimiento_help" placeholder="Enter Fecha de nacimiento">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_nacionalidad">Nacionalidad</label>
+                                                                    <select id="inp_nacionalidad" class="form-control" name="nacionalidad">
+                                                                        <option value="1">Option One</option>
+                                                                        <option value="2">Option Two</option>
+                                                                        <option value="3">Option Three</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_etnia">Identidad étnica</label>
+                                                                    <select id="inp_etnia" class="form-control" name="etnia">
+                                                                        <option value="1">Indígena</option>
+                                                                        <option value="2">Afrodescendiente</option>
+                                                                        <option value="3">Mulata</option>
+                                                                        <option value="4">Origen Asiático</option>
+                                                                        <option value="5">Mestiza</option>
+                                                                        <option value="6">Caucásica</option>
+                                                                        <option value="7">No sabe</option>
+                                                                        <option value="8">Otra</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_otra_ident">Otra identidad</label>
+                                                                    <input type="text" class="form-control" id="inp_otra_identidad" name="otra_identidad" aria-describedby="inp_otra_identidad_help" placeholder="Enter otra identidad étnica">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_peso">Peso (kg)</label>
+                                                                    <input type="number" class="form-control" id="inp_peso" name="peso" aria-describedby="inp_peso_help" placeholder="Enter Peso (kg)">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_talla">Talla (m)</label>
+                                                                    <input type="number" class="form-control" id="inp_talla" name="talla" aria-describedby="inp_talla_help" placeholder="Enter Talla (m)">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_imc">IMC (kg/m2)</label>
+                                                                    <input type="number" class="form-control" id="inp_imc" name="imc" aria-describedby="inp_imc_help" placeholder="Enter IMC (kg/m2)">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col style86">
+                                                        <div class="form-row">
+                                                            <div class="col style97">
+                                                                <div class="form-group style98">
+
+                                                                    <label class="col-sm-2 col-form-label style96">Fumador</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_fumado1" name="fumado" style="">
+                                                                        <label class="form-check-label" for="inp_fumado1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_fumado2" name="fumado">
+                                                                        <label class="form-check-label" for="inp_fumado2">No</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_edad_fumado">Edad que empezó a fumar</label>
+                                                                    <input type="number" class="form-control" id="inp_edad_fumado" name="edad_fumado" aria-describedby="inp_edad_fumado_help" placeholder="Enter Edad que empezó a fumar">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Fuma actualmente</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_fuma1" name="fuma">
+                                                                        <label class="form-check-label" for="inp_fuma1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_fuma2" name="fuma">
+                                                                        <label class="form-check-label" for="inp_fuma2">No</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_tiempo_fumado">Por cuánto tiempo ha fumado</label>
+                                                                    <input type="text" class="form-control" id="inp_tiempo_fumado" name="tiempo_fumado" aria-describedby="inp_tiempo_fumado_help" placeholder="Enter Por cuánto tiempo ha fumado">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Bebe alcohol</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_bebe1" name="bebe">
+                                                                        <label class="form-check-label" for="inp_bebe1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_bebe2" name="bebe">
+                                                                        <label class="form-check-label" for="inp_bebe2">No</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_frecuencia_bebe">Frecuencia en que bebe</label>
+                                                                    <select id="inp_frecuencia_bebe" class="form-control" name="frecuencia_bebe">
+                                                                        <option value="1">Option One</option>
+                                                                        <option value="2">Option Two</option>
+                                                                        <option value="3">Option Three</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_otra_frecuencia">Otra frecuencia</label>
+                                                                    <input type="text" class="form-control" id="inp_otra_frecuencia" name="otra_frecuencia" aria-describedby="inp_otra_frecuencia_help" placeholder="Enter otra frecuencia de bebida">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Realiza actividad física</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_act1" name="act">
+                                                                        <label class="form-check-label" for="inp_act1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_act2" name="act">
+                                                                        <label class="form-check-label" for="inp_act2">No</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_minutos_actividad">Minutos por semana de actividad física</label>
+                                                                    <input type="number" class="form-control" id="inp_minutos_actividad" name="minutos_actividad" aria-describedby="inp_minutos_actividad_help"
+                                                                        placeholder="Enter Minutos por semana de actividad física">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Consume alimentos con mucha grasa</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_grasa1" name="grasa">
+                                                                        <label class="form-check-label" for="inp_grasa1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_grasa2" name="grasa">
+                                                                        <label class="form-check-label" for="inp_grasa2">No</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Consume vegetales, frutas y granos regularmente</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_veg1" name="veg">
+                                                                        <label class="form-check-label" for="inp_veg1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_veg2" name="veg">
+                                                                        <label class="form-check-label" for="inp_veg2">No</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_diabetes">Diabetes</label>
+                                                                    <select id="inp_diabetes" class="form-control" name="diabetes">
+                                                                        <option value="1">Option One</option>
+                                                                        <option value="2">Option Two</option>
+                                                                        <option value="3">Option Three</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Toma Tamoxifeno</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med11" name="med11">
+                                                                        <label class="form-check-label" for="inp_med11">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med12" name="med1">
+                                                                        <label class="form-check-label" for="inp_med12">No</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_med_1_t">Por cuánto tiempo</label>
+                                                                    <input type="text" class="form-control" id="inp_med_1_t" name="med_1_t" aria-describedby="inp_med_1_t_help" placeholder="Enter Por cuánto tiempo">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Toma Anastrozol</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med21" name="med2">
+                                                                        <label class="form-check-label" for="inp_med21">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med22" name="med2">
+                                                                        <label class="form-check-label" for="inp_med22">No</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_med_2_t">Por cuánto tiempo</label>
+                                                                    <input type="text" class="form-control" id="inp_med_2_t" name="med_2_t" aria-describedby="inp_med_2_t_help" placeholder="Enter Por cuánto tiempo">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Toma Metformina</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med31" name="med3">
+                                                                        <label class="form-check-label" for="inp_med31">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med32" name="med3">
+                                                                        <label class="form-check-label" for="inp_med32">No</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_med_3_t">Por cuánto tiempo</label>
+                                                                    <input type="text" class="form-control" id="inp_med_3_t" name="med_3_t" aria-describedby="inp_med_3_t_help" placeholder="Enter Por cuánto tiempo">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Toma Bifosfonatos</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med41" name="med4">
+                                                                        <label class="form-check-label" for="inp_med41">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med42" name="med4">
+                                                                        <label class="form-check-label" for="inp_med42">No</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_med_4_t">Por cuánto tiempo</label>
+                                                                    <input type="text" class="form-control" id="inp_med_4_t" name="med_4_t" aria-describedby="inp_med_4_t_help" placeholder="Enter Por cuánto tiempo">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Toma Aspirina</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med51" name="med5">
+                                                                        <label class="form-check-label" for="inp_med51">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med52" name="med5">
+                                                                        <label class="form-check-label" for="inp_med52">No</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_med_5_t">Por cuánto tiempo</label>
+                                                                    <input type="text" class="form-control" id="inp_med_5_t" name="med_5_t" aria-describedby="inp_med_5_t_help" placeholder="Enter Por cuánto tiempo">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Ha recibido tratamientos con radiación en el tórax</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med61" name="med6">
+                                                                        <label class="form-check-label" for="inp_med61">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_med62" name="med6">
+                                                                        <label class="form-check-label" for="inp_med62">No</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade style103" id="navTabs1_2" role="tabpanel">
+                            <div class="row style71">
+
+                                <div class="col style105">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="input2" name="input2">
+                                        <label class="form-check-label style70" for="input2" style="font-size: 0.8rem !important; padding-left: 25px;">Filtros de Información</label>
+                                    </div><button id="btn2" class="btn newbutton active style73" style="all: unset; cursor: pointer; text-decoration: underline;">Editar filtros</button>
+                                </div>
+
+
+                                <div class="col style73">
+                                    <div class="col class106">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="edit2" name="edit2">
+                                            <label class="form-check-label style70" for="edit2" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
+                                        </div><button id="save2" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" hidden>Guardar Cambios</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row no-gutters style69 row-cols-xl-7" style="flex-grow: 1;">
+                                <div class="col style79 col-xl">
+                                    <div class="card style75 no-gutters">
+                                        <section class="style87">
+                                            <div class="row style88" style="">
+
+                                                <form is="dmx-serverconnect-form" id="form_antecedentes_go" method="post" action="" dmx-generator="bootstrap4" dmx-form-type="vertical" class="style99">
+                                                    <div class="col style86">
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_mens">Edad (años) de la primera menstruación</label>
+                                                                    <input type="number" class="form-control" id="inp_mens" name="mens" aria-describedby="inp_mens_help" placeholder="Enter edad primera menstruación">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Post-menopausia</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_meno1" name="meno">
+                                                                        <label class="form-check-label" for="inp_meno1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_meno2" name="meno">
+                                                                        <label class="form-check-label" for="inp_meno2">No</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_meno">Edad (años) al momento de la menopausia</label>
+                                                                    <input type="number" class="form-control" id="inp_meno" name="meno" aria-describedby="inp_meno_help" placeholder="Enter edad primera menstruación">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_partos">Cantidad de partos</label>
+                                                                    <input type="number" class="form-control" id="inp_partos" name="partos" aria-describedby="inp_partos_help" placeholder="Enter cantidad de partos">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_edad_hijo">Edad (años) del último hijo</label>
+                                                                    <input type="number" class="form-control" id="inp_edad_hijo" name="edad_hijo" aria-describedby="inp_edad_hijo_help" placeholder="Enter edad último hijo">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_lact">Tiempo de lactancia del último hijo</label>
+                                                                    <input type="text" class="form-control" id="inp_lact" name="lact" aria-describedby="inp_lact_help" placeholder="Enter tiempo lactancia">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Lactancia en su último hijo</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_lact1" name="lact">
+                                                                        <label class="form-check-label" for="inp_lact1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_lact2" name="lact">
+                                                                        <label class="form-check-label" for="inp_lact2">No</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col style86">
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Anticonceptivos orales</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_anti1" name="anti">
+                                                                        <label class="form-check-label" for="inp_anti1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_anti2" name="anti">
+                                                                        <label class="form-check-label" for="inp_anti2">No</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_anti_t">Tiempo que los tomó</label>
+                                                                    <input type="text" class="form-control" id="inp_anti_t" name="anti_t" aria-describedby="inp_anti_t_help" placeholder="Enter tiempo que tomó los anticonceptivos">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_anti_u">Última vez que los usó</label>
+                                                                    <input type="text" class="form-control" id="inp_anti_u" name="anti_u" aria-describedby="inp_anti_u_help" placeholder="Enter última vez que los usó">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Terapia hormonal para menopausia</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_terapia1" name="terapia">
+                                                                        <label class="form-check-label" for="inp_terapia1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_terapia2" name="terapia">
+                                                                        <label class="form-check-label" for="inp_terapia2">No</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_terapia_t">Tipo de terapia</label>
+                                                                    <select id="inp_terapia_t" class="form-control" name="terapia_t">
+                                                                        <option value="1">Sistémico (oral)</option>
+                                                                        <option value="2">Tópico (Crema o Parche)</option>
+                                                                        <option value="3">Intravaginal (óvulos o anillo)</option>
+                                                                        <option value="4">No sabe</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_terapia_tiempo">Tiempo de uso</label>
+                                                                    <input type="text" class="form-control" id="inp_terapia_tiempo" name="terapia_tiempo" aria-describedby="inp_terapia_tiempo_help" placeholder="Enter tiempo de uso">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Biopsias de mama</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_biop1" name="biop">
+                                                                        <label class="form-check-label" for="inp_biop1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_biop2" name="biop">
+                                                                        <label class="form-check-label" for="inp_biop2">No</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_biopsias">Número biopsias</label>
+                                                                    <input type="number" class="form-control" id="inp_biopsias" name="biopsias" aria-describedby="inp_biopsias_help" placeholder="Enter numero biopsias">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_resultado_b">Resultado</label>
+                                                                    <input type="text" class="form-control" id="inp_resultado_b" name="resultado_b" aria-describedby="inp_resultado_b_help" placeholder="Enter resultado biopsia">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+
+
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade style104" id="navTabs1_3" role="tabpanel">
+                            <div class="row style71">
+
+                                <div class="col style105">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="input3" name="input3">
+                                        <label class="form-check-label style70" for="input3" style="font-size: 0.8rem !important; padding-left: 25px;">Filtros de Información</label>
+                                    </div><button id="btn4" class="btn newbutton active style73" style="all: unset; cursor: pointer; text-decoration: underline;">Editar filtros</button>
+                                </div>
+
+
+                                <div class="col style73">
+                                    <div class="col class106">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="edit3" name="edit3">
+                                            <label class="form-check-label style70" for="edit3" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
+                                        </div><button id="save3" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" hidden>Guardar Cambios</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row no-gutters style69 row-cols-xl-7" style="flex-grow: 1;">
+                                <div class="col style79 col-xl">
+                                    <div class="card style75 no-gutters">
+                                        <section class="style87">
+                                            <div class="row style88" style="">
+
+                                                <form is="dmx-serverconnect-form" id="form_historia_familiar" method="post" action="" dmx-generator="bootstrap4" dmx-form-type="vertical" class="style99">
+                                                    <div class="col style86">
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Pruebas genéticas previas</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_prb_g1" name="prb_g">
+                                                                        <label class="form-check-label" for="inp_prb_g1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_prb_g2" name="prb_g">
+                                                                        <label class="form-check-label" for="inp_prb_g2">No</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+
+
+                                                                    <label>Resultado</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p1" name="resultado_p1">
+                                                                        <label class="form-check-label" for="inp_resultado_p1">BRCA1</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p2" name="resultado_p2">
+                                                                        <label class="form-check-label" for="inp_resultado_p2">BRCA2</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p3" name="resultado_p3">
+                                                                        <label class="form-check-label" for="inp_resultado_p3">TP53</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p4" name="resultado_p4">
+                                                                        <label class="form-check-label" for="inp_resultado_p4">PTEN</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p5" name="resultado_p5">
+                                                                        <label class="form-check-label" for="inp_resultado_p5">CDH1</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p6" name="resultado_p6">
+                                                                        <label class="form-check-label" for="inp_resultado_p6">STK11</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_resultado_o">Otro resultado</label>
+                                                                    <input type="text" class="form-control" id="inp_resultado_o" name="resultado_o" aria-describedby="inp_resultado_o_help" placeholder="Enter otro resultado">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col style86">
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Familiares con cáncer de mama u ovario</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_fam1" name="fam">
+                                                                        <label class="form-check-label" for="inp_fam1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_fam2" name="fam">
+                                                                        <label class="form-check-label" for="inp_fam2">No</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+
+
+                                                                    <label>Parentesco</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_parentesco1" name="parentesco1">
+                                                                        <label class="form-check-label" for="inp_parentesco1">Madre</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_parentesco2" name="parentesco2">
+                                                                        <label class="form-check-label" for="inp_parentesco2">Tía materna</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_parentesco3" name="parentesco3">
+                                                                        <label class="form-check-label" for="inp_parentesco3">Tía paterna</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_parentesco4" name="parentesco4">
+                                                                        <label class="form-check-label" for="inp_parentesco4">Abuela materna</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_parentesco5" name="parentesco5">
+                                                                        <label class="form-check-label" for="inp_parentesco5">Abuela paterna</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group style98">
+                                                                    <label class="col-sm-2 col-form-label style96">Familiares con otro tipo de cáncer</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_famc1" name="famc">
+                                                                        <label class="form-check-label" for="inp_famc1">Sí</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" value="" id="inp_famc2" name="famc">
+                                                                        <label class="form-check-label" for="inp_famc2">No</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_tipo_c">Tipo de cáncer</label>
+                                                                    <input type="text" class="form-control" id="inp_tipo_c" name="tipo_c" aria-describedby="inp_tipo_c_help" placeholder="Enter tipo de cáncer">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="inp_parentescoc">Parentesco</label>
+                                                                    <input type="text" class="form-control" id="inp_parentescoc" name="parentescoc" aria-describedby="inp_parentescoc_help" placeholder="Enter parentesco">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+
+
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="js/table.js"></script>
+    <script src="bootstrap/4/js/popper.min.js"></script>
+    <script src="bootstrap/4/js/bootstrap.min.js"></script>
+</body>
+
+</html>

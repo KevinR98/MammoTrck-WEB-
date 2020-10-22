@@ -1,7 +1,8 @@
 <!doctype html>
-<html>
+<html is="dmx-app">
 
 <head>
+    <script src="dmxAppConnect/dmxAppConnect.js"></script>
     <meta charset="UTF-8">
     <title>Formularios</title>
 
@@ -36,17 +37,17 @@
     <script src="dmxAppConnect/dmxDataTraversal/dmxDataTraversal.js" defer=""></script>
 </head>
 
-<body id="formularios" class="style32" style="width: 100%; height: 100%; margin: 0 auto;">
+<body id="formularios" class="style32" style="width: 100vw; height: 100vh; margin: 0 auto;">
     <div style="width: 100%; height: 100%;">
-        <div class="row style36 justify-content-xl-start row-cols-xl-7">
-            <div class="col-12 mb-3 col-md-4 col-lg-3 style35 col-xl align-self-xl-stretch offset-xl-0 w-auto border-right border-dark col-xl-2">
+        <div class="row style36 justify-content-xl-start row-cols-xl-7" style="margin-bottom: 0px;">
+            <div class="col-12 col-md-4 col-lg-3 style35 col-xl align-self-xl-stretch offset-xl-0 w-auto border-right border-dark col-xl-2">
                 <div class="contentArea style40">
-                    <section>
+                    <section class="style80">
                         <p id="nombre_usuario" class="style37"><b>Nombre del Usuario</b></p>
                         <p id="id_usuario" class="style39">ID del Usuario</p>
-                        <p class="style36" id="fecha_hoy"><b class="style54">Fecha de hoy</b></p>
+                        <p id="fecha_hoy"><b class="style54">Fecha de hoy</b></p>
                     </section>
-                    <section>
+                    <section class="style84">
                         <div class="row">
                             <i class="material-icons style56">star</i><button id="boton_formularios" class="btn newbutton active" style="all: unset; cursor: pointer;">Formularios</button>
                         </div>
@@ -56,12 +57,11 @@
 
                         </div>
                     </section>
-                    <section></section>
-                    <section>
+                    <section class="style81">
                         <div class="d-block p-4 bg-transparent style42">
                             <img src="assets/images/1598155-200.png" class="style41">
                         </div>
-                        <section>
+                        <section class="style83">
                             <div class="row">
                                 <i class="material-icons style56">info</i><button id="boton_informacion" class="btn newbutton active" style="all: unset; cursor: pointer;">Información</button>
                             </div>
@@ -70,8 +70,6 @@
                             </div>
                         </section>
                     </section>
-
-
                 </div>
             </div>
             <div class="col-md-8 col-lg-9 col-12 offset-0 bg-light style52 col-xl-10">
@@ -112,6 +110,49 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+
+                                                <tr>
+                                                    <td>Tiger Nixon</td>
+                                                    <td>System Architect</td>
+                                                    <td>Edinburgh</td>
+                                                    <td>61</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Tiger Nixon</td>
+                                                    <td>System Architect</td>
+                                                    <td>Edinburgh</td>
+                                                    <td>61</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Tiger Nixon</td>
+                                                    <td>System Architect</td>
+                                                    <td>Edinburgh</td>
+                                                    <td>61</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Tiger Nixon</td>
+                                                    <td>System Architect</td>
+                                                    <td>Edinburgh</td>
+                                                    <td>61</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Tiger Nixon</td>
+                                                    <td>System Architect</td>
+                                                    <td>Edinburgh</td>
+                                                    <td>61</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Tiger Nixon</td>
+                                                    <td>System Architect</td>
+                                                    <td>Edinburgh</td>
+                                                    <td>61</td>
+
+                                                </tr>
                                                 <tr>
                                                     <td>Tiger Nixon</td>
                                                     <td>System Architect</td>
@@ -131,7 +172,7 @@
 
                 </section>
                 <section>
-                    <div class="row justify-content-xl-end">
+                    <div class="row justify-content-xl-end justify-content-lg-end">
                         <button id="boton_agregar" class="btn text-xl-right style65 bg-secondary" style="">Agregar un formulario</button>
                     </div>
                 </section>
