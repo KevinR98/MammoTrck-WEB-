@@ -4,10 +4,10 @@
 <html is="dmx-app">
 
 <head>
+    <script src="{% static 'index/frontend/dmxAppConnect/dmxAppConnect.js'  %}"></script>
     <meta charset="UTF-8">
     <title>Formularios</title>
 
-    <script src="{% static 'index/frontend/dmxAppConnect/dmxAppConnect.js'  %}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{% static 'index/frontend/bootstrap/4/css/bootstrap.min.css'  %}" />
@@ -38,17 +38,17 @@
     <script src="{% static 'index/frontend/dmxAppConnect/dmxDataTraversal/dmxDataTraversal.js'  %}" defer=""></script>
 </head>
 
-<body id="formularios" class="style32" style="width: 100%; height: 100%; margin: 0 auto;">
+<body id="formularios" class="style32" style="width: 100vw; height: 100vh; margin: 0 auto;">
     <div style="width: 100%; height: 100%;">
-        <div class="row style36 justify-content-xl-start row-cols-xl-7">
-            <div class="col-12 mb-3 col-md-4 col-lg-3 style35 col-xl align-self-xl-stretch offset-xl-0 w-auto border-right border-dark col-xl-2">
+        <div class="row style36 justify-content-xl-start row-cols-xl-7" style="margin-bottom: 0px;">
+            <div class="col-12 col-md-4 col-lg-3 style35 col-xl align-self-xl-stretch offset-xl-0 w-auto border-right border-dark col-xl-2">
                 <div class="contentArea style40">
-                    <section>
+                    <section class="style80">
                         <p id="nombre_usuario" class="style37"><b>{{username}}</b></p>
                         <p id="id_usuario" class="style39">{{user_id}}</p>
-                        <p class="style36" id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
+                        <p id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
                     </section>
-                    <section>
+                    <section class="style84">
                         <div class="row">
                             <i class="material-icons style56">star</i><button id="boton_formularios" class="btn newbutton active" style="all: unset; cursor: pointer;">Formularios</button>
                         </div>
@@ -58,42 +58,34 @@
 
                         </div>
                     </section>
-                    <section></section>
-                    <section>
+                    <section class="style81">
                         <div class="d-block p-4 bg-transparent style42">
                             <img src="{% static 'index/frontend/assets/images/1598155-200.png'  %}" class="style41">
                         </div>
-                        <section>
+                        <section class="style83">
                             <div class="row">
                                 <i class="material-icons style56">info</i><button id="boton_informacion" class="btn newbutton active" style="all: unset; cursor: pointer;">Información</button>
                             </div>
-                           <form action="{% url 'logout' %}">
+                             <form action="{% url 'logout' %}">
                                 <div class="row">
                                     <i class="material-icons style56">logout</i> <button id="boton_logout" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer;" data-toggle="button">Cerrar sesión</button>
                                 </div>
-                           </form>
+                             </form>
                         </section>
                     </section>
-
-
                 </div>
             </div>
 
 
 
 
-
             <div class="col-md-8 col-lg-9 col-12 offset-0 bg-light style52 col-xl-10">
-
-                <header class="style50">
-                    <form action="{% url 'patients' %}">
-
-                        <div class="row"><i class="material-icons style56">arrow_back</i>
-                            <button id="btn3" type="submit" class="btn newbutton active style59" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
+                <form action="{% url 'patients' %}">
+                    <header class="style50">
+                        <div class="row"><i class="material-icons style56">arrow_back</i> <button id="btn3" class="btn newbutton active style59" type="submit" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
                                     id="boton_volver">Volver</span></button></div>
-                    </form>
-
-                </header>
+                    </header>
+                </form>
                 <header style="" class="bg-white">
                     <div class="row style62">
                         <p><b class="style61" id="id_paciente">{{patient_id}}</b></p>
@@ -127,14 +119,14 @@
                                             </thead>
                                             <tbody>
                                             {% for form in list_forms %}
-                                                    <tr onclick="document.location = '{% url 'forms' %}?id_form={{form.id}}';">
-                                                        <td>{{ form.id }}</td>
-                                                        <td>{{ form.date_created }}</td>
-                                                        <td>{{ form.sate }}</td>
-                                                        <td>
-                                                            <a href="{% url 'forms' %}?id_form={{form.id}}"> Desactivar </a>
-                                                        </td>
-                                                    </tr>
+                                                        <tr onclick="document.location = '{% url 'form' %}?id_patient={{patient_id}}&id_form={{form.id}}';">
+                                                            <td>{{ form.id }}</td>
+                                                            <td>{{ form.date_created }}</td>
+                                                            <td>{{ form.sate }}</td>
+                                                            <td>
+                                                                <a href="{% url 'deactivate_forms' %}?id_patient={{patient_id}}&id_form={{form.id}}"> Desactivar </a>
+                                                            </td>
+                                                        </tr>
                                             {% endfor %}
 
                                             </tbody>
@@ -147,11 +139,9 @@
 
                 </section>
                 <section>
-
-                        <div class="row justify-content-xl-end">
-                            <button onclick="document.location = '{% url 'create_forms' %}?id_patient={{patient_id}}';" id="boton_agregar" class="btn text-xl-right style65 bg-secondary" style="">Agregar un formulario</button>
-                        </div>
-
+                    <div class="row justify-content-xl-end justify-content-lg-end">
+                        <button onclick="document.location = '{% url 'create_forms' %}?id_patient={{patient_id}}';" id="boton_agregar" class="btn text-xl-right style65 bg-secondary" style="">Agregar un formulario</button>
+                    </div>
                 </section>
 
             </div>

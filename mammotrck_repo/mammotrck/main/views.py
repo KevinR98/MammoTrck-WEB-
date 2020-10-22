@@ -137,15 +137,16 @@ def lista_formularios(request):
 
             list_forms = []
             for form in list_forms_db:
-                form_dict = {}
-                form_dict['id'] = form['id_form']
-                form_dict['date_created'] = form['created_at'].strftime("%d/%m/%y %H:%M:%S")
-                form_dict['sate'] = form['habilitado']
+                if form['habilitado']:
+                    form_dict = {}
+                    form_dict['id'] = form['id_form']
+                    form_dict['date_created'] = form['created_at'].strftime("%d/%m/%y %H:%M:%S")
+                    form_dict['sate'] = form['habilitado']
 
-                list_forms += [form_dict]
+                    list_forms += [form_dict]
 
 
-            context = {'patient_id':request.GET['id_patient'], 'patient_name':patient.name , 'username': request.user.username, 'user_id': request.user.pk, 'current_date': date,
+            context = {'patient_id':patient.id_patient, 'patient_name':patient.name , 'username': request.user.username, 'user_id': request.user.pk, 'current_date': date,
                         'list_forms': list_forms}
 
             return render(request, 'index/formularios.html', context)
@@ -154,22 +155,19 @@ def lista_formularios(request):
     else:
         return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
 
-
+#TODO
 def deshabilitar_formulario(request):
     if request.user.is_authenticated:
-        if request.POST.get("id_form") and request.POST.get("enabled"):
+        form = Form.objects.get(id_patient=request.GET['id_form'])
 
-            id = request.POST['id_form']
-            form = Form.objects.get(pk=id)
+        form.habilitado = False;
+        form.save()
 
+        return redirect('/forms/?id_patient='+request.GET['id_patient'])
 
-            enabled = request.POST['enabled'] #Verificar que devuelva booleano
-            form.habilitado = enabled
-            form.save()
-
-            return redirect('/forms/')
     else:
         error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+
 
 def agregar_formulario(request):
     if request.user.is_authenticated:
@@ -182,6 +180,7 @@ def agregar_formulario(request):
 
 
         new_form = Form.objects.create(id_form=id, id_patient=patient)
+        new_form.habilitado = True
         new_form.save()
 
         return redirect('/forms/?id_patient='+request.GET['id_patient'])
@@ -192,11 +191,16 @@ def agregar_formulario(request):
 def formulario(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
-            list_forms = Form.objects.filter(
-                id_pacient=request.GET['id_pacient'])  # Pasar por parametro id del paciente
+            patient = Patient.objects.get(id_patient=request.GET['id_patient'])
+            form = Form.objects.get(id_form=request.GET['id_form'])
+            date = datetime.today().strftime("%d/%m/%y")
 
-            context = {'pacients': list_forms}
-            return render(request, 'index/forms.html', context)
+            print(request.GET['id_patient'])
+            context = {'patient_id': request.GET['id_patient'], 'patient_name': patient.name,
+                       'username': request.user.username, 'user_id': request.user.pk, 'current_date': date,
+                       'list_forms': None}
+
+            return render(request, 'index/formulario.html', context)
 
     else:
         error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')

@@ -5,9 +5,9 @@
 
 <head>
     <script src="{% static 'index/frontend/dmxAppConnect/dmxAppConnect.js'  %}"></script>
-
     <meta charset="UTF-8">
     <title>Pacientes</title>
+
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,51 +39,36 @@
     <script src="{% static 'index/frontend/dmxAppConnect/dmxDataTraversal/dmxDataTraversal.js'  %}" defer=""></script>
 </head>
 
-<body id="pacientes" class="style32" style="width: 100%; height: 100%; margin: 0 auto;">
+<body id="pacientes" class="style32" style="width: 100vw; height: 100vh; margin: 0 auto;">
     <div style="width: 100%; height: 100%;">
-        <div class="row style36 justify-content-xl-start row-cols-xl-7">
-                    <div class="row style36 justify-content-xl-start row-cols-xl-7">
-            <div class="col-12 mb-3 col-md-4 col-lg-3 style35 col-xl align-self-xl-stretch offset-xl-0 w-auto border-right border-dark col-xl-2">
+        <div class="row style36 justify-content-xl-start row-cols-xl-7" style="margin-bottom: 0px;">
+            <div class="col-12 col-md-4 col-lg-3 style35 col-xl align-self-xl-stretch offset-xl-0 w-auto border-right border-dark col-xl-2">
                 <div class="contentArea style40">
-                    <section>
+                    <section class="style80">
                         <p id="nombre_usuario" class="style37"><b>{{username}}</b></p>
                         <p id="id_usuario" class="style39">{{user_id}}</p>
-                        <p class="style36" id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
+                        <p id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
                     </section>
-                    <section>
-                        <div class="row">
-                            <i class="material-icons style56">star</i><button id="boton_formularios" class="btn newbutton active" style="all: unset; cursor: pointer;">Formularios</button>
-                        </div>
-                        <div class="row">
+                    <section class="style84">
 
-                            <i class="material-icons style56">star</i><button id="boton_linea_tiempo" class="btn newbutton active" style="all: unset; cursor: pointer;">Línea de tiempo</button>
-
-                        </div>
                     </section>
-                    <section></section>
-                    <section>
+                    <section class="style81">
                         <div class="d-block p-4 bg-transparent style42">
                             <img src="{% static 'index/frontend/assets/images/1598155-200.png'  %}" class="style41">
                         </div>
-                        <section>
+                        <section class="style83">
                             <div class="row">
                                 <i class="material-icons style56">info</i><button id="boton_informacion" class="btn newbutton active" style="all: unset; cursor: pointer;">Información</button>
                             </div>
-                           <form action="{% url 'logout' %}">
+                            <form action="{% url 'logout' %}">
                                 <div class="row">
                                     <i class="material-icons style56">logout</i> <button id="boton_logout" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer;" data-toggle="button">Cerrar sesión</button>
                                 </div>
-                           </form>
-
+                            </form>
                         </section>
                     </section>
-
-
                 </div>
             </div>
-
-
-
             <div class="col-md-8 col-lg-9 col-12 offset-0 bg-light style52 col-xl-10">
 
                 <header class="style50">
@@ -112,17 +97,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            {% for patient in list_patients %}
+                                                {% for patient in list_patients %}
                                                     <tr onclick="document.location = '{% url 'forms' %}?id_patient={{patient.id}}';">
                                                         <td>{{ patient.id }}</td>
                                                         <td>System Architect</td>
                                                         <td>Edinburgh</td>
                                                         <td>61</td>
                                                     </tr>
-                                            {% endfor %}
+                                                {% endfor %}
+
+
                                             </tbody>
-
-
                                         </table>
                                     </div>
                                 </div>
@@ -135,7 +120,7 @@
             </div>
         </div>
     </div>
-    <script src="{% static 'index/frontend/js/table.js'  %}"></script>
+   <script src="{% static 'index/frontend/js/table.js'  %}"></script>
     <script src="{% static 'index/frontend/bootstrap/4/js/popper.min.js'  %}"></script>
     <script src="{% static 'index/frontend/bootstrap/4/js/bootstrap.min.js'  %}"></script>
 </body>

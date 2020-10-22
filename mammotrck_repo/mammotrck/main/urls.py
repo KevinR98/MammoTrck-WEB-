@@ -8,7 +8,8 @@ urlpatterns = [
     path('patients/', views.pacientes, name='patients'),
     path('forms/', views.lista_formularios, name='forms'),
     path('forms/create/', views.agregar_formulario, name='create_forms'),
-    path('forms/deactivate/', views.formulario, name='deactivate_forms'),
-    path('forms/images', views.formulario, name='images'),
+    path('forms/deactivate/', views.deshabilitar_formulario, name='deactivate_forms'),
+    path('form/', views.formulario, name='form'),
+    path('form/images', views.formulario, name='images'),
     path('timeline/', views.linea_de_tiempo, name='index')
 ]
