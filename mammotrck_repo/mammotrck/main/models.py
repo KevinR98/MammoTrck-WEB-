@@ -178,7 +178,7 @@ class Form(models.Model):
 
     id_form = models.CharField(primary_key=True, max_length=15)
     id_patient = models.ForeignKey(Patient, on_delete=models.PROTECT, default=2, null=True)
-    submitted_at = models.DateTimeField(auto_now_add=True, auto_now=False)
+    submitted_at = models.DateTimeField(null=True)
 
     habilitado = models.BooleanField(max_length=1, null=True, blank=True)
     completed = models.BooleanField(max_length=1, null=True, blank=True)
