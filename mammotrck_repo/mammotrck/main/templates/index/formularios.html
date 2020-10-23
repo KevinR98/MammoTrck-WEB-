@@ -122,7 +122,7 @@
                                                         <tr onclick="document.location = '{% url 'form' %}?id_patient={{patient_id}}&id_form={{form.id}}';">
                                                             <td>{{ form.id }}</td>
                                                             <td>{{ form.date_created }}</td>
-                                                            <td>{{ form.sate }}</td>
+                                                            <td>{{ form.state_form }}</td>
                                                             <td>
                                                                 <a href="{% url 'deactivate_forms' %}?id_patient={{patient_id}}&id_form={{form.id}}"> Desactivar </a>
                                                             </td>

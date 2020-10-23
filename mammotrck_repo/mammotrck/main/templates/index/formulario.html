@@ -93,13 +93,13 @@
 
                 <header style="" class="bg-white">
                     <div class="row style72">
-                        <p id="id_formulario">ID Formulario</p>
+                        <p id="id_formulario">{{form_id}}</p>
                     </div>
                     <div class="row style62">
-                        <p><span class="style61" id="fecha_formulario">Formulario Fecha/No registrado</span></p>
+                        <p><span class="style61" id="fecha_formulario">{{titulo_form}}</span></p>
                     </div>
                     <div class="row style64">
-                        <p id="nombre_paciente">Nombre Apellido Apellido de la paciente</p>
+                        <p id="nombre_paciente">{{patient_name}}</p>
                     </div>
 
 
@@ -151,11 +151,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_hospital">Hospital</label>
-                                                                    <select id="inp_hospital" class="form-control" name="hospital">
-                                                                        <option value="1">Option One</option>
-                                                                        <option value="2">Option Two</option>
-                                                                        <option value="3">Option Three</option>
-                                                                    </select>
+                                                                    {{subform_h.hospital}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -163,7 +159,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_fecha">Fecha</label>
-                                                                    <input type="date" class="form-control" id="inp_fecha" name="fecha" aria-describedby="inp_fecha_help" placeholder="Enter Fecha">
+                                                                    {{subform_h.fecha}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -171,7 +167,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_nombre">Nombre</label>
-                                                                    <input type="text" class="form-control" id="inp_nombre" name="nombre" aria-describedby="inp_nombre_help" placeholder="Enter Nombre">
+                                                                    {{subform_h.nombre}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -179,7 +175,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_cedula">Cédula</label>
-                                                                    <input type="text" class="form-control" id="inp_cedula" name="cedula" aria-describedby="inp_cedula_help" placeholder="Enter Cédula">
+                                                                     {{subform_h.cedula}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -187,7 +183,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_fecha_nacimiento">Fecha de nacimiento</label>
-                                                                    <input type="date" class="form-control" id="inp_fecha_nacimiento" name="fecha_nacimiento" aria-describedby="inp_fecha_nacimiento_help" placeholder="Enter Fecha de nacimiento">
+                                                                     {{subform_h.fecha_nacimiento}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -195,11 +191,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_nacionalidad">Nacionalidad</label>
-                                                                    <select id="inp_nacionalidad" class="form-control" name="nacionalidad">
-                                                                        <option value="1">Option One</option>
-                                                                        <option value="2">Option Two</option>
-                                                                        <option value="3">Option Three</option>
-                                                                    </select>
+                                                                     {{subform_h.nacionalidad}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -207,16 +199,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_etnia">Identidad étnica</label>
-                                                                    <select id="inp_etnia" class="form-control" name="etnia">
-                                                                        <option value="1">Indígena</option>
-                                                                        <option value="2">Afrodescendiente</option>
-                                                                        <option value="3">Mulata</option>
-                                                                        <option value="4">Origen Asiático</option>
-                                                                        <option value="5">Mestiza</option>
-                                                                        <option value="6">Caucásica</option>
-                                                                        <option value="7">No sabe</option>
-                                                                        <option value="8">Otra</option>
-                                                                    </select>
+                                                                     {{subform_h.identidad_etnica}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -224,7 +207,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_otra_ident">Otra identidad</label>
-                                                                    <input type="text" class="form-control" id="inp_otra_identidad" name="otra_identidad" aria-describedby="inp_otra_identidad_help" placeholder="Enter otra identidad étnica">
+                                                                     {{subform_h.otra_identidad}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -232,7 +215,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_peso">Peso (kg)</label>
-                                                                    <input type="number" class="form-control" id="inp_peso" name="peso" aria-describedby="inp_peso_help" placeholder="Enter Peso (kg)">
+                                                                     {{subform_h.peso_kg}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -240,7 +223,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_talla">Talla (m)</label>
-                                                                    <input type="number" class="form-control" id="inp_talla" name="talla" aria-describedby="inp_talla_help" placeholder="Enter Talla (m)">
+                                                                     {{subform_h.talla_m}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -248,7 +231,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_imc">IMC (kg/m2)</label>
-                                                                    <input type="number" class="form-control" id="inp_imc" name="imc" aria-describedby="inp_imc_help" placeholder="Enter IMC (kg/m2)">
+                                                                     {{subform_h.imc}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -257,17 +240,16 @@
                                                     <div class="col style86">
                                                         <div class="form-row">
                                                             <div class="col style97">
+
                                                                 <div class="form-group style98">
 
                                                                     <label class="col-sm-2 col-form-label style96">Fumador</label>
+                                                                    {% for radio in subform_h.fumador%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_fumado1" name="fumado" style="">
-                                                                        <label class="form-check-label" for="inp_fumado1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="fumado">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_fumado2" name="fumado">
-                                                                        <label class="form-check-label" for="inp_fumado2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -275,7 +257,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_edad_fumado">Edad que empezó a fumar</label>
-                                                                    <input type="number" class="form-control" id="inp_edad_fumado" name="edad_fumado" aria-describedby="inp_edad_fumado_help" placeholder="Enter Edad que empezó a fumar">
+                                                                    {{subform_h.edad_fumo}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -283,14 +265,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Fuma actualmente</label>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_fuma1" name="fuma">
-                                                                        <label class="form-check-label" for="inp_fuma1">Sí</label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_fuma2" name="fuma">
-                                                                        <label class="form-check-label" for="inp_fuma2">No</label>
-                                                                    </div>
+                                                                    {% for radio in subform_h.fuma_actuamente %}
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="fuma">
+                                                                            <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
+                                                                        </div>
+                                                                    {% endfor %}
 
                                                                 </div>
                                                             </div>
@@ -299,7 +279,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_tiempo_fumado">Por cuánto tiempo ha fumado</label>
-                                                                    <input type="text" class="form-control" id="inp_tiempo_fumado" name="tiempo_fumado" aria-describedby="inp_tiempo_fumado_help" placeholder="Enter Por cuánto tiempo ha fumado">
+                                                                    {{subform_h.tiempo_fumando}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -307,14 +287,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Bebe alcohol</label>
+                                                                    {% for radio in subform_h.bebe_alcohol%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_bebe1" name="bebe">
-                                                                        <label class="form-check-label" for="inp_bebe1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="bebe">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_bebe2" name="bebe">
-                                                                        <label class="form-check-label" for="inp_bebe2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
 
@@ -324,11 +302,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_frecuencia_bebe">Frecuencia en que bebe</label>
-                                                                    <select id="inp_frecuencia_bebe" class="form-control" name="frecuencia_bebe">
-                                                                        <option value="1">Option One</option>
-                                                                        <option value="2">Option Two</option>
-                                                                        <option value="3">Option Three</option>
-                                                                    </select>
+                                                                    {{subform_h.frecuencia}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -336,7 +310,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_otra_frecuencia">Otra frecuencia</label>
-                                                                    <input type="text" class="form-control" id="inp_otra_frecuencia" name="otra_frecuencia" aria-describedby="inp_otra_frecuencia_help" placeholder="Enter otra frecuencia de bebida">
+                                                                    {{subform_h.tiempo_fumando}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -344,14 +318,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Realiza actividad física</label>
+                                                                    {% for radio in subform_h.actividades_fisicas %}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_act1" name="act">
-                                                                        <label class="form-check-label" for="inp_act1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="act">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_act2" name="act">
-                                                                        <label class="form-check-label" for="inp_act2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
 
@@ -361,8 +333,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_minutos_actividad">Minutos por semana de actividad física</label>
-                                                                    <input type="number" class="form-control" id="inp_minutos_actividad" name="minutos_actividad" aria-describedby="inp_minutos_actividad_help"
-                                                                        placeholder="Enter Minutos por semana de actividad física">
+                                                                    {{subform_h.minutos_actividad_fisica}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -370,14 +341,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Consume alimentos con mucha grasa</label>
+                                                                    {% for radio in subform_h.alimentos_con_grasa%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_grasa1" name="grasa">
-                                                                        <label class="form-check-label" for="inp_grasa1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="grasa">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_grasa2" name="grasa">
-                                                                        <label class="form-check-label" for="inp_grasa2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
 
@@ -387,14 +356,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Consume vegetales, frutas y granos regularmente</label>
+                                                                    {% for radio in subform_h.consume_vegetales_frts_grns%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_veg1" name="veg">
-                                                                        <label class="form-check-label" for="inp_veg1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="veg">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_veg2" name="veg">
-                                                                        <label class="form-check-label" for="inp_veg2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
 
@@ -404,11 +371,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_diabetes">Diabetes</label>
-                                                                    <select id="inp_diabetes" class="form-control" name="diabetes">
-                                                                        <option value="1">Option One</option>
-                                                                        <option value="2">Option Two</option>
-                                                                        <option value="3">Option Three</option>
-                                                                    </select>
+                                                                    {{subform_h.diabetes}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -416,14 +379,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Toma Tamoxifeno</label>
+                                                                    {% for radio in subform_h.toma_tamoxifeno%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med11" name="med11">
-                                                                        <label class="form-check-label" for="inp_med11">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med1">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med12" name="med1">
-                                                                        <label class="form-check-label" for="inp_med12">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
 
@@ -433,7 +394,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_med_1_t">Por cuánto tiempo</label>
-                                                                    <input type="text" class="form-control" id="inp_med_1_t" name="med_1_t" aria-describedby="inp_med_1_t_help" placeholder="Enter Por cuánto tiempo">
+                                                                    {{subform_h.cuanto_tiempo_tamoxifeno}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -441,14 +402,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Toma Anastrozol</label>
+                                                                    {% for radio in subform_h.toma_anastrozol%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med21" name="med2">
-                                                                        <label class="form-check-label" for="inp_med21">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med2">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med22" name="med2">
-                                                                        <label class="form-check-label" for="inp_med22">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
 
@@ -458,7 +417,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_med_2_t">Por cuánto tiempo</label>
-                                                                    <input type="text" class="form-control" id="inp_med_2_t" name="med_2_t" aria-describedby="inp_med_2_t_help" placeholder="Enter Por cuánto tiempo">
+                                                                    {{subform_h.cuanto_tiempo_anastrozol}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -466,14 +425,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Toma Metformina</label>
+                                                                    {% for radio in subform_h.toma_metformina%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med31" name="med3">
-                                                                        <label class="form-check-label" for="inp_med31">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med3">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med32" name="med3">
-                                                                        <label class="form-check-label" for="inp_med32">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
 
@@ -483,7 +440,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_med_3_t">Por cuánto tiempo</label>
-                                                                    <input type="text" class="form-control" id="inp_med_3_t" name="med_3_t" aria-describedby="inp_med_3_t_help" placeholder="Enter Por cuánto tiempo">
+                                                                    {{subform_h.cuanto_tiempo_metformina}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -491,14 +448,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Toma Bifosfonatos</label>
+                                                                    {% for radio in subform_h.toma_bifosfonatos%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med41" name="med4">
-                                                                        <label class="form-check-label" for="inp_med41">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med4">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med42" name="med4">
-                                                                        <label class="form-check-label" for="inp_med42">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
 
@@ -508,7 +463,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_med_4_t">Por cuánto tiempo</label>
-                                                                    <input type="text" class="form-control" id="inp_med_4_t" name="med_4_t" aria-describedby="inp_med_4_t_help" placeholder="Enter Por cuánto tiempo">
+                                                                    {{subform_h.cuanto_tiempo_bisfofonatos}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -516,14 +471,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Toma Aspirina</label>
+                                                                    {% for radio in subform_h.toma_aspirinas%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med51" name="med5">
-                                                                        <label class="form-check-label" for="inp_med51">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med5">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med52" name="med5">
-                                                                        <label class="form-check-label" for="inp_med52">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
 
@@ -533,7 +486,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_med_5_t">Por cuánto tiempo</label>
-                                                                    <input type="text" class="form-control" id="inp_med_5_t" name="med_5_t" aria-describedby="inp_med_5_t_help" placeholder="Enter Por cuánto tiempo">
+                                                                    {{subform_h.cuanto_tiempo_aspirinas}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -541,14 +494,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Ha recibido tratamientos con radiación en el tórax</label>
+                                                                    {% for radio in subform_h.tratamiento_torax%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med61" name="med6">
-                                                                        <label class="form-check-label" for="inp_med61">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med5">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_med62" name="med6">
-                                                                        <label class="form-check-label" for="inp_med62">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
 

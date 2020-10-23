@@ -10,7 +10,8 @@ from django.http import HttpResponse
 
 from .models import User, Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
     Clinic, Patient
-from .forms import RegistrationForm
+from .forms import RegistrationForm, SubForm_historia_personal_Form, SubForm_antecedentes_g_o_Form, \
+    SubForm_historia_familiar_Form
 
 from .Clients import ClientFactory
 
@@ -138,15 +139,23 @@ def lista_formularios(request):
             list_forms = []
             for form in list_forms_db:
                 if form['habilitado']:
+
+                    estado = False
+                    if form['submitted_at'] != None:
+                        estado = True
+
                     form_dict = {}
                     form_dict['id'] = form['id_form']
                     form_dict['date_created'] = form['created_at'].strftime("%d/%m/%y %H:%M:%S")
-                    form_dict['sate'] = form['habilitado']
+                    form_dict['state_form'] = estado
 
                     list_forms += [form_dict]
 
-
-            context = {'patient_id':patient.id_patient, 'patient_name':patient.name , 'username': request.user.username, 'user_id': request.user.pk, 'current_date': date,
+            context = {'patient_id':patient.id_patient,
+                       'patient_name':patient.name ,
+                       'username': request.user.username,
+                       'user_id': request.user.pk,
+                       'current_date': date,
                         'list_forms': list_forms}
 
             return render(request, 'index/formularios.html', context)
@@ -155,10 +164,10 @@ def lista_formularios(request):
     else:
         return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
 
-#TODO
+
 def deshabilitar_formulario(request):
     if request.user.is_authenticated:
-        form = Form.objects.get(id_patient=request.GET['id_form'])
+        form = Form.objects.get(id_form=request.GET['id_form'])
 
         form.habilitado = False;
         form.save()
@@ -196,9 +205,29 @@ def formulario(request):
             date = datetime.today().strftime("%d/%m/%y")
 
             print(request.GET['id_patient'])
-            context = {'patient_id': request.GET['id_patient'], 'patient_name': patient.name,
-                       'username': request.user.username, 'user_id': request.user.pk, 'current_date': date,
-                       'list_forms': None}
+
+            titulo_form = 'Formulario '
+            if form.submitted_at != None:
+                titulo_form += "Registrado: " + form.submitted_at.strftime("%d/%m/%y")
+            else:
+                titulo_form += "No Registrado"
+
+            subform_hist_per = SubForm_historia_personal_Form()
+            subform_ant_g_o = SubForm_antecedentes_g_o_Form()
+            subform_hist_fam = SubForm_historia_familiar_Form()
+
+
+            context = {'patient_id': patient.id_patient,
+                       'form_id': form.id_form,
+                       'titulo_form': titulo_form,
+                       'patient_name': patient.name,
+                       'username': request.user.username,
+                       'user_id': request.user.pk,
+                       'current_date': date,
+                       'subform_h': subform_hist_per,
+                       'subform_a': subform_ant_g_o,
+                       'subform_hf': subform_hist_fam
+                       }
 
             return render(request, 'index/formulario.html', context)
 
