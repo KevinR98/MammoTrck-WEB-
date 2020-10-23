@@ -753,14 +753,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Pruebas genéticas previas</label>
+                                                                    {% for radio in subform_hf.pruebas_geneticas%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_prb_g1" name="prb_g">
-                                                                        <label class="form-check-label" for="inp_prb_g1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="biop">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_prb_g2" name="prb_g">
-                                                                        <label class="form-check-label" for="inp_prb_g2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
                                                             </div>
@@ -769,32 +767,15 @@
                                                             <div class="col">
                                                                 <div class="form-group">
 
-
                                                                     <label>Resultado</label>
+                                                                    {% for box in subform_hf.resultado%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p1" name="resultado_p1">
-                                                                        <label class="form-check-label" for="inp_resultado_p1">BRCA1</label>
+                                                                        <input class="form-check-input" type="checkbox" value="" id="{{box.id_for_label }}" name="resultado_p1">
+                                                                        <label class="form-check-label" for="{{box.id_for_label }}">{{box.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p2" name="resultado_p2">
-                                                                        <label class="form-check-label" for="inp_resultado_p2">BRCA2</label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p3" name="resultado_p3">
-                                                                        <label class="form-check-label" for="inp_resultado_p3">TP53</label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p4" name="resultado_p4">
-                                                                        <label class="form-check-label" for="inp_resultado_p4">PTEN</label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p5" name="resultado_p5">
-                                                                        <label class="form-check-label" for="inp_resultado_p5">CDH1</label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_resultado_p6" name="resultado_p6">
-                                                                        <label class="form-check-label" for="inp_resultado_p6">STK11</label>
-                                                                    </div>
+                                                                    {% endfor %}
+
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -804,7 +785,8 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_resultado_o">Otro resultado</label>
-                                                                    <input type="text" class="form-control" id="inp_resultado_o" name="resultado_o" aria-describedby="inp_resultado_o_help" placeholder="Enter otro resultado">
+                                                                    {{subform_hf.otro_resultado}}
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -816,14 +798,13 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Familiares con cáncer de mama u ovario</label>
+                                                                    {% for radio in subform_hf.familiares%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_fam1" name="fam">
-                                                                        <label class="form-check-label" for="inp_fam1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="biop">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_fam2" name="fam">
-                                                                        <label class="form-check-label" for="inp_fam2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
+
 
                                                                 </div>
                                                             </div>
@@ -834,26 +815,13 @@
 
 
                                                                     <label>Parentesco</label>
+                                                                    {% for box in subform_hf.parentesco%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_parentesco1" name="parentesco1">
-                                                                        <label class="form-check-label" for="inp_parentesco1">Madre</label>
+                                                                        <input class="form-check-input" type="checkbox" value="" id="{{box.id_for_label }}" name="resultado_p1">
+                                                                        <label class="form-check-label" for="{{box.id_for_label }}">{{box.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_parentesco2" name="parentesco2">
-                                                                        <label class="form-check-label" for="inp_parentesco2">Tía materna</label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_parentesco3" name="parentesco3">
-                                                                        <label class="form-check-label" for="inp_parentesco3">Tía paterna</label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_parentesco4" name="parentesco4">
-                                                                        <label class="form-check-label" for="inp_parentesco4">Abuela materna</label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="inp_parentesco5" name="parentesco5">
-                                                                        <label class="form-check-label" for="inp_parentesco5">Abuela paterna</label>
-                                                                    </div>
+                                                                    {% endfor %}
+
 
                                                                 </div>
                                                             </div>
@@ -864,14 +832,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Familiares con otro tipo de cáncer</label>
+                                                                    {% for radio in subform_hf.familiares_otro%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_famc1" name="famc">
-                                                                        <label class="form-check-label" for="inp_famc1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="biop">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_famc2" name="famc">
-                                                                        <label class="form-check-label" for="inp_famc2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
                                                             </div>
@@ -881,7 +847,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_tipo_c">Tipo de cáncer</label>
-                                                                    <input type="text" class="form-control" id="inp_tipo_c" name="tipo_c" aria-describedby="inp_tipo_c_help" placeholder="Enter tipo de cáncer">
+                                                                    {{subform_hf.tipo}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -890,7 +856,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_parentescoc">Parentesco</label>
-                                                                    <input type="text" class="form-control" id="inp_parentescoc" name="parentescoc" aria-describedby="inp_parentescoc_help" placeholder="Enter parentesco">
+                                                                    {{subform_hf.parentesco_tipo}}
                                                                 </div>
                                                             </div>
                                                         </div>

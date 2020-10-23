@@ -220,7 +220,41 @@ class SubForm_antecedentes_g_o_Form(forms.Form):
                    'placeholder': 'Enter resultado biopsia'}))
 
 class SubForm_historia_familiar_Form(forms.Form):
-    None
+    pruebas_geneticas = forms.CharField(widget=forms.RadioSelect(choices=[('0', 'Sí'), ('1', 'No')]))
+
+    resultado = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple(
+            attrs={'class': 'form-control', 'id': 'inp_frecuencia_bebe', 'name': 'frecuencia_bebe'}),
+        choices=get_roles()
+    )
+
+    otro_resultado = forms.CharField(max_length=40, widget=forms.TextInput(
+                attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_resultado_o',
+                       'name': 'resultado_o', 'aria-describedby': 'inp_resultado_o_help',
+                       'placeholder': 'Enter otro resultado'}))
+
+    familiares = forms.CharField(widget=forms.RadioSelect(choices=[('0', 'Sí'), ('1', 'No')]))
+
+    parentesco = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple(
+            attrs={'class': 'form-control', 'id': 'inp_frecuencia_bebe', 'name': 'frecuencia_bebe'}),
+        choices=get_roles()
+    )
+
+    familiares_otro = forms.CharField(widget=forms.RadioSelect(choices=[('0', 'Sí'), ('1', 'No')]))
+
+    tipo = forms.CharField(max_length=40, widget=forms.TextInput(
+                    attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_tipo_c',
+                           'name': 'tipo_c', 'aria-describedby': 'inp_tipo_c_help',
+                           'placeholder': 'Enter tipo de cáncer'}))
+
+    parentesco_tipo = forms.CharField(max_length=40, widget=forms.TextInput(
+                    attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_parentescoc',
+                           'name': 'parentescoc', 'aria-describedby': 'inp_parentescoc_help',
+                           'placeholder': 'Enter parentesco'}))
+
 
 
 class RegistrationForm(forms.Form):
