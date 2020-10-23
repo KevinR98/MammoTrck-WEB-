@@ -152,7 +152,72 @@ class SubForm_historia_personal_Form(forms.Form):
 
 
 class SubForm_antecedentes_g_o_Form(forms.Form):
-    None
+
+
+    edad_menstruacion = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'type':'number', 'class': 'form-control', 'id':'inp_mens',
+               'name':'mens', 'aria-describedby':'inp_mens_help',
+               'placeholder': 'Enter edad primera menstruación'}))
+
+    post_menopausia = forms.CharField(widget=forms.RadioSelect(choices=[('0', 'Sí'), ('1', 'No')]))
+
+
+    edad_menopausaia = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_meno',
+               'name': 'meno', 'aria-describedby': 'inp_meno_help',
+               'placeholder': 'Enter edad primera menopaucia'}))
+
+    cantidad_partos = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_partos',
+               'name': 'partos', 'aria-describedby': 'inp_partos_help',
+               'placeholder': 'Enter cantidad de partos'}))
+
+    edad_ultimo_hijo = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_edad_hijo',
+               'name': 'edad_hijo', 'aria-describedby': 'inp_edad_hijo_help',
+               'placeholder': 'Enter edad último hijo'}))
+
+    tiempo_lactancia = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_lact',
+               'name': 'lact', 'aria-describedby': 'inp_lact_help',
+               'placeholder': 'Enter tiempo lactancia'}))
+
+    lactancia_ult_hijo = forms.CharField(widget=forms.RadioSelect(choices=[('0', 'Sí'), ('1', 'No')]))
+
+    anticonceptivos_orales = forms.CharField(widget=forms.RadioSelect(choices=[('0', 'Sí'), ('1', 'No')]))
+
+    tiempo_tomo = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_anti_t',
+               'name': 'anti_t', 'aria-describedby': 'inp_anti_t_help',
+               'placeholder': 'Enter tiempo que tomó los anticonceptivos'}))
+
+    ultima_vez_uso = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_anti_u',
+               'name': 'anti_u', 'aria-describedby': 'inp_anti_u_help',
+               'placeholder': 'Enter última vez que los usó'}))
+
+    terapia_hormonal = forms.CharField(widget=forms.RadioSelect(choices=[('0', 'Sí'), ('1', 'No')]))
+
+    frecuencia = forms.CharField(
+            widget=forms.Select(attrs={'class': 'form-control', 'id': 'inp_terapia_t', 'name':'terapia_t'},
+                                choices=get_roles()))
+
+    tiempo_uso = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_terapia_tiempo',
+               'name': 'terapia_tiempo', 'aria-describedby': 'inp_terapia_tiempo_help',
+               'placeholder': 'Enter tiempo de uso'}))
+
+    biopsia_mama = forms.CharField(widget=forms.RadioSelect(choices=[('0', 'Sí'), ('1', 'No')]))
+
+    tiempo_uso = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_biopsias',
+               'name': 'biopsias', 'aria-describedby': 'inp_biopsias_help',
+               'placeholder': 'Enter numero biopsias'}))
+
+    resultado = forms.CharField(max_length=40, widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_resultado_b',
+                   'name': 'resultado_b', 'aria-describedby': 'inp_resultado_b_help',
+                   'placeholder': 'Enter resultado biopsia'}))
 
 class SubForm_historia_familiar_Form(forms.Form):
     None

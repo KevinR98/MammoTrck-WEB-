@@ -549,7 +549,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_mens">Edad (años) de la primera menstruación</label>
-                                                                    <input type="number" class="form-control" id="inp_mens" name="mens" aria-describedby="inp_mens_help" placeholder="Enter edad primera menstruación">
+                                                                    {{subform_a.edad_menstruacion}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -557,14 +557,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Post-menopausia</label>
+                                                                    {% for radio in subform_a.post_menopausia%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_meno1" name="meno">
-                                                                        <label class="form-check-label" for="inp_meno1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="meno">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_meno2" name="meno">
-                                                                        <label class="form-check-label" for="inp_meno2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
                                                             </div>
@@ -573,7 +571,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_meno">Edad (años) al momento de la menopausia</label>
-                                                                    <input type="number" class="form-control" id="inp_meno" name="meno" aria-describedby="inp_meno_help" placeholder="Enter edad primera menstruación">
+                                                                    {{subform_a.edad_menopausaia}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -581,7 +579,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_partos">Cantidad de partos</label>
-                                                                    <input type="number" class="form-control" id="inp_partos" name="partos" aria-describedby="inp_partos_help" placeholder="Enter cantidad de partos">
+                                                                    {{subform_a.cantidad_partos}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -589,7 +587,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_edad_hijo">Edad (años) del último hijo</label>
-                                                                    <input type="number" class="form-control" id="inp_edad_hijo" name="edad_hijo" aria-describedby="inp_edad_hijo_help" placeholder="Enter edad último hijo">
+                                                                    {{subform_a.edad_ultimo_hijo}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -598,7 +596,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_lact">Tiempo de lactancia del último hijo</label>
-                                                                    <input type="text" class="form-control" id="inp_lact" name="lact" aria-describedby="inp_lact_help" placeholder="Enter tiempo lactancia">
+                                                                    {{subform_a.tiempo_lactancia}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -606,14 +604,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Lactancia en su último hijo</label>
+                                                                    {% for radio in subform_a.lactancia_ult_hijo%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_lact1" name="lact">
-                                                                        <label class="form-check-label" for="inp_lact1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="lact">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_lact2" name="lact">
-                                                                        <label class="form-check-label" for="inp_lact2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
                                                             </div>
@@ -626,14 +622,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Anticonceptivos orales</label>
+                                                                    {% for radio in subform_a.anticonceptivos_orales%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_anti1" name="anti">
-                                                                        <label class="form-check-label" for="inp_anti1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="anti">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_anti2" name="anti">
-                                                                        <label class="form-check-label" for="inp_anti2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
                                                             </div>
@@ -642,7 +636,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_anti_t">Tiempo que los tomó</label>
-                                                                    <input type="text" class="form-control" id="inp_anti_t" name="anti_t" aria-describedby="inp_anti_t_help" placeholder="Enter tiempo que tomó los anticonceptivos">
+                                                                    {{subform_a.tiempo_tomo}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -650,7 +644,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_anti_u">Última vez que los usó</label>
-                                                                    <input type="text" class="form-control" id="inp_anti_u" name="anti_u" aria-describedby="inp_anti_u_help" placeholder="Enter última vez que los usó">
+                                                                    {{subform_a.ultima_vez_uso}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -658,14 +652,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Terapia hormonal para menopausia</label>
+                                                                    {% for radio in subform_a.terapia_hormonal%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_terapia1" name="terapia">
-                                                                        <label class="form-check-label" for="inp_terapia1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="terapia">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_terapia2" name="terapia">
-                                                                        <label class="form-check-label" for="inp_terapia2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
                                                             </div>
@@ -674,12 +666,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_terapia_t">Tipo de terapia</label>
-                                                                    <select id="inp_terapia_t" class="form-control" name="terapia_t">
-                                                                        <option value="1">Sistémico (oral)</option>
-                                                                        <option value="2">Tópico (Crema o Parche)</option>
-                                                                        <option value="3">Intravaginal (óvulos o anillo)</option>
-                                                                        <option value="4">No sabe</option>
-                                                                    </select>
+                                                                    {{subform_a.frecuencia}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -687,7 +674,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_terapia_tiempo">Tiempo de uso</label>
-                                                                    <input type="text" class="form-control" id="inp_terapia_tiempo" name="terapia_tiempo" aria-describedby="inp_terapia_tiempo_help" placeholder="Enter tiempo de uso">
+                                                                    {{subform_a.tiempo_uso}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -695,14 +682,12 @@
                                                             <div class="col">
                                                                 <div class="form-group style98">
                                                                     <label class="col-sm-2 col-form-label style96">Biopsias de mama</label>
+                                                                    {% for radio in subform_a.biopsia_mama%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_biop1" name="biop">
-                                                                        <label class="form-check-label" for="inp_biop1">Sí</label>
+                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="biop">
+                                                                        <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="inp_biop2" name="biop">
-                                                                        <label class="form-check-label" for="inp_biop2">No</label>
-                                                                    </div>
+                                                                    {% endfor %}
 
                                                                 </div>
                                                             </div>
@@ -711,7 +696,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_biopsias">Número biopsias</label>
-                                                                    <input type="number" class="form-control" id="inp_biopsias" name="biopsias" aria-describedby="inp_biopsias_help" placeholder="Enter numero biopsias">
+                                                                    {{subform_a.tiempo_uso}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -719,7 +704,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_resultado_b">Resultado</label>
-                                                                    <input type="text" class="form-control" id="inp_resultado_b" name="resultado_b" aria-describedby="inp_resultado_b_help" placeholder="Enter resultado biopsia">
+                                                                    {{subform_a.resultado}}
                                                                 </div>
                                                             </div>
                                                         </div>
