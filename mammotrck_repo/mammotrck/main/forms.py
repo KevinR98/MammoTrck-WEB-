@@ -337,7 +337,7 @@ class SubForm_historia_familiar_Form(forms.Form):
             self.fields['otro_resultado'].initial = subform.prueba_genetica_otro
             self.fields['familiares'].initial = from_db_checkbox(subform.familiares_mama)
 
-            self.fields['parentesco'].initial = [i.id for i in subform.parentesco.all()]
+            self.initial['parentesco'] = [i.id for i in subform.parentesco.all()]
 
             self.fields['familiares_otro'].initial = from_db_checkbox(subform.familiares_cancer)
             self.fields['tipo'].initial = subform.familiares_cancer_tipo

@@ -23,10 +23,9 @@ from .Clients import ClientFactory
 def index(request):
     if not request.user.is_authenticated:
         if request.method == 'GET':
-            return render(request, 'index/index.html')
-
+            return redirect('/login/')
     else:
-        error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
 
 @receiver(user_login_failed)
 def user_login_failed_callback(sender, credentials, **kwargs):
@@ -193,7 +192,7 @@ def lista_formularios(request):
 
 #@group_required('admin', 'medico')
 def deshabilitar_formulario(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and not request.user.groups.filter(name='asistente').exists():
         form = Form.objects.get(id_form=request.GET['id_form'])
 
         form.habilitado = False;
@@ -202,7 +201,7 @@ def deshabilitar_formulario(request):
         return redirect('/forms/?id_patient='+request.GET['id_patient'])
 
     else:
-        error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        return error_page(request, 400, 'Usuario no tienen permisos para esta funcionalidad.')
 
 
 def agregar_formulario(request):
@@ -265,7 +264,6 @@ def formulario(request):
 
 
 def guardar_subform_personal_Form(request):
-    print("lol")
     if request.user.is_authenticated:
         if request.method == 'POST':
 
