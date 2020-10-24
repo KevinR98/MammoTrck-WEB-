@@ -60,6 +60,17 @@
                             <i class="material-icons style56">star</i><button id="boton_linea_tiempo" class="btn newbutton active" style="all: unset; cursor: pointer;">Línea de tiempo</button>
 
                         </div>
+
+                        {% if user.is_superuser %}
+                        <form action="{% url 'admin:index' %}">
+                            <div class="row">
+
+                                <i class="material-icons style56">star</i><button id="boton_manejo_usuario" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer;">Manejo de Usuarios</button>
+
+                            </div>
+                        </form>
+
+                        {% endif %}
                     </section>
                     <section class="style81">
                         <div class="d-block p-4 bg-transparent style42">
@@ -135,7 +146,7 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="edit1" name="edit1">
                                             <label class="form-check-label style70" for="edit1" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
-                                        </div><button id="save1" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" hidden>Guardar Cambios</button>
+                                        </div><button id="save1" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" type="submit" form="form_historia_personal">Guardar Cambios</button>
                                     </div>
                                 </div>
                             </div>
@@ -145,21 +156,14 @@
                                         <section class="style87">
                                             <div class="row style88" style="">
 
-                                                <form is="dmx-serverconnect-form" id="form_historia_personal" method="post" action="" dmx-generator="bootstrap4" dmx-form-type="vertical" class="style99">
+                                                <form is="dmx-serverconnect-form" id="form_historia_personal" method="post" action="{%url 'save_form_historia_personal'%}?id_patient={{patient_id}}&id_form={{form_id}}" dmx-generator="bootstrap4" dmx-form-type="vertical" class="style99">
+                                                    {% csrf_token %}
                                                     <div class="col style86">
                                                         <div class="form-row">
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_hospital">Hospital</label>
                                                                     {{subform_h.hospital}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label for="inp_fecha">Fecha</label>
-                                                                    {{subform_h.fecha}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -246,7 +250,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Fumador</label>
                                                                     {% for radio in subform_h.fumador%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="fumado">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -267,7 +271,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Fuma actualmente</label>
                                                                     {% for radio in subform_h.fuma_actuamente %}
                                                                         <div class="form-check">
-                                                                            <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="fuma">
+                                                                            {{radio.tag }}
                                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                         </div>
                                                                     {% endfor %}
@@ -289,7 +293,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Bebe alcohol</label>
                                                                     {% for radio in subform_h.bebe_alcohol%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="bebe">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -310,7 +314,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_otra_frecuencia">Otra frecuencia</label>
-                                                                    {{subform_h.tiempo_fumando}}
+                                                                    {{subform_h.bebe_frecuencia}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -320,7 +324,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Realiza actividad física</label>
                                                                     {% for radio in subform_h.actividades_fisicas %}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="act">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -343,7 +347,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Consume alimentos con mucha grasa</label>
                                                                     {% for radio in subform_h.alimentos_con_grasa%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="grasa">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -358,7 +362,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Consume vegetales, frutas y granos regularmente</label>
                                                                     {% for radio in subform_h.consume_vegetales_frts_grns%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="veg">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -381,7 +385,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Toma Tamoxifeno</label>
                                                                     {% for radio in subform_h.toma_tamoxifeno%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med1">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -404,7 +408,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Toma Anastrozol</label>
                                                                     {% for radio in subform_h.toma_anastrozol%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med2">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -427,7 +431,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Toma Metformina</label>
                                                                     {% for radio in subform_h.toma_metformina%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med3">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -450,7 +454,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Toma Bifosfonatos</label>
                                                                     {% for radio in subform_h.toma_bifosfonatos%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med4">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -473,7 +477,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Toma Aspirina</label>
                                                                     {% for radio in subform_h.toma_aspirinas%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med5">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -496,7 +500,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Ha recibido tratamientos con radiación en el tórax</label>
                                                                     {% for radio in subform_h.tratamiento_torax%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="med5">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -533,7 +537,7 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="edit2" name="edit2">
                                             <label class="form-check-label style70" for="edit2" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
-                                        </div><button id="save2" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" hidden>Guardar Cambios</button>
+                                        </div><button id="save2" class="btn newbutton active style73 d-print-none"  type="submit" form="form_antecedentes_go" style="all: unset; cursor: pointer; text-decoration: underline;" >Guardar Cambios</button>
                                     </div>
                                 </div>
                             </div>
@@ -543,7 +547,8 @@
                                         <section class="style87">
                                             <div class="row style88" style="">
 
-                                                <form is="dmx-serverconnect-form" id="form_antecedentes_go" method="post" action="" dmx-generator="bootstrap4" dmx-form-type="vertical" class="style99">
+                                                <form is="dmx-serverconnect-form" id="form_antecedentes_go" method="post" action="{%url 'save_form_antecedentes_go'%}?id_patient={{patient_id}}&id_form={{form_id}}" dmx-generator="bootstrap4" dmx-form-type="vertical" class="style99">
+                                                    {% csrf_token %}
                                                     <div class="col style86">
                                                         <div class="form-row">
                                                             <div class="col">
@@ -556,10 +561,10 @@
                                                         <div class="form-row">
                                                             <div class="col">
                                                                 <div class="form-group style98">
-                                                                    <label class="col-sm-2 col-form-label style96">Post-menopausia</label>
-                                                                    {% for radio in subform_a.post_menopausia%}
+                                                                    <label class="col-sm-2 col-form-label style96">Menopausia</label>
+                                                                    {% for radio in subform_a.menopausia%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="meno">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -606,7 +611,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Lactancia en su último hijo</label>
                                                                     {% for radio in subform_a.lactancia_ult_hijo%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="lact">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -624,7 +629,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Anticonceptivos orales</label>
                                                                     {% for radio in subform_a.anticonceptivos_orales%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="anti">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -654,7 +659,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Terapia hormonal para menopausia</label>
                                                                     {% for radio in subform_a.terapia_hormonal%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="terapia">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -666,7 +671,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_terapia_t">Tipo de terapia</label>
-                                                                    {{subform_a.frecuencia}}
+                                                                    {{subform_a.tipo_terapia}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -684,7 +689,7 @@
                                                                     <label class="col-sm-2 col-form-label style96">Biopsias de mama</label>
                                                                     {% for radio in subform_a.biopsia_mama%}
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" value="" id="{{radio.id_for_label }}" name="biop">
+                                                                        {{radio.tag }}
                                                                         <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
                                                                     </div>
                                                                     {% endfor %}
@@ -696,7 +701,7 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="inp_biopsias">Número biopsias</label>
-                                                                    {{subform_a.tiempo_uso}}
+                                                                    {{subform_a.numero_biopsia}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -737,7 +742,7 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="edit3" name="edit3">
                                             <label class="form-check-label style70" for="edit3" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
-                                        </div><button id="save3" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" hidden>Guardar Cambios</button>
+                                        </div><button id="save3" class="btn newbutton active style73 d-print-none" type="submit" form="form_historia_familiar" style="all: unset; cursor: pointer; text-decoration: underline;" >Guardar Cambios</button>
                                     </div>
                                 </div>
                             </div>
@@ -747,7 +752,8 @@
                                         <section class="style87">
                                             <div class="row style88" style="">
 
-                                                <form is="dmx-serverconnect-form" id="form_historia_familiar" method="post" action="" dmx-generator="bootstrap4" dmx-form-type="vertical" class="style99">
+                                                <form is="dmx-serverconnect-form" id="form_historia_familiar" method="post" action="{%url 'save_form_historia_familiar'%}?id_patient={{patient_id}}&id_form={{form_id}}" dmx-generator="bootstrap4" dmx-form-type="vertical" class="style99">
+                                                    {% csrf_token %}
                                                     <div class="col style86">
                                                         <div class="form-row">
                                                             <div class="col">

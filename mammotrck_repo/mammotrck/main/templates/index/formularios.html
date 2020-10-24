@@ -57,6 +57,16 @@
                             <i class="material-icons style56">star</i><button id="boton_linea_tiempo" class="btn newbutton active" style="all: unset; cursor: pointer;">Línea de tiempo</button>
 
                         </div>
+                        {% if user.is_superuser %}
+                        <form action="{% url 'admin:index' %}">
+                            <div class="row">
+
+                                <i class="material-icons style56">star</i><button id="boton_manejo_usuario" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer;">Manejo de Usuarios</button>
+
+                            </div>
+                        </form>
+
+                        {% endif %}
                     </section>
                     <section class="style81">
                         <div class="d-block p-4 bg-transparent style42">
