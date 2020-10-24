@@ -2,6 +2,9 @@ from datetime import datetime
 import random
 
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import user_passes_test
+
+from django.contrib.auth.models import Group
 from django.contrib.auth.signals import user_login_failed, user_logged_in, user_logged_out
 from django.contrib import messages
 from django.dispatch import receiver
@@ -53,21 +56,14 @@ def error_page(request, status, message):
 
 def registration(request):
 
-    list_clinics_db = Clinic.objects.all().values()
-    list_clinics = []
-    for element in list_clinics_db:
-        list_clinics += [(element['id'], element['name'])]
-
     if not request.user.is_authenticated:
-        print('lol')
         if request.method == 'POST':
-            print('verificando')
             form = RegistrationForm(request.POST)
 
             if form.is_valid():
                 print("Creando cuenta...")
+
                 if User.objects.filter(email=request.POST['correo_electronico']):
-                    #messages.error(request, 'Correo asociado a una cuenta distinta.')
                     print("Correo ya existe")
                     return redirect('/patients/')
 
@@ -79,10 +75,23 @@ def registration(request):
                 new_user.firstname = request.POST['nombre']
                 new_user.save()
 
-                indice = [element[0] for element in list_clinics].index(int(request.POST['clinica']))
-                print(list_clinics_db[indice]['name'])
-
                 new_user.profile.clinic = Clinic.objects.filter(pk=int(request.POST['clinica'])).get()
+                print("Clinica seleccionada ", request.POST['clinica'])
+                print("Rol seleccionado ", request.POST['rol'])
+
+                rol = request.POST['rol']
+                if rol == '0':
+                    grupo = Group.objects.get(name='asistente')
+
+                elif rol == '1':
+                    grupo = Group.objects.get(name='medico')
+
+                else:
+                    grupo = Group.objects.get(name='admin')
+                    new_user.is_staff = True
+                    new_user.is_superuser = True
+
+                grupo.user_set.add(new_user)
                 new_user.save()
 
                 user = authenticate(username=new_user.username, password=request.POST['contrasena'])
@@ -97,7 +106,7 @@ def registration(request):
                 return error_page(request, 400, 'Error en la información recibida.')
 
         if request.method == 'GET':
-            form = RegistrationForm(list_clinics=list_clinics)
+            form = RegistrationForm()
 
             context = {'form': form}
             return render(request, 'index/register.html', context)
@@ -117,12 +126,26 @@ def pacientes(request):
             date = datetime.today().strftime("%d/%m/%y")
 
             for patient in list_patients_db:
+                print(patient)
+                form_list = list(Form.objects.filter(id_patient=patient['id_patient']).order_by('submitted_at').values())
+                quantity_form = len(form_list)
+
+                #print(form_list)
+                if quantity_form != 0:
+                    print(form_list[0])
+
+                print(quantity_form)
+
+
                 patient_dict = {}
 
                 patient_dict['id'] = patient['id_patient']
-                patient_dict['first_date'] = patient['created_at'].strftime("%d/%m/%y %H:%M:%S")
-                patient_dict['last_date'] = patient['created_at'].strftime("%d/%m/%y %H:%M:%S")
-                patient_dict['form_quantity'] = 25
+                if quantity_form != 0:
+                    if form_list[0]['submitted_at']:
+                        patient_dict['first_date'] = form_list[0]['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
+                        patient_dict['last_date'] = form_list[-1]['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
+
+                patient_dict['form_quantity'] = quantity_form
 
                 list_patients += [patient_dict]
 
@@ -151,7 +174,8 @@ def lista_formularios(request):
 
                     form_dict = {}
                     form_dict['id'] = form['id_form']
-                    form_dict['date_created'] = form['created_at'].strftime("%d/%m/%y %H:%M:%S")
+                    if form['submitted_at']:
+                        form_dict['date_created'] = form['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
                     form_dict['state_form'] = estado
 
                     list_forms += [form_dict]
@@ -170,6 +194,9 @@ def lista_formularios(request):
         return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
 
 
+
+
+#@group_required('admin', 'medico')
 def deshabilitar_formulario(request):
     if request.user.is_authenticated:
         form = Form.objects.get(id_form=request.GET['id_form'])
@@ -298,7 +325,6 @@ def guardar_subform_personal_Form(request):
                 return error_page(request, 400, 'Hubo un fallo en el request.')
 
             return redirect('/form/?id_patient=' + request.GET['id_patient'] + '&id_form=' + request.GET['id_form'])
-
     else:
         return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
 

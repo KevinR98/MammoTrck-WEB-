@@ -45,12 +45,22 @@
             <div class="col-12 col-md-4 col-lg-3 style35 col-xl align-self-xl-stretch offset-xl-0 w-auto border-right border-dark col-xl-2">
                 <div class="contentArea style40">
                     <section class="style80">
-                        <p id="nombre_usuario" class="style37"><b>{{username}}</b></p>
-                        <p id="id_usuario" class="style39">{{user_id}}</p>
+                        <p id="nombre_usuario" class="style37"><b>Correo: {{username}}</b></p>
+                        <p id="id_usuario" class="style39">Id de usuario: {{user_id}}</p>
                         <p id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
                     </section>
                     <section class="style84">
 
+                        {% if user.is_superuser %}
+                        <form action="{% url 'admin:index' %}">
+                            <div class="row">
+
+                                <i class="material-icons style56">star</i><button id="boton_manejo_usuario" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer;">Manejo de Usuarios</button>
+
+                            </div>
+                        </form>
+
+                        {% endif %}
                     </section>
                     <section class="style81">
                         <div class="d-block p-4 bg-transparent style42">
@@ -100,9 +110,9 @@
                                                 {% for patient in list_patients %}
                                                     <tr onclick="document.location = '{% url 'forms' %}?id_patient={{patient.id}}';">
                                                         <td>{{ patient.id }}</td>
-                                                        <td>System Architect</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>61</td>
+                                                        <td>{{ patient.first_date }}</td>
+                                                        <td>{{ patient.last_date }}</td>
+                                                        <td>{{ patient.form_quantity }}</td>
                                                     </tr>
                                                 {% endfor %}
 

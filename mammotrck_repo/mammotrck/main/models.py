@@ -22,9 +22,7 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    print("signal")
     if created:
-        print("hola")
         Profile.objects.create(user=instance)
 
 @receiver(post_save, sender=User)
@@ -121,7 +119,7 @@ class SubForm_antecedentes_g_o(models.Model):
     lactancia_tiempo = models.PositiveSmallIntegerField(null=True)
 
     anticonceptivos_aplica = models.BooleanField(max_length=1, null=True, blank=True)
-    anticonceptivos_cuanto =models.CharField(max_length=40, null=True)
+    anticonceptivos_cuanto = models.CharField(max_length=40, null=True)
     anticonceptivos_ult_vez = models.CharField(max_length=40, null=True)
 
     terapia_hormonal_aplica = models.BooleanField(max_length=1, null=True, blank=True)
@@ -159,7 +157,7 @@ class SubForm_historia_familiar(models.Model):
     familiares_cancer = models.BooleanField(max_length=1, null=True, blank=True)
 
     familiares_cancer_tipo = models.CharField(max_length=40, null=True)
-    familiares_cancer_parentezco = models.CharField(max_length=40, null=True)# con s
+    familiares_cancer_parentesco = models.CharField(max_length=40, null=True)
 
 
 
