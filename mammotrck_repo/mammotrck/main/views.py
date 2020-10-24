@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.decorators.cache import never_cache
 
 from .models import User, Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
     Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco
@@ -68,6 +69,10 @@ def registration(request):
                 if User.objects.filter(email=request.POST['correo_electronico']):
                     #messages.error(request, 'Correo asociado a una cuenta distinta.')
                     print("Correo ya existe")
+                    return redirect('/patients/')
+
+                elif request.POST['contrasena'] != request.POST['contrasena_confirmar']:
+                    print("Contraseña es diferente")
                     return redirect('/patients/')
 
                 new_user = User.objects.create_user(request.POST['correo_electronico'], request.POST['correo_electronico'], request.POST['contrasena'])
@@ -197,6 +202,7 @@ def agregar_formulario(request):
     else:
         error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
 
+@never_cache
 def formulario(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
@@ -368,12 +374,16 @@ def guardar_subForm_historia_familiar(request):
 
                 subform.prueba_genetica = request.POST["pruebas_geneticas"]
 
-                #subform.prueba_genetica_resultado = request.POST["resultado"]
+                subform.prueba_genetica_resultado.clear()
+                for element in subform_Form.cleaned_data.get('resultado'):
+                    subform.prueba_genetica_resultado.add(element)
 
-                subform.bebidas_cuanto_otro = request.POST["otro_resultado"]
+                subform.prueba_genetica_otro = request.POST["otro_resultado"]
                 subform.familiares_mama = request.POST["familiares"]
 
-                #subform.parentesco = request.POST["parentesco"]
+                subform.parentesco.clear()
+                for element in subform_Form.cleaned_data.get('parentesco'):
+                    subform.parentesco.add(element)
 
                 subform.familiares_cancer = request.POST["familiares_otro"]
 
@@ -382,6 +392,7 @@ def guardar_subForm_historia_familiar(request):
 
 
                 subform.save()
+
                 print("Cambios historia guardados")
 
 

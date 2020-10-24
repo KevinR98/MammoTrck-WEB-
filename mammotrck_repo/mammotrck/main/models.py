@@ -151,7 +151,7 @@ class SubForm_historia_familiar(models.Model):
 
     prueba_genetica = models.BooleanField(max_length=1, null=True, blank=True)
     prueba_genetica_resultado = models.ManyToManyField(Prueba_genetica)
-    bebidas_cuanto_otro = models.CharField(max_length=40, null=True, default=None)
+    prueba_genetica_otro = models.CharField(max_length=40, null=True, default=None)
 
     familiares_mama = models.BooleanField(max_length=1, null=True, blank=True)
     parentesco = models.ManyToManyField(Parentesco)
@@ -159,7 +159,7 @@ class SubForm_historia_familiar(models.Model):
     familiares_cancer = models.BooleanField(max_length=1, null=True, blank=True)
 
     familiares_cancer_tipo = models.CharField(max_length=40, null=True)
-    familiares_cancer_parentezco = models.CharField(max_length=40, null=True)
+    familiares_cancer_parentezco = models.CharField(max_length=40, null=True)# con s
 
 
 
@@ -185,8 +185,6 @@ class Form(models.Model):
     subform_hist_per = models.OneToOneField(SubForm_historia_personal, on_delete=models.PROTECT, default=2, null=True)
     subform_ant_g_o = models.OneToOneField(SubForm_antecedentes_g_o, on_delete=models.PROTECT, default=2, null=True)
     subform_hist_fam = models.OneToOneField(SubForm_historia_familiar, on_delete=models.PROTECT, default=2, null=True)
-
-
 
 
 @receiver(pre_save, sender=Form)

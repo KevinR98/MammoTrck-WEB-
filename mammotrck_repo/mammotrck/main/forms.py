@@ -18,8 +18,11 @@ TIPO_TERAPIA = [('0', 'Sistemico (Oral)'), ('1', 'Topico (Crema o Parche)'), ('2
 #'Madre', 'Tia (Materna)', 'Tia (Paterna)', 'Abuela (Materna)' ,'Abuela (Paterna)'
 
 
-
-
+def from_db_checkbox(db_source):
+    if db_source == None:
+        return None
+    else:
+        return int(db_source)
 
 
 class SubForm_historia_personal_Form(forms.Form):
@@ -46,30 +49,30 @@ class SubForm_historia_personal_Form(forms.Form):
             self.fields['peso_kg'].initial = subform.peso
             self.fields['talla_m'].initial =  subform.talla
             self.fields['imc'].initial = subform.imc
-            self.fields['fumador'].initial = int(subform.fuma) if subform.fuma else None
+            self.fields['fumador'].initial = from_db_checkbox(subform.fuma)
             self.fields['edad_fumo'].initial = subform.fuma_edad
-            self.fields['fuma_actuamente'].initial = int(subform.fuma_actualmente) if subform.fuma_actualmente else None
+            self.fields['fuma_actuamente'].initial = from_db_checkbox(subform.fuma_actualmente)
             self.fields['tiempo_fumando'].initial = subform.fuma_cuanto
-            self.fields['bebe_alcohol'].initial = int(subform.bebidas) if subform.bebidas else None
+            self.fields['bebe_alcohol'].initial = from_db_checkbox(subform.bebidas)
             self.fields['frecuencia'].initial = subform.bebidas_cuanto
             self.fields['bebe_frecuencia'].initial = subform.bebidas_cuanto_otro
-            self.fields['actividades_fisicas'].initial = int(subform.actividad_fisica) if subform.actividad_fisica else None
+            self.fields['actividades_fisicas'].initial = from_db_checkbox(subform.actividad_fisica)
             self.fields['minutos_actividad_fisica'].initial = subform.actividad_fisica_cuanto
-            self.fields['alimentos_con_grasa'].initial = int(subform.consume_alimentos_con_grasa) if subform.consume_alimentos_con_grasa else None
-            self.fields['consume_vegetales_frts_grns'].initial = int(subform.consume_veg_frut_gram) if subform.consume_veg_frut_gram else None
+            self.fields['alimentos_con_grasa'].initial = from_db_checkbox(subform.consume_alimentos_con_grasa)
+            self.fields['consume_vegetales_frts_grns'].initial = from_db_checkbox(subform.consume_veg_frut_gram)
             self.initial['diabetes'] =  subform.diabetes
-            self.fields['toma_tamoxifeno'].initial = int(subform.toma_medicamento_tamoxifeno) if subform.toma_medicamento_tamoxifeno else None
+            self.fields['toma_tamoxifeno'].initial = from_db_checkbox(subform.toma_medicamento_tamoxifeno)
             self.fields['cuanto_tiempo_tamoxifeno'].initial = subform.cuanto_tamoxifeno
-            self.fields['toma_anastrozol'].initial = int(subform.toma_medicamento_anastrozol) if subform.toma_medicamento_anastrozol else None
+            self.fields['toma_anastrozol'].initial = from_db_checkbox(subform.toma_medicamento_anastrozol)
             self.fields['cuanto_tiempo_anastrozol'].initial = subform.cuanto_anastrozol
-            self.fields['toma_metformina'].initial = int(subform.toma_medicamento_metformina) if subform.toma_medicamento_metformina else None
+            self.fields['toma_metformina'].initial = from_db_checkbox(subform.toma_medicamento_metformina)
             self.fields['cuanto_tiempo_metformina'].initial = subform.cuanto_metformina
-            self.fields['toma_bifosfonatos'].initial = int(subform.toma_medicamento_bifosfonatos) if subform.toma_medicamento_bifosfonatos else None
+            self.fields['toma_bifosfonatos'].initial = from_db_checkbox(subform.toma_medicamento_bifosfonatos)
             self.fields['cuanto_tiempo_bisfofonatos'].initial = subform.cuanto_bifosfonatos
-            self.fields['toma_aspirinas'].initial = int(subform.toma_medicamento_aspirina) if subform.toma_medicamento_aspirina else None
+            self.fields['toma_aspirinas'].initial = from_db_checkbox(subform.toma_medicamento_aspirina)
             self.fields['cuanto_tiempo_aspirinas'].initial = subform.cuanto_aspirina
 
-            self.fields['tratamiento_torax'].initial = int(subform.radiacion) if subform.radiacion else None
+            self.fields['tratamiento_torax'].initial = from_db_checkbox(subform.radiacion)
 
     hospital = forms.ChoiceField(required=False,
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'inp_hospital', 'name': 'hospital'}),
@@ -215,30 +218,35 @@ class SubForm_antecedentes_g_o_Form(forms.Form):
         super(SubForm_antecedentes_g_o_Form, self).__init__(*args, **kwargs)
 
         if self.id_subform:
+            print("Cargando datos go ....")
+
             subform = SubForm_antecedentes_g_o.objects.filter(pk=self.id_subform).get()
 
             self.fields['edad_menstruacion'].initial = subform.edad_menstruacion
-            self.fields['menopausia'].initial = int(subform.manopausa_aplica) if subform.manopausa_aplica else None
+            self.fields['menopausia'].initial = from_db_checkbox(subform.manopausa_aplica)
             self.fields['edad_menopausaia'].initial = subform.edad_manopausa
             self.fields['cantidad_partos'].initial = subform.parto_cantidad
             self.fields['edad_ultimo_hijo'].initial = subform.edad_ult_hijo
             self.fields['tiempo_lactancia'].initial = subform.lactancia_tiempo
-            self.fields['lactancia_ult_hijo'].initial = int(subform.lactancia_aplica) if subform.lactancia_aplica else None
+            self.fields['lactancia_ult_hijo'].initial = from_db_checkbox(subform.lactancia_aplica)
 
-            self.fields['anticonceptivos_orales'].initial = int(subform.anticonceptivos_aplica) if subform.anticonceptivos_aplica else None
+            self.fields['anticonceptivos_orales'].initial = from_db_checkbox(subform.anticonceptivos_aplica)
 
             self.fields['tiempo_tomo'].initial = subform.anticonceptivos_cuanto
             self.fields['ultima_vez_uso'].initial = subform.anticonceptivos_ult_vez
-            self.fields['terapia_hormonal'].initial = int(subform.terapia_hormonal_aplica) if subform.terapia_hormonal_aplica else None
+            self.fields['terapia_hormonal'].initial = from_db_checkbox(subform.terapia_hormonal_aplica)
 
             self.initial['tipo_terapia'] = subform.terapia
-            print(subform.terapia)
 
             self.fields['tiempo_uso'].initial = subform.cuanto_tiempo_terapia
 
-            self.fields['biopsia_mama'].initial = int(subform.biopsia_aplica) if subform.biopsia_aplica else None
+            self.fields['biopsia_mama'].initial = from_db_checkbox(subform.biopsia_aplica)
             self.fields['numero_biopsia'].initial = subform.biopsia_cuantas
             self.fields['resultado'].initial = subform.biopsia_resultado
+
+            print("Datos cargados go ....")
+
+
 
 
     edad_menstruacion = forms.CharField(max_length=40, widget=forms.TextInput(
@@ -306,6 +314,8 @@ class SubForm_antecedentes_g_o_Form(forms.Form):
                    'name': 'resultado_b', 'aria-describedby': 'inp_resultado_b_help',
                    'placeholder': 'Enter resultado biopsia'}))
 
+
+
 class SubForm_historia_familiar_Form(forms.Form):
 
     def __init__(self, *args, **kwargs):
@@ -318,25 +328,29 @@ class SubForm_historia_familiar_Form(forms.Form):
         super(SubForm_historia_familiar_Form, self).__init__(*args, **kwargs)
 
         if self.id_subform:
+            print("Cargando datos historia ....")
             subform = SubForm_historia_familiar.objects.filter(pk=self.id_subform).get()
-            self.fields['pruebas_geneticas'].initial = "Lol"
-            self.initial['resultado'] = {'resultado':["id_resultado_0"]}
 
-            self.fields['otro_resultado'].initial = "Lol"
-            #self.fields['familiares'].initial = "Lol"
-            #self.fields['parentesco'].initial = "Lol"
-            #self.fields['familiares_otro'].initial = "Lol"
-            self.fields['tipo'].initial = "Lol"
-            self.fields['parentesco_tipo'].initial = "Lol"
+            self.initial['pruebas_geneticas'] = from_db_checkbox(subform.prueba_genetica)
 
+            self.initial['resultado'] = [i.id for i in subform.prueba_genetica_resultado.all()]
+
+            self.fields['otro_resultado'].initial = subform.prueba_genetica_otro
+            self.fields['familiares'].initial = from_db_checkbox(subform.familiares_mama)
+
+            self.fields['parentesco'].initial = [i.id for i in subform.parentesco.all()]
+
+            self.fields['familiares_otro'].initial = from_db_checkbox(subform.familiares_cancer)
+            self.fields['tipo'].initial = subform.familiares_cancer_tipo
+            self.fields['parentesco_tipo'].initial = subform.familiares_cancer_parentezco
+            print("Datos cargados")
 
     pruebas_geneticas = forms.CharField(widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
 
     resultado = forms.MultipleChoiceField(
         required=False,
-        widget=forms.CheckboxSelectMultiple(
-            attrs={'class': 'form-control', 'id': 'inp_frecuencia_bebe', 'name': 'frecuencia_bebe'}),
-        choices=get_roles()
+        widget=forms.CheckboxSelectMultiple(),
+        choices=[(model.pk, model.tipo_prueba_genetica) for model in Prueba_genetica.objects.all()]
     )
 
     otro_resultado = forms.CharField(max_length=40, widget=forms.TextInput(
@@ -348,9 +362,8 @@ class SubForm_historia_familiar_Form(forms.Form):
 
     parentesco = forms.MultipleChoiceField(
         required=False,
-        widget=forms.CheckboxSelectMultiple(
-            attrs={'class': 'form-control', 'id': 'inp_frecuencia_bebe', 'name': 'frecuencia_bebe'}),
-        choices=get_roles()
+        widget=forms.CheckboxSelectMultiple(),
+        choices=[(model.pk, model.tipo_parentesco) for model in Parentesco.objects.all()]
     )
 
     familiares_otro = forms.CharField(widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
@@ -381,6 +394,8 @@ class RegistrationForm(forms.Form):
     nombre = forms.CharField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control style4', 'placeholder': 'Nombre Completo', 'pattern' : '[A-Za-z ]+', 'title' : 'Ingrese letras solamente.'}))
     correo_electronico = forms.EmailField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control',  'placeholder': 'Correo electrónico', 'type': 'email', 'id': 'email'}))
     contrasena = forms.CharField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña', 'type': 'password', 'id': 'password'}))
+    contrasena_confirmar = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Contraseña', 'type': 'password', 'id': 'password'}))
     clinica = forms.CharField(widget=forms.Select(attrs={'class': 'custom-select style17', 'id': 'select1'}, choices=get_roles()))
     rol = forms.CharField(widget=forms.Select(attrs={'class': 'form-control style25', 'id': 'select2'}, choices=get_roles()))
 
