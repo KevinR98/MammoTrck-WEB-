@@ -126,24 +126,19 @@ def pacientes(request):
             date = datetime.today().strftime("%d/%m/%y")
 
             for patient in list_patients_db:
-                print(patient)
-                form_list = list(Form.objects.filter(id_patient=patient['id_patient']).order_by('submitted_at').values())
+                form_list = list(Form.objects.filter(id_patient=patient['id_patient']).exclude(submitted_at=None).exclude(habilitado=False).order_by('submitted_at').values())
                 quantity_form = len(form_list)
 
-                #print(form_list)
                 if quantity_form != 0:
-                    print(form_list[0])
-
-                print(quantity_form)
-
+                    print("ultimo ", form_list[0], "\n")
+                    print("ultimo ", form_list[-1], "\n")
 
                 patient_dict = {}
 
                 patient_dict['id'] = patient['id_patient']
                 if quantity_form != 0:
-                    if form_list[0]['submitted_at']:
-                        patient_dict['first_date'] = form_list[0]['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
-                        patient_dict['last_date'] = form_list[-1]['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
+                    patient_dict['first_date'] = form_list[0]['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
+                    patient_dict['last_date'] = form_list[-1]['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
 
                 patient_dict['form_quantity'] = quantity_form
 

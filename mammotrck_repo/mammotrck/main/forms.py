@@ -341,7 +341,7 @@ class SubForm_historia_familiar_Form(forms.Form):
 
             self.fields['familiares_otro'].initial = from_db_checkbox(subform.familiares_cancer)
             self.fields['tipo'].initial = subform.familiares_cancer_tipo
-            self.fields['parentesco_tipo'].initial = subform.familiares_cancer_parentezco
+            self.fields['parentesco_tipo'].initial = subform.familiares_cancer_parentesco
             print("Datos cargados")
 
     pruebas_geneticas = forms.CharField(widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
