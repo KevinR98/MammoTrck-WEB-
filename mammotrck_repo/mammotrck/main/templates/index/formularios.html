@@ -44,15 +44,15 @@
             <div class="col-12 col-md-4 col-lg-3 style35 col-xl align-self-xl-stretch offset-xl-0 w-auto border-right border-dark col-xl-2">
                 <div class="contentArea style40">
                     <section class="style80">
-                        <p id="nombre_usuario" class="style37"><b>{{username}}</b></p>
-                        <p id="id_usuario" class="style39">{{user_id}}</p>
-                        <p id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
+                      <p id="nombre_usuario" class="style37"><b>Correo: {{username}}</b></p>
+                      <p id="id_usuario" class="style39">Id de usuario: {{user_id}}</p>
+                      <p id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
                     </section>
                     <section class="style84">
                         <div class="row">
                             <i class="material-icons style56">star</i><button id="boton_formularios" class="btn newbutton active" style="all: unset; cursor: pointer;">Formularios</button>
                         </div>
-                        <div class="row">
+                        <div class="row" hidden>
 
                             <i class="material-icons style56">star</i><button id="boton_linea_tiempo" class="btn newbutton active" style="all: unset; cursor: pointer;">Línea de tiempo</button>
 
@@ -132,9 +132,14 @@
                                                         <tr onclick="document.location = '{% url 'form' %}?id_patient={{patient_id}}&id_form={{form.id}}';">
                                                             <td>{{ form.id }}</td>
                                                             <td>{{ form.date_created }}</td>
-                                                            <td>{{ form.state_form }}</td>
+                                                            {% if form.habilitado %}
+
+                                                              <td>Registrado</td>
+                                                            {% else %}
+                                                              <td>No Registrado</td>
+                                                            {% endif %}
                                                             <td>
-                                                                <a href="{% url 'deactivate_forms' %}?id_patient={{patient_id}}&id_form={{form.id}}"> Desactivar </a>
+                                                                <a href="{% url 'deactivate_forms' %}?id_patient={{patient_id}}&id_form={{form.id}}"> Deshabilitar </a>
                                                             </td>
                                                         </tr>
                                             {% endfor %}

@@ -47,15 +47,15 @@
             <div class="col-12 col-md-4 col-lg-3 style35 col-xl align-self-xl-stretch offset-xl-0 w-auto border-right border-dark col-xl-2">
                 <div class="contentArea style40">
                     <section class="style80">
-                        <p id="nombre_usuario" class="style37"><b>{{username}}</b></p>
-                        <p id="id_usuario" class="style39">{{user_id}}</p>
-                        <p id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
+                      <p id="nombre_usuario" class="style37"><b>Correo: {{username}}</b></p>
+                      <p id="id_usuario" class="style39">Id de usuario: {{user_id}}</p>
+                      <p id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
                     </section>
                     <section class="style84">
                         <div class="row">
                             <i class="material-icons style56">star</i><button id="boton_formularios" class="btn newbutton active" style="all: unset; cursor: pointer;">Formularios</button>
                         </div>
-                        <div class="row">
+                        <div class="row" hidden>
 
                             <i class="material-icons style56">star</i><button id="boton_linea_tiempo" class="btn newbutton active" style="all: unset; cursor: pointer;">Línea de tiempo</button>
 
@@ -119,7 +119,7 @@
                 <section class="style82" style="flex: 1;">
                     <ul class="nav nav-tabs justify-content-xl-start" id="navTabs1_tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link" id="navTabs1_1_tab" data-toggle="tab" href="#" data-target="#navTabs1_1" role="tab" aria-controls="navTabs1_1" aria-selected="true">HISTORIA PERSONAL</a>
+                            <a class="nav-link active" id="navTabs1_1_tab" data-toggle="tab" href="#" data-target="#navTabs1_1" role="tab" aria-controls="navTabs1_1" aria-selected="true">HISTORIA PERSONAL</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="navTabs1_2_tab" data-toggle="tab" href="#" data-target="#navTabs1_2" role="tab" aria-controls="navTabs1_2" aria-selected="false">ANTECEDENTES GINECO-OBSTÉTRICOS</a>
@@ -133,7 +133,7 @@
                         <div class="tab-pane fade show active style91" id="navTabs1_1" role="tabpanel">
                             <div class="row style71">
 
-                                <div class="col style105">
+                                <div class="col style105" hidden>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="input1" name="input1">
                                         <label class="form-check-label style70" for="input1" style="font-size: 0.8rem !important; padding-left: 25px;">Filtros de Información</label>
@@ -144,9 +144,9 @@
                                 <div class="col style73">
                                     <div class="col class106">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="edit1" name="edit1">
+                                            <input class="form-check-input" type="checkbox" value="" id="edit1" name="edit1" onclick="modify_historia_personal()">
                                             <label class="form-check-label style70" for="edit1" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
-                                        </div><button id="save1" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" type="submit" form="form_historia_personal">Guardar Cambios</button>
+                                        </div><button id="save1" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" type="submit" form="form_historia_personal" onclick="disable_historia_personal()">Guardar Cambios</button>
                                     </div>
                                 </div>
                             </div>
@@ -524,7 +524,7 @@
                         <div class="tab-pane fade style103" id="navTabs1_2" role="tabpanel">
                             <div class="row style71">
 
-                                <div class="col style105">
+                                <div class="col style105" hidden>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="input2" name="input2">
                                         <label class="form-check-label style70" for="input2" style="font-size: 0.8rem !important; padding-left: 25px;">Filtros de Información</label>
@@ -535,9 +535,9 @@
                                 <div class="col style73">
                                     <div class="col class106">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="edit2" name="edit2">
+                                            <input class="form-check-input" type="checkbox" value="" id="edit2" name="edit2" onclick="modify_antecedentes()">
                                             <label class="form-check-label style70" for="edit2" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
-                                        </div><button id="save2" class="btn newbutton active style73 d-print-none"  type="submit" form="form_antecedentes_go" style="all: unset; cursor: pointer; text-decoration: underline;" >Guardar Cambios</button>
+                                        </div><button id="save2" class="btn newbutton active style73 d-print-none"  type="submit" form="form_antecedentes_go" style="all: unset; cursor: pointer; text-decoration: underline;" onclick="disable_antecedentes()">Guardar Cambios</button>
                                     </div>
                                 </div>
                             </div>
@@ -729,7 +729,7 @@
                         <div class="tab-pane fade style104" id="navTabs1_3" role="tabpanel">
                             <div class="row style71">
 
-                                <div class="col style105">
+                                <div class="col style105" hidden>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="input3" name="input3">
                                         <label class="form-check-label style70" for="input3" style="font-size: 0.8rem !important; padding-left: 25px;">Filtros de Información</label>
@@ -740,9 +740,9 @@
                                 <div class="col style73">
                                     <div class="col class106">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="edit3" name="edit3">
+                                            <input class="form-check-input" type="checkbox" value="" id="edit3" name="edit3" onclick="modify_historia_familiar()">
                                             <label class="form-check-label style70" for="edit3" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
-                                        </div><button id="save3" class="btn newbutton active style73 d-print-none" type="submit" form="form_historia_familiar" style="all: unset; cursor: pointer; text-decoration: underline;" >Guardar Cambios</button>
+                                        </div><button id="save3" class="btn newbutton active style73 d-print-none" type="submit" form="form_historia_familiar" style="all: unset; cursor: pointer; text-decoration: underline;" onclick="disable_historia_familiar()">Guardar Cambios</button>
                                     </div>
                                 </div>
                             </div>
@@ -886,6 +886,7 @@
         </div>
     </div>
     <script src="{% static 'index/frontend/js/table.js'  %}"></script>
+    <script src="{% static 'index/assets/js/forms.js'  %}"></script>
     <script src="{% static 'index/frontend/bootstrap/4/js/popper.min.js'  %}"></script>
     <script src="{% static 'index/frontend/bootstrap/4/js/bootstrap.min.js'  %}" ></script>
 </body>
