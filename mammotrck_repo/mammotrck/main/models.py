@@ -46,21 +46,12 @@ class Patient(models.Model):
 class Identidad_etnica(models.Model):
     identidad = models.CharField(max_length=40, null=True)
 
-class Tiempo_bebida(models.Model):
-    tiempo = models.CharField(max_length=40, null=True)
-
-class Medicamento(models.Model):
-    medicamento = models.CharField(max_length=40, null=True)
-
-class Medicamento_Subformulario(models.Model):
-    id_medicamento = models.OneToOneField(Medicamento, on_delete=models.PROTECT, default=1)
-    cuanto = models.CharField(max_length=40, null=True)
-
 class SubForm_historia_personal(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
+    clinic = models.ForeignKey(Clinic, on_delete=models.PROTECT, default=2, null=True)
     nombre = models.CharField(max_length=40, null=True)
     cedula = models.CharField(max_length=40, null=True)
     fecha_de_nacimiento = models.DateField(null=True)
@@ -78,7 +69,7 @@ class SubForm_historia_personal(models.Model):
     fuma_cuanto = models.CharField(max_length=40, null=True)
 
     bebidas = models.BooleanField(max_length=1, null=True, blank=True)
-    bebidas_cuanto = models.ForeignKey(Tiempo_bebida, on_delete=models.PROTECT, default=1, null=True, blank=True)
+    bebidas_cuanto = models.CharField(max_length=40, null=True)
     bebidas_cuanto_otro = models.CharField(max_length=40, null=True)
 
     actividad_fisica = models.BooleanField(max_length=1, null=True, blank=True)
@@ -87,19 +78,29 @@ class SubForm_historia_personal(models.Model):
     consume_alimentos_con_grasa = models.BooleanField(max_length=1, null=True, blank=True)
     consume_veg_frut_gram = models.BooleanField(max_length=1, null=True, blank=True)
 
-    diabetes = models.BooleanField(max_length=1, null=True, blank=True)
-    diabetes_tipo = models.PositiveSmallIntegerField(null=True)
+    diabetes = models.CharField(max_length=40, null=True)
 
-    medicamento = models.ManyToManyField(Medicamento_Subformulario)
+    toma_medicamento_tamoxifeno = models.BooleanField(max_length=1, null=True, blank=True)
+    cuanto_tamoxifeno = models.CharField(max_length=40, null=True)
+
+    toma_medicamento_anastrozol = models.BooleanField(max_length=1, null=True, blank=True)
+    cuanto_anastrozol = models.CharField(max_length=40, null=True)
+
+    toma_medicamento_metformina = models.BooleanField(max_length=1, null=True, blank=True)
+    cuanto_metformina = models.CharField(max_length=40, null=True)
+
+    toma_medicamento_bifosfonatos = models.BooleanField(max_length=1, null=True, blank=True)
+    cuanto_bifosfonatos = models.CharField(max_length=40, null=True)
+
+    toma_medicamento_aspirina = models.BooleanField(max_length=1, null=True, blank=True)
+    cuanto_aspirina = models.CharField(max_length=40, null=True)
 
     radiacion = models.BooleanField(max_length=1, null=True, blank=True)
 
 
 
-# Clases de subformulario Antecedentes Gineco-Obstetricos ==============================================================
 
-class Terapia_hormonal(models.Model):
-    tipo_terapia = models.CharField(max_length=40, null=True)
+# Clases de subformulario Antecedentes Gineco-Obstetricos ==============================================================
 
 
 class SubForm_antecedentes_g_o(models.Model):
@@ -124,8 +125,10 @@ class SubForm_antecedentes_g_o(models.Model):
     anticonceptivos_ult_vez = models.DateField(null=True)
 
     terapia_hormonal_aplica = models.BooleanField(max_length=1, null=True, blank=True)
-    terapia_hormonal_tipo = models.ManyToManyField(Terapia_hormonal)
-    terapia_hormonal_tiempo = models.CharField(max_length=40, null=True)
+
+    terapia = models.CharField(max_length=1, null=True, blank=True)
+    cuanto_tiempo_terapia = models.CharField(max_length=40, null=True)
+
 
     biopsia_aplica = models.BooleanField(max_length=1, null=True, blank=True)
     biopsia_cuantas = models.PositiveSmallIntegerField(null=True)
@@ -142,25 +145,19 @@ class Prueba_genetica(models.Model):
 class Parentesco(models.Model):
     tipo_parentesco = models.CharField(max_length=40, null=True)
 
-class Familiar_cancer(models.Model):
-    familiares_cancer_tipo = models.CharField(max_length=40, null=True)
-    familiares_cancer_parentezco = models.CharField(max_length=40, null=True)
-
 class SubForm_historia_familiar(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     prueba_genetica = models.BooleanField(max_length=1, null=True, blank=True)
-    prueba_genetica_resultado = models.ManyToManyField(Tiempo_bebida)
+    prueba_genetica_resultado = models.ManyToManyField(Prueba_genetica)
     bebidas_cuanto_otro = models.CharField(max_length=40, null=True, default=None)
 
     familiares_mama = models.BooleanField(max_length=1, null=True, blank=True)
     parentesco = models.ManyToManyField(Parentesco)
 
     familiares_cancer = models.BooleanField(max_length=1, null=True, blank=True)
-    parentesco_tipo = models.ManyToManyField(Familiar_cancer)
 
-    #form_id = models.OneToOneField(Form, on_delete=models.PROTECT, default=2, null=True)
     familiares_cancer_tipo = models.CharField(max_length=40, null=True)
     familiares_cancer_parentezco = models.CharField(max_length=40, null=True)
 
@@ -214,7 +211,6 @@ class Report(models.Model):
 
     formulario = models.OneToOneField(Form, on_delete=models.PROTECT, default=1)
 
-    densidad_mamografica = models.OneToOneField(Tiempo_bebida, on_delete=models.PROTECT, default=1)
     contenido = models.CharField(max_length=500, null=True)
 
 
