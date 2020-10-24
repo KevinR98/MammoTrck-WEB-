@@ -50,7 +50,7 @@ def user_logged_out_callback(sender, credentials, **kwargs):
 
 
 def error_page(request, status, message):
-    return render(request, 'index/error.html', {'message': message}, status=status)
+    return render(request, 'index/error.html', {'message': message, 'status': status}, status=status)
 
 
 def registration(request):
