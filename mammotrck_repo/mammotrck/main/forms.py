@@ -224,12 +224,16 @@ class SubForm_antecedentes_g_o_Form(forms.Form):
             self.fields['edad_ultimo_hijo'].initial = subform.edad_ult_hijo
             self.fields['tiempo_lactancia'].initial = subform.lactancia_tiempo
             self.fields['lactancia_ult_hijo'].initial = int(subform.lactancia_aplica) if subform.lactancia_aplica else None
+
             self.fields['anticonceptivos_orales'].initial = int(subform.anticonceptivos_aplica) if subform.anticonceptivos_aplica else None
+
             self.fields['tiempo_tomo'].initial = subform.anticonceptivos_cuanto
             self.fields['ultima_vez_uso'].initial = subform.anticonceptivos_ult_vez
             self.fields['terapia_hormonal'].initial = int(subform.terapia_hormonal_aplica) if subform.terapia_hormonal_aplica else None
 
             self.initial['tipo_terapia'] = subform.terapia
+            print(subform.terapia)
+
             self.fields['tiempo_uso'].initial = subform.cuanto_tiempo_terapia
 
             self.fields['biopsia_mama'].initial = int(subform.biopsia_aplica) if subform.biopsia_aplica else None
@@ -283,7 +287,7 @@ class SubForm_antecedentes_g_o_Form(forms.Form):
 
     tipo_terapia = forms.CharField(
             widget=forms.Select(attrs={'class': 'form-control', 'id': 'inp_terapia_t', 'name':'terapia_t'},
-                                choices=get_roles()))
+                                choices=TIPO_TERAPIA))
 
     tiempo_uso = forms.CharField(max_length=40, widget=forms.TextInput(
         attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_terapia_tiempo',

@@ -311,14 +311,14 @@ def guardar_subForm_antecedentes_g_o(request):
 
                 subform.manopausa_aplica = request.POST["menopausia"]
                 subform.edad_menstruacion = request.POST["edad_menstruacion"]
-                subform.edad_manopausa = request.POST["nacionalidad"]
+                subform.edad_manopausa = request.POST["edad_menopausaia"]
 
                 subform.parto_cantidad = request.POST["cantidad_partos"]
 
                 if request.POST["cantidad_partos"] == '0':
-                    subform.parto_aplica = False
+                    subform.parto_aplica = '0'
                 else:
-                    subform.parto_aplica = True
+                    subform.parto_aplica = '1'
 
                 subform.edad_ult_hijo = request.POST["edad_ultimo_hijo"]
 

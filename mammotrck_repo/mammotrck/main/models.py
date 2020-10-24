@@ -121,8 +121,8 @@ class SubForm_antecedentes_g_o(models.Model):
     lactancia_tiempo = models.PositiveSmallIntegerField(null=True)
 
     anticonceptivos_aplica = models.BooleanField(max_length=1, null=True, blank=True)
-    anticonceptivos_cuanto = models.PositiveSmallIntegerField(null=True)
-    anticonceptivos_ult_vez = models.DateField(null=True)
+    anticonceptivos_cuanto =models.CharField(max_length=40, null=True)
+    anticonceptivos_ult_vez = models.CharField(max_length=40, null=True)
 
     terapia_hormonal_aplica = models.BooleanField(max_length=1, null=True, blank=True)
 
