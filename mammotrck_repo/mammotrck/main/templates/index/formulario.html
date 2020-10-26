@@ -1,4 +1,5 @@
 {% load static %}
+{% load auth_extras %}
 
 <!doctype html>
 <html is="dmx-app" style="width: 100vw; height: 100%;">
@@ -52,20 +53,23 @@
                       <p id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
                     </section>
                     <section class="style84">
-                        <div class="row">
-                            <i class="material-icons style56">star</i><button id="boton_formularios" class="btn newbutton active" style="all: unset; cursor: pointer;">Formularios</button>
-                        </div>
+
+                        <form action="{% url 'index' %}">
+                            <div class="row">
+                                <i class="material-icons style56">star</i><button id="boton_formularios" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer;">Formularios</button>
+                            </div>
+                        </form>
                         <div class="row" hidden>
 
                             <i class="material-icons style56">star</i><button id="boton_linea_tiempo" class="btn newbutton active" style="all: unset; cursor: pointer;">Línea de tiempo</button>
 
                         </div>
 
-                        {% if user.is_superuser %}
+                        {% if user|has_group:"admin" %}
                         <form action="{% url 'admin:index' %}">
                             <div class="row">
 
-                                <i class="material-icons style56">star</i><button id="boton_manejo_usuario" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer;">Manejo de Usuarios</button>
+                                <i class="material-icons style56">star</i><button id="boton_manejo_usuario" class="btn newbutton active" style="all: unset; cursor: pointer;">Manejo de Usuarios</button>
 
                             </div>
                         </form>
@@ -143,12 +147,22 @@
 
 
                                 <div class="col style73">
+                                  {% if user|has_group:"admin" or user|has_group:"medico" %}
                                     <div class="col class106">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="edit1" name="edit1" onclick="modify_historia_personal()">
                                             <label class="form-check-label style70" for="edit1" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
                                         </div><button id="save1" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" type="submit" form="form_historia_personal">Guardar Cambios</button>
                                     </div>
+
+                                  {% else %}
+                                  <div class="col class106" hidden>
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" value="" id="edit1" name="edit1" onclick="modify_historia_personal()">
+                                          <label class="form-check-label style70" for="edit1" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
+                                      </div><button id="save1" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" type="submit" form="form_historia_personal">Guardar Cambios</button>
+                                  </div>
+                                  {% endif %}
                                 </div>
                             </div>
                             <div class="row no-gutters style69 row-cols-xl-7" style="flex-grow: 1;">
@@ -534,12 +548,21 @@
 
 
                                 <div class="col style73">
+                                  {% if user|has_group:"admin" or user|has_group:"medico" %}
                                     <div class="col class106">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="edit2" name="edit2" onclick="modify_antecedentes()">
                                             <label class="form-check-label style70" for="edit2" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
                                         </div><button id="save2" class="btn newbutton active style73 d-print-none"  type="submit" form="form_antecedentes_go" style="all: unset; cursor: pointer; text-decoration: underline;" onclick="">Guardar Cambios</button>
                                     </div>
+                                  {% else %}
+                                    <div class="col class106" hidden>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="edit2" name="edit2" onclick="modify_antecedentes()">
+                                            <label class="form-check-label style70" for="edit2" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
+                                        </div><button id="save2" class="btn newbutton active style73 d-print-none"  type="submit" form="form_antecedentes_go" style="all: unset; cursor: pointer; text-decoration: underline;" onclick="">Guardar Cambios</button>
+                                    </div>
+                                  {% endif %}
                                 </div>
                             </div>
                             <div class="row no-gutters style69 row-cols-xl-7" style="flex-grow: 1;">
@@ -739,12 +762,23 @@
 
 
                                 <div class="col style73">
+                                  {% if user|has_group:"admin" or user|has_group:"medico" %}
                                     <div class="col class106">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="edit3" name="edit3" onclick="modify_historia_familiar()">
                                             <label class="form-check-label style70" for="edit3" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
                                         </div><button id="save3" class="btn newbutton active style73 d-print-none" type="submit" form="form_historia_familiar" style="all: unset; cursor: pointer; text-decoration: underline;" onclick="">Guardar Cambios</button>
                                     </div>
+
+                                  {% else %}
+                                    <div class="col class106" hidden>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="edit3" name="edit3" onclick="modify_historia_familiar()">
+                                            <label class="form-check-label style70" for="edit3" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
+                                        </div><button id="save3" class="btn newbutton active style73 d-print-none" type="submit" form="form_historia_familiar" style="all: unset; cursor: pointer; text-decoration: underline;" onclick="">Guardar Cambios</button>
+                                    </div>
+                                  {% endif %}
+
                                 </div>
                             </div>
                             <div class="row no-gutters style69 row-cols-xl-7" style="flex-grow: 1;">

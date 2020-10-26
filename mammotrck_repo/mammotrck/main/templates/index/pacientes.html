@@ -1,4 +1,5 @@
 {% load static %}
+{% load auth_extras %}
 
 <!doctype html>
 <html is="dmx-app">
@@ -51,8 +52,8 @@
                     </section>
                     <section class="style84">
 
-                        {% if user.is_superuser %}
-                        <form action="{% url 'admin:index' %}">
+                        {% if user|has_group:"admin" %}
+                        <form action="{% url 'admin:index' %}auth/user">
                             <div class="row">
 
                                 <i class="material-icons style56">star</i><button id="boton_manejo_usuario" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer;">Manejo de Usuarios</button>

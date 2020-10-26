@@ -2,9 +2,9 @@ from datetime import datetime
 import random
 
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.signals import user_login_failed, user_logged_in, user_logged_out
 from django.contrib import messages
 from django.dispatch import receiver
@@ -19,13 +19,9 @@ from .forms import RegistrationForm, SubForm_historia_personal_Form, SubForm_ant
 
 from .Clients import ClientFactory
 
-
+@login_required
 def index(request):
-    if not request.user.is_authenticated:
-        if request.method == 'GET':
-            return redirect('/login/')
-    else:
-        return redirect('/patients/')
+    return redirect('/patients/')
 
 @receiver(user_login_failed)
 def user_login_failed_callback(sender, credentials, **kwargs):
@@ -96,88 +92,84 @@ def registration(request):
             return render(request, 'index/register.html', context)
 
     else:
-        print(request.user.username)
-        return error_page(request, 400, 'Ya existe un usuario logueado.')
+        return redirect('/patients/')
 
 
-
+@login_required
 def pacientes(request):
 
-    if request.user.is_authenticated:
-        if request.method == 'GET':
-            list_patients_db = Patient.objects.all().values()
-            list_patients = []
-            date = datetime.today().strftime("%d/%m/%y")
+    if request.method == 'GET':
+        list_patients_db = Patient.objects.all().values()
+        list_patients = []
+        date = datetime.today().strftime("%d/%m/%y")
 
-            for patient in list_patients_db:
-                form_list = list(Form.objects.filter(id_patient=patient['id_patient']).exclude(submitted_at=None).exclude(habilitado=False).order_by('submitted_at').values())
-                quantity_form = len(form_list)
+        for patient in list_patients_db:
+            form_list = list(Form.objects.filter(id_patient=patient['id_patient']).exclude(submitted_at=None).exclude(habilitado=False).order_by('submitted_at').values())
+            quantity_form = len(form_list)
 
-                if quantity_form != 0:
-                    print("ultimo ", form_list[0], "\n")
-                    print("ultimo ", form_list[-1], "\n")
+            if quantity_form != 0:
+                print("ultimo ", form_list[0], "\n")
+                print("ultimo ", form_list[-1], "\n")
 
-                patient_dict = {}
+            patient_dict = {}
 
-                patient_dict['id'] = patient['id_patient']
-                if quantity_form != 0:
-                    patient_dict['first_date'] = form_list[0]['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
-                    patient_dict['last_date'] = form_list[-1]['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
+            patient_dict['id'] = patient['id_patient']
+            if quantity_form != 0:
+                patient_dict['first_date'] = form_list[0]['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
+                patient_dict['last_date'] = form_list[-1]['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
 
-                patient_dict['form_quantity'] = quantity_form
+            patient_dict['form_quantity'] = quantity_form
 
-                list_patients += [patient_dict]
+            list_patients += [patient_dict]
 
-            context = {'username': request.user.username, 'user_id': request.user.pk, 'current_date': date, 'list_patients' : list_patients}
-            return render(request, 'index/pacientes.html', context)
-
-    else:
-        return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        context = {'username': request.user.username, 'user_id': request.user.pk, 'current_date': date, 'list_patients' : list_patients}
+        return render(request, 'index/pacientes.html', context)
 
 
 
+@login_required
 def lista_formularios(request):
-    if request.user.is_authenticated:
-        if request.method == 'GET':
-            list_forms_db = Form.objects.filter(id_patient=request.GET['id_patient']).values()
-            patient = Patient.objects.get(id_patient=request.GET['id_patient'])
-            date = datetime.today().strftime("%d/%m/%y")
+    print(request)
+    if request.method == 'GET':
+        list_forms_db = Form.objects.filter(id_patient=request.GET['id_patient']).values()
+        patient = Patient.objects.get(id_patient=request.GET['id_patient'])
+        date = datetime.today().strftime("%d/%m/%y")
 
-            list_forms = []
-            for form in list_forms_db:
-                if form['habilitado']:
+        list_forms = []
+        for form in list_forms_db:
+            if form['habilitado']:
 
-                    estado = False
-                    if form['submitted_at'] != None:
-                        estado = True
+                estado = False
+                if form['submitted_at'] != None:
+                    estado = True
 
-                    form_dict = {}
-                    form_dict['id'] = form['id_form']
-                    if form['submitted_at']:
-                        form_dict['date_created'] = form['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
-                    form_dict['state_form'] = estado
+                form_dict = {}
+                form_dict['id'] = form['id_form']
+                if form['submitted_at']:
+                    form_dict['date_created'] = form['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
+                form_dict['state_form'] = estado
 
-                    list_forms += [form_dict]
+                list_forms += [form_dict]
 
-            context = {'patient_id':patient.id_patient,
-                       'patient_name':patient.name ,
-                       'username': request.user.username,
-                       'user_id': request.user.pk,
-                       'current_date': date,
-                        'list_forms': list_forms}
+        context = {'patient_id':patient.id_patient,
+                   'patient_name':patient.name ,
+                   'username': request.user.username,
+                   'user_id': request.user.pk,
+                   'current_date': date,
+                    'list_forms': list_forms,
+                    'id_patient':patient.id_patient}
 
-            return render(request, 'index/formularios.html', context)
-
-
-    else:
-        return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        return render(request, 'index/formularios.html', context)
 
 
 
 
-#@group_required('admin', 'medico')
+
+
+
+@login_required
 def deshabilitar_formulario(request):
-    if request.user.is_authenticated and not request.user.groups.filter(name='asistente').exists():
+    if is_roles(request.user, ["admin", "medico"]):
         form = Form.objects.get(id_form=request.GET['id_form'])
 
         form.habilitado = False;
@@ -186,11 +178,11 @@ def deshabilitar_formulario(request):
         return redirect('/forms/?id_patient='+request.GET['id_patient'])
 
     else:
-        return error_page(request, 400, 'Usuario no tienen permisos para esta funcionalidad.')
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
 
-
+@login_required
 def agregar_formulario(request):
-    if request.user.is_authenticated:
+    if is_roles(request.user, ["admin", "medico"]):
         patient = Patient.objects.get(id_patient=request.GET['id_patient'])
 
         clinic_name = request.user.profile.clinic.acronym
@@ -206,50 +198,49 @@ def agregar_formulario(request):
         return redirect('/forms/?id_patient='+request.GET['id_patient'])
 
     else:
-        error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
 
+@login_required
 @never_cache
 def formulario(request):
-    if request.user.is_authenticated:
-        if request.method == 'GET':
 
-            patient = Patient.objects.get(id_patient=request.GET['id_patient'])
-            form = Form.objects.get(id_form=request.GET['id_form'])
-            date = datetime.today().strftime("%d/%m/%y")
+    if request.method == 'GET':
 
-            print(request.GET['id_patient'])
+        patient = Patient.objects.get(id_patient=request.GET['id_patient'])
+        form = Form.objects.get(id_form=request.GET['id_form'])
+        date = datetime.today().strftime("%d/%m/%y")
 
-            titulo_form = 'Formulario '
-            if form.submitted_at != None:
-                titulo_form += "Registrado: " + form.submitted_at.strftime("%d/%m/%y")
-            else:
-                titulo_form += "No Registrado"
+        print(request.GET['id_patient'])
 
-            subform_hist_per = SubForm_historia_personal_Form(id_subform=form.subform_hist_per.pk)
-            subform_ant_g_o = SubForm_antecedentes_g_o_Form(id_subform=form.subform_ant_g_o.pk)
-            subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
+        titulo_form = 'Formulario '
+        if form.submitted_at != None:
+            titulo_form += "Registrado: " + form.submitted_at.strftime("%d/%m/%y")
+        else:
+            titulo_form += "No Registrado"
 
-
-            context = {'patient_id': patient.id_patient,
-                       'form_id': form.id_form,
-                       'titulo_form': titulo_form,
-                       'patient_name': patient.name,
-                       'username': request.user.username,
-                       'user_id': request.user.pk,
-                       'current_date': date,
-                       'subform_h': subform_hist_per,
-                       'subform_a': subform_ant_g_o,
-                       'subform_hf': subform_hist_fam
-                       }
-
-            return render(request, 'index/formulario.html', context)
-
-    else:
-        error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        subform_hist_per = SubForm_historia_personal_Form(id_subform=form.subform_hist_per.pk)
+        subform_ant_g_o = SubForm_antecedentes_g_o_Form(id_subform=form.subform_ant_g_o.pk)
+        subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
 
 
+        context = {'patient_id': patient.id_patient,
+                   'form_id': form.id_form,
+                   'titulo_form': titulo_form,
+                   'patient_name': patient.name,
+                   'username': request.user.username,
+                   'user_id': request.user.pk,
+                   'current_date': date,
+                   'subform_h': subform_hist_per,
+                   'subform_a': subform_ant_g_o,
+                   'subform_hf': subform_hist_fam
+                   }
+
+        return render(request, 'index/formulario.html', context)
+
+
+@login_required
 def guardar_subform_personal_Form(request):
-    if request.user.is_authenticated:
+    if is_roles(request.user, ["admin", "medico"]):
         if request.method == 'POST':
 
             subform_Form = SubForm_historia_personal_Form(request.POST)
@@ -304,11 +295,12 @@ def guardar_subform_personal_Form(request):
 
             return redirect('/form/?id_patient=' + request.GET['id_patient'] + '&id_form=' + request.GET['id_form'])
     else:
-        return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        return error_page(request, 400, 'Usuario no tiene permisos para acceder a la pagina.')
 
+@login_required
 def guardar_subForm_antecedentes_g_o(request):
 
-    if request.user.is_authenticated:
+    if is_roles(request.user, ["admin", "medico"]):
         if request.method == 'POST':
 
             subform_Form = SubForm_antecedentes_g_o_Form(request.POST)
@@ -361,11 +353,12 @@ def guardar_subForm_antecedentes_g_o(request):
             return redirect('/form/?id_patient=' + request.GET['id_patient'] + '&id_form=' + request.GET['id_form'])
 
     else:
-        return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        return error_page(request, 400, 'Usuario no tiene permisos para acceder a la pagina.')
 
 
+@login_required
 def guardar_subForm_historia_familiar(request):
-    if request.user.is_authenticated:
+    if is_roles(request.user, ["admin", "medico"]):
         if request.method == 'POST':
 
             subform_Form = SubForm_historia_familiar_Form(request.POST)
@@ -408,9 +401,15 @@ def guardar_subForm_historia_familiar(request):
             return redirect('/form/?id_patient=' + request.GET['id_patient'] + '&id_form=' + request.GET['id_form'])
 
     else:
-        return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        return error_page(request, 400, 'Usuario no tiene permisos para acceder a la pagina.')
 
 
+
+def is_roles(user, roles):
+    for role in roles:
+        if user.groups.filter(name=role).exists():
+            return True
+        return False
 
 def linea_de_tiempo(request):
     render(request, 'index/pagina.html')
