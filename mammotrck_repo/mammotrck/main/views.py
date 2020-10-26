@@ -198,7 +198,7 @@ def agregar_formulario(request):
         return redirect('/forms/?id_patient='+request.GET['id_patient'])
 
     else:
-        error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
 
 @login_required
 @never_cache
