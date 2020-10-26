@@ -25,7 +25,7 @@ def index(request):
         if request.method == 'GET':
             return redirect('/login/')
     else:
-        return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        return redirect('/patients/')
 
 @receiver(user_login_failed)
 def user_login_failed_callback(sender, credentials, **kwargs):
@@ -372,6 +372,7 @@ def guardar_subForm_historia_familiar(request):
 
             if subform_Form.is_valid():
                 print("Guardando historia familiar...")
+                print(request.POST)
 
                 print("Datos del form")
                 print("pruebas_geneticas", subform_Form.cleaned_data.get("pruebas_geneticas"), " ", type(subform_Form.cleaned_data.get("pruebas_geneticas")))
@@ -431,4 +432,3 @@ def reportes_clinicos(request):
 
 def informacion(request):
     render(request, 'index/pagina.html')
-
