@@ -25,7 +25,7 @@ def index(request):
         if request.method == 'GET':
             return redirect('/login/')
     else:
-        return error_page(request, 400, 'Usuario no tienen permisos para acceder a la pagina.')
+        return redirect('/patients/')
 
 @receiver(user_login_failed)
 def user_login_failed_callback(sender, credentials, **kwargs):
@@ -387,6 +387,7 @@ def guardar_subForm_historia_familiar(request):
 
             if subform_Form.is_valid():
                 print("Guardando historia familiar...")
+                print(request.POST)
 
                 form = Form.objects.get(id_form=request.GET['id_form'])
                 subform = form.subform_hist_fam
@@ -403,11 +404,11 @@ def guardar_subForm_historia_familiar(request):
                 subform.parentesco.clear()
                 for element in subform_Form.cleaned_data.get('parentesco'):
                     subform.parentesco.add(element)
-
+ 
                 subform.familiares_cancer = request.POST["familiares_otro"]
 
                 subform.familiares_cancer_tipo = request.POST["tipo"]
-                subform.familiares_cancer_parentezco = request.POST["parentesco_tipo"]
+                subform.familiares_cancer_parentesco = request.POST["parentesco_tipo"]
 
 
                 subform.save()
@@ -434,4 +435,3 @@ def reportes_clinicos(request):
 
 def informacion(request):
     render(request, 'index/pagina.html')
-

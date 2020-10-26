@@ -4,8 +4,57 @@ window.onload = function() {
   disable_antecedentes();
   disable_historia_familiar();
 
-};
+  var frm = $('#form_historia_personal');
+    frm.submit(function () {
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (data) {
+                disable_historia_personal();
+                alert("Cambios Guardos")
+            },
+            error: function(data) {
+                alert("Error guardando la información");
+            }
+        });
+        return false;
+    });
 
+    var frm2 = $('#form_antecedentes_go');
+      frm2.submit(function () {
+          $.ajax({
+              type: frm2.attr('method'),
+              url: frm2.attr('action'),
+              data: frm2.serialize(),
+              success: function (data) {
+                  disable_antecedentes();
+                  alert("Cambios Guardos")
+              },
+              error: function(data) {
+                  alert("Error guardando la información");
+              }
+          });
+          return false;
+      });
+
+      var frm3 = $('#form_historia_familiar');
+        frm3.submit(function () {
+            $.ajax({
+                type: frm3.attr('method'),
+                url: frm3.attr('action'),
+                data: frm3.serialize(),
+                success: function (data) {
+                    disable_historia_familiar();
+                    alert("Cambios Guardos")
+                },
+                error: function(data) {
+                    alert("Error guardando la información");
+                }
+            });
+            return false;
+        });
+};
 
 
 
