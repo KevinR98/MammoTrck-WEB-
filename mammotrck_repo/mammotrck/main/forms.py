@@ -37,19 +37,18 @@ class SubForm_historia_personal_Form(forms.Form):
         super(SubForm_historia_personal_Form, self).__init__(*args, **kwargs)
 
         self.fields['hospital'].choices = [(model.pk, model.name) for model in Clinic.objects.all()]
-        #self.fields['hospital'].queryset = Clinic.objects.all()
-
-        self.fields['identidad_etnica'].widget.choices = [(model.pk, model.identidad) for model in Identidad_etnica.objects.all()]
+        self.fields['identidad_etnica'].choices = [(model.pk, model.identidad) for model in Identidad_etnica.objects.all()]
 
         if self.id_subform:
             subform = SubForm_historia_personal.objects.filter(pk=self.id_subform).get()
+            print(subform.identidad_etnica)
 
             self.initial['hospital'] = str(subform.clinic.pk)
             self.fields['nombre'].initial = subform.nombre
             self.fields['cedula'].initial = subform.cedula
             self.fields['fecha_nacimiento'].initial = subform.fecha_de_nacimiento
             self.initial['nacionalidad'] = subform.nacionalidad
-            self.initial['identidad_etnica'] = subform.identidad_etnica
+            self.initial['identidad_etnica'] = str(subform.identidad_etnica.pk)
             self.fields['otra_identidad'].initial = subform.identidad_etnica_otro
             self.fields['peso_kg'].initial = subform.peso
             self.fields['talla_m'].initial = subform.talla
@@ -102,7 +101,7 @@ class SubForm_historia_personal_Form(forms.Form):
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'inp_nacionalidad', 'name':'nacionalidad'},
                             choices=[(i, element) for i, element in enumerate(NATIONALITIES)]))
 
-    identidad_etnica = forms.CharField(required=False, empty_value=None,
+    identidad_etnica = forms.ChoiceField(required=False,
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'inp_etnia', 'name':'etnia'}))
 
     otra_identidad = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(

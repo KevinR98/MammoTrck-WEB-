@@ -372,18 +372,6 @@ def guardar_subForm_historia_familiar(request):
 
             if subform_Form.is_valid():
                 print("Guardando historia familiar...")
-                print(request.POST)
-
-                print("Datos del form")
-                print("pruebas_geneticas", subform_Form.cleaned_data.get("pruebas_geneticas"), " ", type(subform_Form.cleaned_data.get("pruebas_geneticas")))
-                print("resultado", subform_Form.cleaned_data.get("resultado"), " ", type(subform_Form.cleaned_data.get("resultado")))
-                print("otro_resultado", subform_Form.cleaned_data.get("otro_resultado"), " ", type(subform_Form.cleaned_data.get("otro_resultado")))
-                print("familiares", subform_Form.cleaned_data.get("familiares"), " ", type(subform_Form.cleaned_data.get("familiares")))
-                print("parentesco", subform_Form.cleaned_data.get("parentesco"), " ", type(subform_Form.cleaned_data.get("parentesco")))
-                print("familiares_otro", subform_Form.cleaned_data.get("familiares_otro"), " ", type(subform_Form.cleaned_data.get("familiares_otro")))
-                print("tipo", subform_Form.cleaned_data.get("tipo"), " ", type(subform_Form.cleaned_data.get("tipo")))
-                print("parentesco_tipo", subform_Form.cleaned_data.get("parentesco_tipo"), " ", type(subform_Form.cleaned_data.get("parentesco_tipo")))
-
 
                 form = Form.objects.get(id_form=request.GET['id_form'])
                 subform = form.subform_hist_fam
@@ -404,7 +392,7 @@ def guardar_subForm_historia_familiar(request):
                 subform.familiares_cancer = subform_Form.cleaned_data.get("familiares_otro")
 
                 subform.familiares_cancer_tipo = subform_Form.cleaned_data.get("tipo")
-                subform.familiares_cancer_parentezco = subform_Form.cleaned_data.get("parentesco_tipo")
+                subform.familiares_cancer_parentesco = subform_Form.cleaned_data.get("parentesco_tipo")
 
 
                 subform.save()

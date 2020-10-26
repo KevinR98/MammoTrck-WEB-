@@ -57,15 +57,10 @@ class Form(models.Model):
 
     urls_imgs = models.ManyToManyField(Mamografia)
 
-    #subform_hist_per = models.OneToOneField(SubForm_historia_personal, on_delete=models.PROTECT, default=2, null=True, blank=True)
-    #subform_ant_g_o = models.OneToOneField(SubForm_antecedentes_g_o, on_delete=models.PROTECT, default=2, null=True, blank=True)
-    #subform_hist_fam = models.OneToOneField(SubForm_historia_familiar, on_delete=models.PROTECT, default=2, null=True, blank=True)
-
-
 @receiver(post_save, sender=Form)
 def create_forms(sender, instance, created ,**kwargs):
     if created:
-        SubForm_historia_personal.objects.create(form=instance, identidad_etnica=None)
+        SubForm_historia_personal.objects.create(form=instance)
         SubForm_antecedentes_g_o.objects.create(form=instance)
         SubForm_historia_familiar.objects.create(form=instance)
 
@@ -88,12 +83,12 @@ class SubForm_historia_personal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    clinic = models.ForeignKey(Clinic, on_delete=models.PROTECT, default=2, null=True)
+    clinic = models.ForeignKey(Clinic, on_delete=models.PROTECT, default=1, null=True) #TODO quitar default
     nombre = models.CharField(max_length=40, null=True)
     cedula = models.CharField(max_length=40, null=True)
     fecha_de_nacimiento = models.DateField(null=True)
     nacionalidad = models.CharField(max_length=40, null=True)
-    identidad_etnica = models.ForeignKey(Identidad_etnica, on_delete=models.PROTECT, default=1, null=True, blank=True)
+    identidad_etnica = models.ForeignKey(Identidad_etnica, on_delete=models.PROTECT, default=1, null=True) #TODO blank=true, afecta forms
     identidad_etnica_otro = models.CharField(max_length=40, null=True)
 
     peso = models.PositiveSmallIntegerField(null=True)
@@ -157,7 +152,7 @@ class SubForm_antecedentes_g_o(models.Model):
     edad_ult_hijo = models.PositiveSmallIntegerField(null=True)
 
     lactancia_aplica = models.BooleanField(max_length=1, null=True, blank=True)
-    lactancia_tiempo = models.PositiveSmallIntegerField(null=True)
+    lactancia_tiempo = models.CharField(max_length=40, null=True)
 
     anticonceptivos_aplica = models.BooleanField(max_length=1, null=True, blank=True)
     anticonceptivos_cuanto = models.CharField(max_length=40, null=True)
