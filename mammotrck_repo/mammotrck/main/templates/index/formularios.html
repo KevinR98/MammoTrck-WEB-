@@ -50,11 +50,8 @@
                       <p id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
                     </section>
                     <section class="style84">
-                        <form method="get" action="{%url 'forms'%}?id_patient=2">
-                            <div class="row">
-                                <i class="material-icons style56">star</i><button id="boton_formularios" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer;">Formularios</button>
-                            </div>
-                        </form>
+
+
                         <div class="row" hidden>
 
                             <i class="material-icons style56">star</i><button id="boton_linea_tiempo" class="btn newbutton active" style="all: unset; cursor: pointer;">Línea de tiempo</button>
@@ -62,13 +59,13 @@
                         </div>
 
                         {% if user|has_group:"admin" %}
-                        <form action="{% url 'admin:index' %}auth/user">
+
                             <div class="row">
 
-                                <i class="material-icons style56">star</i><button id="boton_manejo_usuario" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer;">Manejo de Usuarios</button>
+                                <i class="material-icons style56" >star</i><a href="/admin/auth/user" class="btn newbutton active" style="all: unset; cursor: pointer; margin-top:5px; "><label style="cursor:pointer; color:#212529; font-size:14px">Manejo de Usuarios</label></a>
 
                             </div>
-                        </form>
+
 
                         {% endif %}
                     </section>
@@ -93,7 +90,7 @@
 
 
 
-            <div class="col-md-8 col-lg-9 col-12 offset-0 bg-light style52 col-xl-10">
+            <div class="col-md-8 col-lg-9 col-12 offset-0 bg-light style52 col-xl-10" style="overflow: scroll">
                 <form action="{% url 'patients' %}">
                     <header class="style50">
                         <div class="row"><i class="material-icons style56">arrow_back</i> <button id="btn3" class="btn newbutton active style59" type="submit" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"

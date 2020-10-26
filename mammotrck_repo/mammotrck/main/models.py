@@ -57,6 +57,7 @@ class Form(models.Model):
 
     urls_imgs = models.ManyToManyField(Mamografia)
 
+
 @receiver(post_save, sender=Form)
 def create_forms(sender, instance, created ,**kwargs):
     if created:
@@ -211,5 +212,3 @@ class Report(models.Model):
     formulario = models.OneToOneField(Form, on_delete=models.PROTECT, default=1)
 
     contenido = models.CharField(max_length=500, null=True)
-
-

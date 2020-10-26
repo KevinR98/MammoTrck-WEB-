@@ -22,7 +22,7 @@
 <body id="login" class="style8">
     <div class="container wappler-block pt-5 pb-5 style8">
         <div class="row style8">
-            <div class="text-center col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 style7 col-xl-4 offset-xl-4">
+            <div class="text-center col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 style7 col-xl-4 offset-xl-4" style="max-width:400px">
                 <div class="d-block p-4 bg-transparent">
                     <img src="{% static 'index/frontend/assets/images/1598155-200.png'  %}">
                 </div>
@@ -47,11 +47,12 @@
                         </div>
                     </form>
                 </div>
+                <div class="row justify-content-xl-center no-gutters row-cols-xl-1 text-xl-center">
+                    <p class="style12">¿Aún no tiene una cuenta? <a href="{% url 'registration' %}">Crear una</a></p>
+                </div>
             </div>
         </div>
-        <div class="row justify-content-xl-center no-gutters row-cols-xl-1 text-xl-center">
-            <p class="style12">¿Aún no tiene una cuenta? <a href="{% url 'registration' %}">Crear una</a></p>
-        </div>
+
     </div>
     <script src="{% static 'index/frontend/bootstrap/4/js/popper.min.js'  %}"></script>
     <script src="{% static 'index/frontend/bootstrap/4/js/bootstrap.min.js'  %}"></script>

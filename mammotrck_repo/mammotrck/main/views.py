@@ -156,8 +156,7 @@ def lista_formularios(request):
                    'username': request.user.username,
                    'user_id': request.user.pk,
                    'current_date': date,
-                    'list_forms': list_forms,
-                    'id_patient':patient.id_patient}
+                    'list_forms': list_forms}
 
         return render(request, 'index/formularios.html', context)
 
@@ -222,7 +221,7 @@ def formulario(request):
         subform_ant_g_o = SubForm_antecedentes_g_o_Form(id_subform=form.subform_ant_g_o.pk)
         subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
 
-
+ 
         context = {'patient_id': patient.id_patient,
                    'form_id': form.id_form,
                    'titulo_form': titulo_form,
