@@ -31,12 +31,51 @@ def save_profile(sender, instance, **kwargs):
 
 
 class Patient(models.Model):
+
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     name = models.CharField(max_length=40, null=True)
 
     id_patient = models.CharField(primary_key=True, max_length=15)
+
+
+class Mamografia(models.Model):
+    url_imagen = models.URLField(null=True)
+
+
+class Form(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    id_form = models.CharField(primary_key=True, max_length=15)
+    id_patient = models.ForeignKey(Patient, on_delete=models.PROTECT, default=2, null=True)
+    submitted_at = models.DateTimeField(null=True)
+
+    habilitado = models.BooleanField(max_length=1, null=True, blank=True)
+    completed = models.BooleanField(max_length=1, null=True, blank=True)
+
+    urls_imgs = models.ManyToManyField(Mamografia)
+
+    #subform_hist_per = models.OneToOneField(SubForm_historia_personal, on_delete=models.PROTECT, default=2, null=True, blank=True)
+    #subform_ant_g_o = models.OneToOneField(SubForm_antecedentes_g_o, on_delete=models.PROTECT, default=2, null=True, blank=True)
+    #subform_hist_fam = models.OneToOneField(SubForm_historia_familiar, on_delete=models.PROTECT, default=2, null=True, blank=True)
+
+
+@receiver(post_save, sender=Form)
+def create_forms(sender, instance, created ,**kwargs):
+    if created:
+        SubForm_historia_personal.objects.create(form=instance, identidad_etnica=None)
+        SubForm_antecedentes_g_o.objects.create(form=instance)
+        SubForm_historia_familiar.objects.create(form=instance)
+
+
+@receiver(post_save, sender=Form)
+def save_subforms(sender, instance, **kwargs):
+    instance.subform_hist_per.save()
+    instance.subform_ant_g_o.save()
+    instance.subform_hist_fam.save()
+
 
 
 # Clases de subformulario Historia Personal ============================================================================
@@ -95,6 +134,8 @@ class SubForm_historia_personal(models.Model):
 
     radiacion = models.BooleanField(max_length=1, null=True, blank=True)
 
+    form = models.OneToOneField(Form, on_delete=models.PROTECT, default=2, null=False, related_name='subform_hist_per')
+
 
 
 
@@ -132,6 +173,7 @@ class SubForm_antecedentes_g_o(models.Model):
     biopsia_cuantas = models.PositiveSmallIntegerField(null=True)
     biopsia_resultado = models.CharField(max_length=40, null=True)
 
+    form = models.OneToOneField(Form, on_delete=models.PROTECT, default=2, null=False, related_name='subform_ant_g_o')
 
 
 
@@ -159,47 +201,13 @@ class SubForm_historia_familiar(models.Model):
     familiares_cancer_tipo = models.CharField(max_length=40, null=True)
     familiares_cancer_parentesco = models.CharField(max_length=40, null=True)
 
+    form = models.OneToOneField(Form, on_delete=models.PROTECT, default=2, null=False, related_name='subform_hist_fam')
 
 
 # ------------------------------------------------------------------------------------------------
 
 
-class Mamografia(models.Model):
-    url_imagen = models.URLField(null=True)
 
-class Form(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
-    updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
-
-    id_form = models.CharField(primary_key=True, max_length=15)
-    id_patient = models.ForeignKey(Patient, on_delete=models.PROTECT, default=2, null=True)
-    submitted_at = models.DateTimeField(null=True)
-
-    habilitado = models.BooleanField(max_length=1, null=True, blank=True)
-    completed = models.BooleanField(max_length=1, null=True, blank=True)
-
-    urls_imgs = models.ManyToManyField(Mamografia)
-
-    subform_hist_per = models.OneToOneField(SubForm_historia_personal, on_delete=models.PROTECT, default=2, null=True)
-    subform_ant_g_o = models.OneToOneField(SubForm_antecedentes_g_o, on_delete=models.PROTECT, default=2, null=True)
-    subform_hist_fam = models.OneToOneField(SubForm_historia_familiar, on_delete=models.PROTECT, default=2, null=True)
-
-
-@receiver(pre_save, sender=Form)
-def create_forms(sender, instance, **kwargs):
-        instance.subform_hist_per = SubForm_historia_personal.objects.create()
-        instance.subform_ant_g_o = SubForm_antecedentes_g_o.objects.create()
-        instance.subform_hist_fam = SubForm_historia_familiar.objects.create()
-
-"""
-#TODO recivar metodo para guardado en escalada
-@receiver(post_save, sender=Form)
-def save_profile(sender, instance, **kwargs):
-    print("probando......")
-    instance.subForm_historia_familiar.save()
-    instance.subForm_antecedentes_g_o.save()
-    instance.subForm_historia_familiar.save()
-"""
 
 class Report(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)

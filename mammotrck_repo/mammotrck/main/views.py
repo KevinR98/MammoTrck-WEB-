@@ -32,19 +32,7 @@ def user_login_failed_callback(sender, credentials, **kwargs):
     print("login failed", sender)
     message = "Login fallido con credenciales: {}".format(credentials)
     return HttpResponse(status=412, content=message)
-"""
-@receiver(user_logged_in)
-def user_logged_in_callback(sender, request, user, credentials, **kwargs):
-    print("login success", sender)
-    message = "Se logueo correctamente el usuario: {}".format(credentials)
-    return HttpResponse(status=202, content=message)
 
-@receiver(user_logged_out)
-def user_logged_out_callback(sender, credentials, **kwargs):
-    print("login out", sender)
-    message = "Se deslogueo correctamente el usuario: {}".format(credentials)
-    return HttpResponse(status=202, content=message)
-"""
 
 #client = ClientFactory.get_client(request)
 
@@ -66,27 +54,24 @@ def registration(request):
                     print("Correo ya existe")
                     return redirect('/patients/')
 
-                elif request.POST['contrasena'] != request.POST['contrasena_confirmar']:
-                    print("Contraseña es diferente")
-                    return redirect('/patients/')
-
                 new_user = User.objects.create_user(request.POST['correo_electronico'], request.POST['correo_electronico'], request.POST['contrasena'])
                 new_user.firstname = request.POST['nombre']
                 new_user.save()
 
                 new_user.profile.clinic = Clinic.objects.filter(pk=int(request.POST['clinica'])).get()
-                print("Clinica seleccionada ", request.POST['clinica'])
-                print("Rol seleccionado ", request.POST['rol'])
 
                 rol = request.POST['rol']
                 if rol == '0':
                     grupo = Group.objects.get(name='asistente')
+                    print("Rol seleccionado: asistente")
 
                 elif rol == '1':
                     grupo = Group.objects.get(name='medico')
+                    print("Rol seleccionado: medico")
 
                 else:
                     grupo = Group.objects.get(name='admin')
+                    print("Rol seleccionado: admin")
                     new_user.is_staff = True
                     new_user.is_superuser = True
 
@@ -276,39 +261,39 @@ def guardar_subform_personal_Form(request):
 
                 subform = form.subform_hist_per
 
-                subform.nombre = request.POST["nombre"]
-                subform.clinic = Clinic.objects.filter(pk=int(request.POST['hospital'])).get()
-                subform.cedula = request.POST["cedula"]
-                subform.fecha_de_nacimiento = request.POST["fecha_nacimiento"]
-                subform.nacionalidad = request.POST["nacionalidad"]
-                subform.identidad_etnica = Identidad_etnica.objects.filter(pk=request.POST["identidad_etnica"]).get()
-                subform.identidad_etnica_otro = request.POST["otra_identidad"]
-                subform.peso = request.POST["peso_kg"]
-                subform.talla = request.POST["talla_m"]
-                subform.imc = request.POST["imc"]
-                subform.fuma = request.POST["fumador"]
-                subform.fuma_edad = request.POST["edad_fumo"]
-                subform.fuma_actualmente = request.POST["fuma_actuamente"]
-                subform.fuma_cuanto = request.POST["tiempo_fumando"]
-                subform.bebidas = request.POST["bebe_alcohol"]
-                subform.bebidas_cuanto = request.POST["frecuencia"]
-                subform.bebidas_cuanto_otro = request.POST["bebe_frecuencia"]
-                subform.actividad_fisica = request.POST["actividades_fisicas"]
-                subform.actividad_fisica_cuanto = request.POST["minutos_actividad_fisica"]
-                subform.consume_alimentos_con_grasa = request.POST["alimentos_con_grasa"]
-                subform.consume_veg_frut_gram = request.POST["consume_vegetales_frts_grns"]
-                subform.diabetes = request.POST["diabetes"]
-                subform.toma_medicamento_tamoxifeno = request.POST["toma_tamoxifeno"]
-                subform.cuanto_tamoxifeno = request.POST["cuanto_tiempo_tamoxifeno"]
-                subform.toma_medicamento_anastrozol = request.POST["toma_anastrozol"]
-                subform.cuanto_anastrozol = request.POST["cuanto_tiempo_anastrozol"]
-                subform.toma_medicamento_metformina = request.POST["toma_metformina"]
-                subform.cuanto_metformina = request.POST["cuanto_tiempo_metformina"]
-                subform.toma_medicamento_bifosfonatos = request.POST["toma_bifosfonatos"]
-                subform.cuanto_bifosfonatos = request.POST["cuanto_tiempo_bisfofonatos"]
-                subform.toma_medicamento_aspirina = request.POST["toma_aspirinas"]
-                subform.cuanto_aspirina = request.POST["cuanto_tiempo_aspirinas"]
-                subform.radiacion = request.POST["tratamiento_torax"]
+                subform.nombre = subform_Form.cleaned_data.get("nombre")
+                subform.clinic = Clinic.objects.filter(pk=int(subform_Form.cleaned_data.get("hospital"))).get()
+                subform.cedula = subform_Form.cleaned_data.get("cedula")
+                subform.fecha_de_nacimiento = subform_Form.cleaned_data.get("fecha_nacimiento")
+                subform.nacionalidad = subform_Form.cleaned_data.get("nacionalidad")
+                subform.identidad_etnica = Identidad_etnica.objects.filter(pk=int(subform_Form.cleaned_data.get("identidad_etnica"))).get()
+                subform.identidad_etnica_otro = subform_Form.cleaned_data.get("otra_identidad")
+                subform.peso = subform_Form.cleaned_data.get("peso_kg")
+                subform.talla = subform_Form.cleaned_data.get("talla_m")
+                subform.imc = subform_Form.cleaned_data.get("imc")
+                subform.fuma = subform_Form.cleaned_data.get("fumador")
+                subform.fuma_edad = subform_Form.cleaned_data.get("edad_fumo")
+                subform.fuma_actualmente = subform_Form.cleaned_data.get("fuma_actuamente")
+                subform.fuma_cuanto = subform_Form.cleaned_data.get("tiempo_fumando")
+                subform.bebidas = subform_Form.cleaned_data.get("bebe_alcohol")
+                subform.bebidas_cuanto = subform_Form.cleaned_data.get("frecuencia")
+                subform.bebidas_cuanto_otro = subform_Form.cleaned_data.get("bebe_frecuencia")
+                subform.actividad_fisica = subform_Form.cleaned_data.get("actividades_fisicas")
+                subform.actividad_fisica_cuanto = subform_Form.cleaned_data.get("minutos_actividad_fisica")
+                subform.consume_alimentos_con_grasa = subform_Form.cleaned_data.get("alimentos_con_grasa")
+                subform.consume_veg_frut_gram = subform_Form.cleaned_data.get("consume_vegetales_frts_grns")
+                subform.diabetes = subform_Form.cleaned_data.get("diabetes")
+                subform.toma_medicamento_tamoxifeno = subform_Form.cleaned_data.get("toma_tamoxifeno")
+                subform.cuanto_tamoxifeno = subform_Form.cleaned_data.get("cuanto_tiempo_tamoxifeno")
+                subform.toma_medicamento_anastrozol = subform_Form.cleaned_data.get("toma_anastrozol")
+                subform.cuanto_anastrozol = subform_Form.cleaned_data.get("cuanto_tiempo_anastrozol")
+                subform.toma_medicamento_metformina = subform_Form.cleaned_data.get("toma_metformina")
+                subform.cuanto_metformina = subform_Form.cleaned_data.get("cuanto_tiempo_metformina")
+                subform.toma_medicamento_bifosfonatos = subform_Form.cleaned_data.get("toma_bifosfonatos")
+                subform.cuanto_bifosfonatos = subform_Form.cleaned_data.get("cuanto_tiempo_bisfofonatos")
+                subform.toma_medicamento_aspirina = subform_Form.cleaned_data.get("toma_aspirinas")
+                subform.cuanto_aspirina = subform_Form.cleaned_data.get("cuanto_tiempo_aspirinas")
+                subform.radiacion = subform_Form.cleaned_data.get("tratamiento_torax")
 
                 subform.save()
                 print("Cambios personal guardados")
@@ -334,37 +319,37 @@ def guardar_subForm_antecedentes_g_o(request):
                 form = Form.objects.get(id_form=request.GET['id_form'])
                 subform = form.subform_ant_g_o
 
-                subform.manopausa_aplica = request.POST["menopausia"]
-                subform.edad_menstruacion = request.POST["edad_menstruacion"]
-                subform.edad_manopausa = request.POST["edad_menopausaia"]
+                subform.manopausa_aplica = subform_Form.cleaned_data.get("menopausia")
+                subform.edad_menstruacion = subform_Form.cleaned_data.get("edad_menstruacion")
+                subform.edad_manopausa = subform_Form.cleaned_data.get("edad_menopausaia")
 
-                subform.parto_cantidad = request.POST["cantidad_partos"]
+                subform.parto_cantidad = subform_Form.cleaned_data.get("cantidad_partos")
+                if subform_Form.cleaned_data.get("cantidad_partos"):
+                    if subform_Form.cleaned_data.get("cantidad_partos") == '0':
+                        subform.parto_aplica = False
+                    else:
+                        subform.parto_aplica = True
 
-                if request.POST["cantidad_partos"] == '0':
-                    subform.parto_aplica = '0'
-                else:
-                    subform.parto_aplica = '1'
+                subform.edad_ult_hijo = subform_Form.cleaned_data.get("edad_ultimo_hijo")
 
-                subform.edad_ult_hijo = request.POST["edad_ultimo_hijo"]
+                subform.lactancia_aplica = subform_Form.cleaned_data.get("lactancia_ult_hijo")
 
-                subform.lactancia_aplica = request.POST["lactancia_ult_hijo"]
+                subform.lactancia_tiempo = subform_Form.cleaned_data.get("tiempo_lactancia")
 
-                subform.lactancia_tiempo = request.POST["tiempo_lactancia"]
-
-                subform.anticonceptivos_aplica = request.POST["anticonceptivos_orales"]
-                subform.anticonceptivos_cuanto = request.POST["tiempo_tomo"]
-                subform.anticonceptivos_ult_vez = request.POST["ultima_vez_uso"]
-
-
-                subform.terapia_hormonal_aplica = request.POST["terapia_hormonal"]
-
-                subform.terapia = request.POST["tipo_terapia"]
-                subform.cuanto_tiempo_terapia = request.POST["tiempo_uso"]
+                subform.anticonceptivos_aplica = subform_Form.cleaned_data.get("anticonceptivos_orales")
+                subform.anticonceptivos_cuanto = subform_Form.cleaned_data.get("tiempo_tomo")
+                subform.anticonceptivos_ult_vez = subform_Form.cleaned_data.get("ultima_vez_uso")
 
 
-                subform.biopsia_aplica = request.POST["biopsia_mama"]
-                subform.biopsia_cuantas = request.POST["numero_biopsia"]
-                subform.biopsia_resultado = request.POST["resultado"]
+                subform.terapia_hormonal_aplica = subform_Form.cleaned_data.get("terapia_hormonal")
+
+                subform.terapia = subform_Form.cleaned_data.get("tipo_terapia")
+                subform.cuanto_tiempo_terapia = subform_Form.cleaned_data.get("tiempo_uso")
+
+
+                subform.biopsia_aplica = subform_Form.cleaned_data.get("biopsia_mama")
+                subform.biopsia_cuantas = subform_Form.cleaned_data.get("numero_biopsia")
+                subform.biopsia_resultado = subform_Form.cleaned_data.get("resultado")
 
                 subform.save()
                 print("Cambios antecedentes guardados")
@@ -388,29 +373,41 @@ def guardar_subForm_historia_familiar(request):
             if subform_Form.is_valid():
                 print("Guardando historia familiar...")
 
+                print("Datos del form")
+                print("pruebas_geneticas", subform_Form.cleaned_data.get("pruebas_geneticas"), " ", type(subform_Form.cleaned_data.get("pruebas_geneticas")))
+                print("resultado", subform_Form.cleaned_data.get("resultado"), " ", type(subform_Form.cleaned_data.get("resultado")))
+                print("otro_resultado", subform_Form.cleaned_data.get("otro_resultado"), " ", type(subform_Form.cleaned_data.get("otro_resultado")))
+                print("familiares", subform_Form.cleaned_data.get("familiares"), " ", type(subform_Form.cleaned_data.get("familiares")))
+                print("parentesco", subform_Form.cleaned_data.get("parentesco"), " ", type(subform_Form.cleaned_data.get("parentesco")))
+                print("familiares_otro", subform_Form.cleaned_data.get("familiares_otro"), " ", type(subform_Form.cleaned_data.get("familiares_otro")))
+                print("tipo", subform_Form.cleaned_data.get("tipo"), " ", type(subform_Form.cleaned_data.get("tipo")))
+                print("parentesco_tipo", subform_Form.cleaned_data.get("parentesco_tipo"), " ", type(subform_Form.cleaned_data.get("parentesco_tipo")))
+
+
                 form = Form.objects.get(id_form=request.GET['id_form'])
                 subform = form.subform_hist_fam
 
-                subform.prueba_genetica = request.POST["pruebas_geneticas"]
+                subform.prueba_genetica = subform_Form.cleaned_data.get("pruebas_geneticas")
 
                 subform.prueba_genetica_resultado.clear()
                 for element in subform_Form.cleaned_data.get('resultado'):
                     subform.prueba_genetica_resultado.add(element)
 
-                subform.prueba_genetica_otro = request.POST["otro_resultado"]
-                subform.familiares_mama = request.POST["familiares"]
+                subform.prueba_genetica_otro = subform_Form.cleaned_data.get("otro_resultado")
+                subform.familiares_mama = subform_Form.cleaned_data.get("familiares")
 
                 subform.parentesco.clear()
                 for element in subform_Form.cleaned_data.get('parentesco'):
                     subform.parentesco.add(element)
 
-                subform.familiares_cancer = request.POST["familiares_otro"]
+                subform.familiares_cancer = subform_Form.cleaned_data.get("familiares_otro")
 
-                subform.familiares_cancer_tipo = request.POST["tipo"]
-                subform.familiares_cancer_parentezco = request.POST["parentesco_tipo"]
+                subform.familiares_cancer_tipo = subform_Form.cleaned_data.get("tipo")
+                subform.familiares_cancer_parentezco = subform_Form.cleaned_data.get("parentesco_tipo")
 
 
                 subform.save()
+
 
                 print("Cambios historia guardados")
 
