@@ -409,7 +409,7 @@ def is_roles(user, roles):
     for role in roles:
         if user.groups.filter(name=role).exists():
             return True
-        return False
+    return False
 
 def linea_de_tiempo(request):
     render(request, 'index/pagina.html')
