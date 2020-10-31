@@ -22,5 +22,13 @@
   "ne.html": {
     "layoutPage": "",
     "description": ""
+  },
+  "report_box.html": {
+    "layoutPage": "",
+    "description": ""
+  },
+  "formularios_template.html": {
+    "layoutPage": "",
+    "description": ""
   }
 }

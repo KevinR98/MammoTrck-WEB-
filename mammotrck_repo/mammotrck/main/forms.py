@@ -260,7 +260,7 @@ class SubForm_antecedentes_g_o_Form(forms.Form):
     edad_menopausaia = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
         attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_meno',
                'name': 'meno', 'aria-describedby': 'inp_meno_help',
-               'placeholder': 'Enter edad primera menopaucia'}))
+               'placeholder': 'Enter edad menopausia'}))
 
     cantidad_partos = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
         attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_partos',
