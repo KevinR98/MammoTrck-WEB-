@@ -17,7 +17,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
     <link rel="stylesheet" href="{% static 'index/frontend/css/table.css'  %}" />
+    <link rel="stylesheet" href="{% static 'index/frontend/css/report_box.css'  %}" />
     <link rel="stylesheet" href="{% static 'index/frontend/css/style.css'  %}" />
 
 
@@ -90,81 +92,131 @@
 
 
 
-            <div class="col-md-8 col-lg-9 col-12 offset-0 bg-light style52 col-xl-10" style="overflow: scroll">
-                <form action="{% url 'patients' %}">
-                    <header class="style50">
-                        <div class="row"><i class="material-icons style56">arrow_back</i> <button id="btn3" class="btn newbutton active style59" type="submit" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
-                                    id="boton_volver">Volver</span></button></div>
-                    </header>
-                </form>
-                <header style="" class="bg-white">
-                    <div class="row style62">
-                        <p><b class="style61" id="id_paciente">{{patient_id}}</b></p>
-                    </div>
-                    <div class="row style64">
-                        <p id="nombre_paciente">{{patient_name}}</p>
-                    </div>
+              <div class="col-md-8 col-lg-9 col-12 offset-0 bg-light style52 col-xl-10" style="overflow: scroll">
+                <div class="d-flex flex-column">
+                  <form action="{% url 'patients' %}">
+                      <header class="style50">
+                          <div class="row"><i class="material-icons style56">arrow_back</i> <button id="btn3" class="btn newbutton active style59" type="submit" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
+                                      id="boton_volver">Volver</span></button></div>
+                      </header>
+                  </form>
+                  <header style="" class="bg-white">
+                      <div class="row style62">
+                          <p><b class="style61" id="id_paciente">{{patient_id}}</b></p>
+                      </div>
+                      <div class="row style64">
+                          <p id="nombre_paciente">{{patient_name}}</p>
+                      </div>
 
-                </header>
-                <section class="style63">
-                    <div class="row no-gutters">
-                        <div class="col">
-                            <div class="row">
-                                <div id="admin" class="col s12">
-                                    <div class="card material-table style58">
-                                        <div class="table-header">
-                                            <span class="table-title">Formularios</span>
-                                            <div class="actions">
-                                                <a href="#" class="search-toggle waves-effect btn-flat nopadding "><i class="material-icons" style="/* all: unset */">search</i></a>
-                                            </div>
-                                        </div>
-                                        <table id="datatable">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID de formulario</th>
-                                                    <th>Fecha de registro</th>
-                                                    <th>Estado</th>
-                                                    <th>Acciones</th>
+                  </header>
+                  <section class="style63">
+                      <div class="row no-gutters">
+                          <div class="col">
+                              <div class="row">
+                                  <div id="admin" class="col s12">
+                                      <div class="card material-table style58">
+                                          <div class="table-header">
+                                              <span class="table-title">Formularios</span>
+                                              <div class="actions">
+                                                  <a href="#" class="search-toggle waves-effect btn-flat nopadding "><i class="material-icons" style="/* all: unset */">search</i></a>
+                                              </div>
+                                          </div>
+                                          <table id="datatable">
+                                              <thead>
+                                                  <tr>
+                                                      <th>ID de formulario</th>
+                                                      <th>Fecha de registro</th>
+                                                      <th>Estado</th>
+                                                      <th>Acciones</th>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for form in list_forms %}
-                                                        <tr onclick="document.location = '{% url 'form' %}?id_patient={{patient_id}}&id_form={{form.id}}';">
-                                                            <td>{{ form.id }}</td>
-                                                            <td>{{ form.date_created }}</td>
-                                                            {% if form.habilitado %}
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                              {% for form in list_forms %}
+                                                          <tr onclick="document.location = '{% url 'form' %}?id_patient={{patient_id}}&id_form={{form.id}}';">
+                                                              <td>{{ form.id }}</td>
+                                                              <td>{{ form.date_created }}</td>
+                                                              {% if form.habilitado %}
 
-                                                              <td>Registrado</td>
-                                                            {% else %}
-                                                              <td>No Registrado</td>
-                                                            {% endif %}
-                                                            <td>
-                                                                <a href="{% url 'deactivate_forms' %}?id_patient={{patient_id}}&id_form={{form.id}}"> Deshabilitar </a>
-                                                            </td>
-                                                        </tr>
-                                            {% endfor %}
+                                                                <td>Registrado</td>
+                                                              {% else %}
+                                                                <td>No Registrado</td>
+                                                              {% endif %}
+                                                              <td>
+                                                                  <a href="{% url 'deactivate_forms' %}?id_patient={{patient_id}}&id_form={{form.id}}"> Deshabilitar </a>
+                                                              </td>
+                                                          </tr>
+                                              {% endfor %}
 
-                                            </tbody>
-                                        </table>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                  </section>
+                  <section class="style106">
+                      <div class="row justify-content-xl-end justify-content-lg-end  style107">
+                        {% if user|has_group:"admin" or user|has_group:"medico"%}
+                          <button onclick="document.location = '{% url 'create_forms' %}?id_patient={{patient_id}}';" id="boton_agregar" class="btn text-xl-right style65 bg-secondary" style="">Agregar un formulario</button>
+                        {% endif %}
+                      </div>
+                  </section>
+                </div>
+
+                <div class="row">
+                    <div id="live-chat">
+
+                        <header class="clearfix">
+
+
+
+                            <h4>ESCRIBIR REPORTE CLÍNICO</h4>
+
+
+
+                        </header>
+
+                        <div class="chat">
+
+                            <div class="chat-history d-flex">
+
+                                <form action="#" method="post" class="style110">
+
+                                    <div class="form-group">
+                                        <label for="inp_hospital">Formulario Asociado</label>
+                                        <select id="inp_hospital" class="form-control style112" name="hospital">
+                                            <option value="1">Option One</option>
+                                            <option value="2">Option Two</option>
+                                            <option value="3">Option Three</option>
+                                        </select>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                    <fieldset class="style111">
+                                        <textarea id="text1" class="form-control style109" style="height: 70%;"></textarea>
+                                        <button id="boton_aagregar" class="btn text-xl-right bg-secondary style108" style="">Agregar Reporte</button>
 
-                </section>
-                <section>
-                    <div class="row justify-content-xl-end justify-content-lg-end">
-                      {% if user|has_group:"admin" or user|has_group:"medico"%}
-                        <button onclick="document.location = '{% url 'create_forms' %}?id_patient={{patient_id}}';" id="boton_agregar" class="btn text-xl-right style65 bg-secondary" style="">Agregar un formulario</button>
-                      {% endif %}
-                    </div>
-                </section>
+                                    </fieldset>
 
+                                </form>
+
+
+
+                            </div> <!-- end chat-history -->
+
+
+
+
+
+                        </div> <!-- end chat -->
+
+                    </div> <!-- end live-chat -->
+                </div>
             </div>
         </div>
     </div>
+    <script src="{% static 'index/frontend/js/report_box.js'  %}"></script>
     <script src="{% static 'index/frontend/js/table.js'  %}"></script>
     <script src="{% static 'index/frontend/bootstrap/4/js/popper.min.js'  %}"></script>
     <script src="{% static 'index/frontend/bootstrap/4/js/bootstrap.min.js'  %}"></script>
@@ -183,4 +235,11 @@
 
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+    Copyright (c) 2020 by Mehmet mert (https://codepen.io/mehmetmert/pen/zbKpv)
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
