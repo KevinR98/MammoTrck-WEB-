@@ -82,7 +82,7 @@ def registration(request):
                     login(request, user)
 
                 print("Usuario creado.")
-                return redirect('/pacientes/')
+                return redirect('/')
 
             else:
                 print(form.errors)
@@ -95,7 +95,7 @@ def registration(request):
             return render(request, 'index/register.html', context)
 
     else:
-        return redirect('/index/')
+        return redirect('/')
 
 
 @login_required

@@ -2,9 +2,12 @@
 {% load auth_extras %}
 
 
+
     <header class="style50">
         <div class="row"><i class="material-icons style56">arrow_back</i> <button id="btn3" onclick="load_formularios({{patient_id}});" class="btn newbutton active style59" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
                     id="boton_volver">Volver</span></button></div>
+
+        <label id="patient_id_value" type="hidden" value="{{patient_id}}" style="all: unset;" />
     </header>
 
 
@@ -33,6 +36,9 @@
             <li class="nav-item">
                 <a class="nav-link" id="navTabs1_3_tab" data-toggle="tab" href="#" data-target="#navTabs1_3" role="tab" aria-controls="navTabs1_3" aria-selected="false">HISTORIA FAMILIAR</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="navTabs1_4_tab" data-toggle="tab" href="#" data-target="#navTabs1_4" role="tab" aria-controls="navTabs1_4" aria-selected="false">IMÁGENES</a>
+            </li>
         </ul>
 
         <div class="tab-content style82" id="navTabs1_content">
@@ -57,6 +63,13 @@
                             </div><button id="save1" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" type="submit" form="form_historia_personal">Guardar Cambios</button>
                         </div>
 
+                      {% else %}
+                        <div class="col class106" hidden>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="edit1" name="edit1" onclick="modify_historia_personal({{patient_id}}, '{{form_id}}')">
+                                <label class="form-check-label style70" for="edit1" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
+                            </div><button id="save1" class="btn newbutton active style73 d-print-none" style="all: unset; cursor: pointer; text-decoration: underline;" type="submit" form="form_historia_personal">Guardar Cambios</button>
+                        </div>
                       {% endif %}
                     </div>
                 </div>
@@ -451,6 +464,13 @@
                             </div><button id="save2" class="btn newbutton active style73 d-print-none"  type="submit" form="form_antecedentes_go" style="all: unset; cursor: pointer; text-decoration: underline;" onclick="">Guardar Cambios</button>
                         </div>
 
+                      {% else %}
+                        <div class="col class106" hidden>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="edit2" name="edit2" onclick="modify_antecedentes({{patient_id}}, '{{form_id}}')">
+                                <label class="form-check-label style70" for="edit2" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
+                            </div><button id="save2" class="btn newbutton active style73 d-print-none"  type="submit" form="form_antecedentes_go" style="all: unset; cursor: pointer; text-decoration: underline;" onclick="">Guardar Cambios</button>
+                        </div>
                       {% endif %}
                     </div>
                 </div>
@@ -659,6 +679,13 @@
                             </div><button id="save3" class="btn newbutton active style73 d-print-none" type="submit" form="form_historia_familiar" style="all: unset; cursor: pointer; text-decoration: underline;" onclick="">Guardar Cambios</button>
                         </div>
 
+                      {% else %}
+                        <div class="col class106" hidden>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="edit3" name="edit3" onclick="modify_historia_familiar({{patient_id}}, '{{form_id}}')">
+                                <label class="form-check-label style70" for="edit3" style="font-size: 0.8rem !important; padding-left: 25px;">Editar Información</label>
+                            </div><button id="save3" class="btn newbutton active style73 d-print-none" type="submit" form="form_historia_familiar" style="all: unset; cursor: pointer; text-decoration: underline;" onclick="">Guardar Cambios</button>
+                        </div>
                       {% endif %}
 
                     </div>
@@ -796,7 +823,9 @@
 
                 </div>
             </div>
+            <div class="tab-pane fade style104" id="navTabs1_4" role="tabpanel">
 
+            </div>
         </div>
     </section>
 

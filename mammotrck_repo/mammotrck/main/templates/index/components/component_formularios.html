@@ -2,9 +2,12 @@
 {% load auth_extras %}
 
 
+
+
 <header class="style50">
     <div class="row"><i class="material-icons style56">arrow_back</i> <button id="btn3" onclick="load_pacientes();" class="btn newbutton active style59" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
                 id="boton_volver">Volver</span></button></div>
+    <label id="patient_id_value" type="hidden" value="{{patient_id}}" style="all: unset;" />
 </header>
 
 <header style="" class="bg-white">
