@@ -1,5 +1,5 @@
 
-window.onload = function() {
+$( document ).ready(function() {
   disable_historia_personal();
   disable_antecedentes();
   disable_historia_familiar();
@@ -54,12 +54,12 @@ window.onload = function() {
             });
             return false;
         });
-};
+});
 
 
 
 
-function modify_historia_personal() {
+function modify_historia_personal(id_paciente, id_formulario) {
   // Get the checkbox
   var checkBox = document.getElementById("edit1");
   // Get inputs
@@ -74,7 +74,7 @@ function modify_historia_personal() {
       var r = confirm("Podría tener cambios en el formulario, se perderán si continúa")
 
       if (r == true) {
-         location.reload();
+         $('#content_loader').load("/form/?id_patient=" + id_paciente + "&id_form=" + id_formulario);
       }
       else{
         checkBox.checked = true;
@@ -85,7 +85,7 @@ function modify_historia_personal() {
 }
 
 
-function modify_antecedentes() {
+function modify_antecedentes(id_paciente, id_formulario) {
   // Get the checkbox
   var checkBox = document.getElementById("edit2");
   // Get inputs
@@ -100,7 +100,7 @@ function modify_antecedentes() {
       var r = confirm("Podría tener cambios en el formulario, se perderán si continúa")
 
       if (r == true) {
-         location.reload();
+         $('#content_loader').load("/form/?id_patient=" + id_paciente + "&id_form=" + id_formulario);
       }
       else{
         checkBox.checked = true;
@@ -110,7 +110,7 @@ function modify_antecedentes() {
   }
 }
 
-function modify_historia_familiar() {
+function modify_historia_familiar(id_paciente, id_formulario) {
   // Get the checkbox
   var checkBox = document.getElementById("edit3");
   // Get inputs
@@ -125,7 +125,7 @@ function modify_historia_familiar() {
       var r = confirm("Podría tener cambios en el formulario, se perderán si continúa")
 
       if (r == true) {
-         location.reload();
+         $('#content_loader').load("/form/?id_patient=" + id_paciente + "&id_form=" + id_formulario);
       }
       else{
         checkBox.checked = true;

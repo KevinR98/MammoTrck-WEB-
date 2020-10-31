@@ -21,7 +21,10 @@ from .Clients import ClientFactory
 
 @login_required
 def index(request):
-    return redirect('/patients/')
+    date = datetime.today().strftime("%d/%m/%y")
+
+    context = {'username': request.user.username, 'user_id': request.user.pk, 'current_date': date}
+    return render(request, 'index/index.html', context)
 
 @receiver(user_login_failed)
 def user_login_failed_callback(sender, credentials, **kwargs):
@@ -48,7 +51,7 @@ def registration(request):
 
                 if User.objects.filter(email=request.POST['correo_electronico']):
                     print("Correo ya existe")
-                    return redirect('/patients/')
+                    return redirect('/registration/')
 
                 new_user = User.objects.create_user(request.POST['correo_electronico'], request.POST['correo_electronico'], request.POST['contrasena'])
                 new_user.firstname = request.POST['nombre']
@@ -79,7 +82,7 @@ def registration(request):
                     login(request, user)
 
                 print("Usuario creado.")
-                return redirect('/patients/')
+                return redirect('/pacientes/')
 
             else:
                 print(form.errors)
@@ -92,7 +95,7 @@ def registration(request):
             return render(request, 'index/register.html', context)
 
     else:
-        return redirect('/patients/')
+        return redirect('/index/')
 
 
 @login_required
@@ -123,13 +126,13 @@ def pacientes(request):
             list_patients += [patient_dict]
 
         context = {'username': request.user.username, 'user_id': request.user.pk, 'current_date': date, 'list_patients' : list_patients}
-        return render(request, 'index/pacientes.html', context)
+        return render(request, 'index/components/component_pacientes.html', context)
 
 
 
 @login_required
 def lista_formularios(request):
-    print(request)
+
     if request.method == 'GET':
         list_forms_db = Form.objects.filter(id_patient=request.GET['id_patient']).values()
         patient = Patient.objects.get(id_patient=request.GET['id_patient'])
@@ -158,10 +161,7 @@ def lista_formularios(request):
                    'current_date': date,
                     'list_forms': list_forms}
 
-        return render(request, 'index/formularios.html', context)
-
-
-
+        return render(request, 'index/components/component_formularios.html', context)
 
 
 
@@ -221,7 +221,7 @@ def formulario(request):
         subform_ant_g_o = SubForm_antecedentes_g_o_Form(id_subform=form.subform_ant_g_o.pk)
         subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
 
- 
+
         context = {'patient_id': patient.id_patient,
                    'form_id': form.id_form,
                    'titulo_form': titulo_form,
@@ -234,7 +234,7 @@ def formulario(request):
                    'subform_hf': subform_hist_fam
                    }
 
-        return render(request, 'index/formulario.html', context)
+        return render(request, 'index/components/component_formulario.html', context)
 
 
 @login_required
@@ -412,6 +412,10 @@ def is_roles(user, roles):
 
 def linea_de_tiempo(request):
     render(request, 'index/pagina.html')
+
+
+
+
 
 def reportes_clinicos(request):
     render(request, 'index/pagina.html')
