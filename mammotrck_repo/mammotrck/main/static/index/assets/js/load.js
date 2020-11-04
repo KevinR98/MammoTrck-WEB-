@@ -46,3 +46,17 @@ function load_formulario(id_paciente, id_formulario){
     $('#nav_reportes').attr("hidden",false);
     $('#nav_timeline').attr("hidden",false);
 }
+
+function load_reportes(id_paciente){
+
+    $('#content_loader').load("/reportes/?id_patient=" + id_paciente);
+    $('#live-chat').show();
+    $('#nav_pacientes').attr("hidden",false);
+    $('#nav_formularios').attr("hidden",false);
+    $('#nav_reportes').attr("hidden",true);
+    $('#nav_timeline').attr("hidden",false);
+}
+
+function nav_reportes(){
+  load_reportes($('#patient_id_value').attr("value"));
+}

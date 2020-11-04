@@ -39,6 +39,12 @@ function submit_form(){
 
                 select.find('option:selected').remove();
                 contenido.val('');
+
+                component = $('#component_value').attr("value");
+                
+                if(component == 'reportes'){
+                  load_reportes($('#patient_id_value').attr("value"));
+                }
             },
             error: function(data) {
                 alert("Error guardando la información");

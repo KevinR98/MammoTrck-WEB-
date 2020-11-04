@@ -431,9 +431,44 @@ def linea_de_tiempo(request):
 
 
 
-
+@login_required
 def reportes_clinicos(request):
-    render(request, 'index/pagina.html')
+    if request.method == 'GET':
+        list_forms_db = Form.objects.filter(id_patient=request.GET['id_patient']).values()
+        patient = Patient.objects.get(id_patient=request.GET['id_patient'])
+        date = datetime.today().strftime("%d/%m/%y")
+
+        list_reports = []
+        for form in list_forms_db:
+            if form['habilitado']:
+
+                estado = False
+                if form['submitted_at'] != None:
+                    estado = True
+
+                form_dict = {}
+                form_dict['id'] = form['id_form']
+                if form['submitted_at']:
+                    form_dict['date_created'] = form['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
+                form_dict['state_form'] = estado
+
+                reporte = Report.objects.filter(formulario=form['id_form']).values()
+                if(reporte):
+                    reporte_dict = {}
+                    reporte_dict['formulario_id'] = reporte[0]['formulario_id']
+                    reporte_dict['contenido'] = reporte[0]['contenido']
+                    reporte_dict['date'] = reporte[0]['updated_at'].strftime("%d/%m/%y %H:%M:%S")
+                    list_reports += [reporte_dict]
+
+
+        context = {'patient_id':patient.id_patient,
+                   'patient_name':patient.name ,
+                   'username': request.user.username,
+                   'user_id': request.user.pk,
+                   'current_date': date,
+                    'list_reports': list_reports}
+
+        return render(request, 'index/components/component_reportes.html', context)
 
 @login_required
 def agregar_reporte(request):

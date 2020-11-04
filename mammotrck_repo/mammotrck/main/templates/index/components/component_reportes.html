@@ -1,0 +1,86 @@
+{% load static %}
+{% load auth_extras %}
+
+
+
+
+<header class="style50">
+    <div class="row"><i class="material-icons style56">arrow_back</i> <button id="btn3" onclick="load_pacientes();" class="btn newbutton active style59" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
+                id="boton_volver">Volver</span></button></div>
+    <label id="patient_id_value" type="hidden" value="{{patient_id}}" style="all: unset;" />
+    <label id="component_value" type="hidden" value="reportes" style="all: unset;" />
+</header>
+
+<header style="" class="bg-white">
+    <div class="row style62">
+        <p><b class="style61" id="id_paciente">Reportes de paciente {{patient_id}}</b></p>
+    </div>
+    <div class="row style64">
+        <p id="nombre_paciente">{{patient_name}}</p>
+    </div>
+
+</header>
+<section class="style63">
+    <div class="row no-gutters">
+        <div class="col">
+            <div class="row">
+                <div id="admin" class="col s12">
+
+                  <div class="row no-gutters style69 row-cols-xl-7" style="flex-grow: 1;">
+                    <div class="row hidden-md-up">
+                      {% for report in list_reports %}
+                            <div class="col-md-4">
+                              <div class="card" style="border-radius:10px;">
+                                <div class="card-body" style="width:70vw;  max-width: 100%; ">
+                                  <h4 class="card-title" style="color:#212529">Reporte de {{report.formulario_id}}</h4>
+
+                                  <h6 class="card-subtitle text-muted" style="padding-bottom: 20px">Última Entrada: {{report.date}}</h6>
+
+
+                                  <div id="myCollapsible{{report.formulario_id}}" class="collapse ">
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">{{report.contenido}}</p>
+                                    <div style="display: flex; flex-direction: row-reverse;">
+                                      <i class="material-icons style56" style="cursor: pointer">delete</i>
+                                      <i class="material-icons style56" style="cursor: pointer">edit</i>
+                                      <a href="#" class="card-link" style="text-decoration: underline; padding-right: 20px; padding-top: 10px;" onclick='load_formulario({{patient_id}}, "{{report.formulario_id}}");'>Ir a formulario</a>
+                                    </div>
+
+                                  </div>
+                                  <a href="#" id="toggle_{{report.formulario_id}}" class="card-link" style="text-decoration: underline;" onclick='toggle_contenido("#myCollapsible{{report.formulario_id}}", "#toggle_{{report.formulario_id}}");'>Ver más</a>
+
+                                </div>
+                              </div>
+                            </div>
+
+                      {% endfor %}
+
+
+
+
+                    </div>
+
+
+
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+  function toggle_contenido(element_id, link_id){
+    my_element =   $(element_id);
+    my_element.collapse("toggle");
+
+    link_element = $(link_id);
+
+    if (link_element.text() == 'Ver más'){
+      link_element.text("Ocultar");
+    }
+    else{
+      link_element.text("Ver más");
+    }
+  }
+</script>
