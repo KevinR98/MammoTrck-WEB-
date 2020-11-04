@@ -8,6 +8,7 @@
     <div class="row"><i class="material-icons style56">arrow_back</i> <button id="btn3" onclick="load_pacientes();" class="btn newbutton active style59" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
                 id="boton_volver">Volver</span></button></div>
     <label id="patient_id_value" type="hidden" value="{{patient_id}}" style="all: unset;" />
+    <label id="forms_id_values" type="hidden" value="{{list_forms_unreported}}" style="all: unset;" />
 </header>
 
 <header style="" class="bg-white">
@@ -70,9 +71,10 @@
 <section class="style106">
     <div class="row justify-content-xl-end justify-content-lg-end  style107">
       {% if user|has_group:"admin" or user|has_group:"medico"%}
-        <button onclick="crear_form({{patient_id}}); '{% url 'create_forms' %}?id_patient={{patient_id}}';" id="boton_agregar" class="btn text-xl-right style65 bg-secondary" style="">Agregar un formulario</button>
+        <button onclick="crear_form({{patient_id}});" id="boton_agregar" class="btn text-xl-right style65 bg-secondary" style="">Agregar un formulario</button>
       {% endif %}
     </div>
 </section>
 
 <script src="{% static 'index/frontend/js/table.js'  %}"></script>
+<script src="{% static 'index/frontend/js/report_select_values.js'  %}"></script>

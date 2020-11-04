@@ -13,18 +13,24 @@ from django.http import HttpResponse
 from django.views.decorators.cache import never_cache
 
 from .models import User, Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
-    Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco
+    Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco, Report
 from .forms import RegistrationForm, SubForm_historia_personal_Form, SubForm_antecedentes_g_o_Form, \
-    SubForm_historia_familiar_Form
+    SubForm_historia_familiar_Form, ReportForm
 
 from .Clients import ClientFactory
 
 @login_required
 def index(request):
-    date = datetime.today().strftime("%d/%m/%y")
+    if request.method == 'GET':
 
-    context = {'username': request.user.username, 'user_id': request.user.pk, 'current_date': date}
-    return render(request, 'index/index.html', context)
+        reporte = ReportForm()
+
+        date = datetime.today().strftime("%d/%m/%y")
+
+        context = {'username': request.user.username, 'user_id': request.user.pk, 'current_date': date, 'reporte_form': reporte}
+
+        return render(request, 'index/index.html', context)
+
 
 @receiver(user_login_failed)
 def user_login_failed_callback(sender, credentials, **kwargs):
@@ -139,6 +145,7 @@ def lista_formularios(request):
         date = datetime.today().strftime("%d/%m/%y")
 
         list_forms = []
+        list_forms_unreported = ""
         for form in list_forms_db:
             if form['habilitado']:
 
@@ -154,12 +161,20 @@ def lista_formularios(request):
 
                 list_forms += [form_dict]
 
+                reporte = Report.objects.filter(formulario=form['id_form']).values()
+                if(not reporte):
+                    list_forms_unreported += (str(form['id_form']) + ",")
+
+        list_forms_unreported = list_forms_unreported[:-1]
+        print(list_forms_unreported)
+
         context = {'patient_id':patient.id_patient,
                    'patient_name':patient.name ,
                    'username': request.user.username,
                    'user_id': request.user.pk,
                    'current_date': date,
-                    'list_forms': list_forms}
+                    'list_forms': list_forms,
+                    'list_forms_unreported': list_forms_unreported}
 
         return render(request, 'index/components/component_formularios.html', context)
 
@@ -419,6 +434,22 @@ def linea_de_tiempo(request):
 
 def reportes_clinicos(request):
     render(request, 'index/pagina.html')
+
+@login_required
+def agregar_reporte(request):
+    if is_roles(request.user, ["admin", "medico"]):
+        if request.method == 'POST':
+
+            formulario = Form.objects.get(id_form=request.POST['formulario'])
+            new_report = Report.objects.create(formulario=formulario , contenido=request.POST['contenido'])
+
+            new_report.save()
+
+            return redirect('/')
+
+    else:
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
+
 
 def informacion(request):
     render(request, 'index/pagina.html')

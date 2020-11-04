@@ -12,7 +12,7 @@ $( document ).ready(function() {
             data: frm.serialize(),
             success: function (data) {
                 disable_historia_personal();
-                alert("Cambios Guardos")
+                alert("Cambios Guardados")
             },
             error: function(data) {
                 alert("Error guardando la información");
@@ -29,7 +29,7 @@ $( document ).ready(function() {
               data: frm2.serialize(),
               success: function (data) {
                   disable_antecedentes();
-                  alert("Cambios Guardos")
+                  alert("Cambios Guardados")
               },
               error: function(data) {
                   alert("Error guardando la información");
@@ -46,7 +46,7 @@ $( document ).ready(function() {
                 data: frm3.serialize(),
                 success: function (data) {
                     disable_historia_familiar();
-                    alert("Cambios Guardos")
+                    alert("Cambios Guardados")
                 },
                 error: function(data) {
                     alert("Error guardando la información");

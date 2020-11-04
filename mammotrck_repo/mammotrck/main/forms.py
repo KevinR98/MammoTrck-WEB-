@@ -395,3 +395,11 @@ class RegistrationForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': 'Contraseña', 'type': 'password', 'id': 'password_confirm', "data-rule-equalto" : "#password"}))
     clinica = forms.CharField(widget=forms.Select(attrs={'class': 'custom-select style17', 'id': 'select1'}))
     rol = forms.CharField(widget=forms.Select(attrs={'class': 'form-control style25', 'id': 'select2'}, choices=ROLES))
+
+
+class ReportForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(ReportForm, self).__init__(*args, **kwargs)
+
+    formulario = forms.CharField(required=True, widget=forms.Select(attrs={'class': 'form-control style112', 'id': 'inp_form', 'style': 'border-radius:10px'}))
+    contenido = forms.CharField(required=True, max_length=500, widget=forms.Textarea(attrs={'class': 'form-control style109', 'id': 'contenido', 'style': 'height: 70%; border-radius:10px'}))

@@ -16,3 +16,33 @@ window.onload = function() {
   $('.chat').hide();
 
 };
+
+
+function submit_form(){
+
+  var frm = $('#form_report');
+  var select = $('#inp_form')
+  var contenido = $('#contenido')
+
+  if(select.val() == '' || !contenido.val().trim()){
+    alert ('Datos inválidos')
+    return false
+  }
+
+        $.ajax({
+            type: frm.attr('method'),
+            url: "/reportes/create",
+            data: frm.serialize(),
+            success: function (data) {
+
+                alert("Reporte guardado con éxito");
+
+                select.find('option:selected').remove();
+                contenido.val('');
+            },
+            error: function(data) {
+                alert("Error guardando la información");
+            }
+        });
+
+}

@@ -14,5 +14,7 @@ urlpatterns = [
     path('form/saveB/', views.guardar_subForm_antecedentes_g_o, name='save_form_antecedentes_go'),
     path('form/saveC/', views.guardar_subForm_historia_familiar, name='save_form_historia_familiar'),
     path('form/images', views.formulario, name='images'),
-    path('timeline/', views.linea_de_tiempo, name='index')
+    path('timeline/', views.linea_de_tiempo, name='index'),
+    path('reportes/', views.reportes_clinicos, name='reportes'),
+    path('reportes/create', views.agregar_reporte, name='create_report')
 ]
