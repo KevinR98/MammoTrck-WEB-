@@ -47,6 +47,37 @@ function load_formulario(id_paciente, id_formulario){
     $('#nav_timeline').attr("hidden",false);
 }
 
+function load_images(id_formulario){
+
+    $('#content_loader_images').load("/imagenes/?id_form=" + id_formulario);
+
+}
+
+function delete_image(url, id_formulario){
+  var r = confirm("Se borrará la imagen escogida. ¿Desea continuar?")
+
+  if (r == true) {
+    datos = "id_formulario=" + id_formulario + "&url_imagen=" + url;
+          $.ajax({
+              type: "GET",
+              url: "/imagenes/delete",
+              data: datos,
+              success: function (data) {
+
+                  alert("Imagen borrada con éxito");
+
+                  load_images(id_formulario);
+
+
+              },
+              error: function(data) {
+                  alert("Error borrando la información");
+              }
+          });
+  }
+
+}
+
 function load_reportes(id_paciente){
 
     $('#content_loader').load("/reportes/?id_patient=" + id_paciente);

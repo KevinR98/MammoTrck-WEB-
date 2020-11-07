@@ -8,6 +8,7 @@
                     id="boton_volver">Volver</span></button></div>
 
         <label id="patient_id_value" type="hidden" value="{{patient_id}}" style="all: unset;" />
+        <label id="formulario_id_value" type="hidden" value="{{form_id}}" style="all: unset;" />
         <label id="component_value" type="hidden" value="formulario" style="all: unset;" />
     </header>
 
@@ -38,7 +39,7 @@
                 <a class="nav-link" id="navTabs1_3_tab" data-toggle="tab" href="#" data-target="#navTabs1_3" role="tab" aria-controls="navTabs1_3" aria-selected="false">HISTORIA FAMILIAR</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="navTabs1_4_tab" data-toggle="tab" href="#" data-target="#navTabs1_4" role="tab" aria-controls="navTabs1_4" aria-selected="false">IMÁGENES</a>
+                <a class="nav-link" id="navTabs1_4_tab" data-toggle="tab" href="#" data-target="#navTabs1_4" role="tab" aria-controls="navTabs1_4" aria-selected="false" >IMÁGENES</a>
             </li>
         </ul>
 
@@ -825,18 +826,21 @@
                 </div>
             </div>
             <div class="tab-pane fade style104" id="navTabs1_4" role="tabpanel">
-              <div class="row no-gutters style69 row-cols-xl-7" style="flex-grow: 1;">
+
+              <div id="content_loader_images" class="d-flex flex-column" style=" height : 100%">
+
+
+
 
               </div>
-              <section class="style106">
-                  <div class="row justify-content-xl-end justify-content-lg-end  style107">
-                    {% if user|has_group:"admin" or user|has_group:"medico"%}
-                      <button onclick="crear_form({{patient_id}});" id="boton_agregar" class="btn text-xl-right style65 bg-secondary" style="">Añadir Imágenes</button>
-                    {% endif %}
-                  </div>
-              </section>
+
+
             </div>
         </div>
     </section>
 
     <script src="{% static 'index/assets/js/forms.js'  %}"></script>
+
+    <script>
+        $('#content_loader_images').load('/imagenes/?id_form={{form_id}}');
+    </script>

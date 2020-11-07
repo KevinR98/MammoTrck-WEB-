@@ -16,5 +16,10 @@ urlpatterns = [
     path('form/images', views.formulario, name='images'),
     path('timeline/', views.linea_de_tiempo, name='index'),
     path('reportes/', views.reportes_clinicos, name='reportes'),
-    path('reportes/create', views.agregar_reporte, name='create_report')
+    path('reportes/create', views.agregar_reporte, name='create_report'),
+    path('reportes/edit', views.editar_reporte, name='edit_report'),
+    path('reportes/delete', views.borrar_reporte, name='delete_report'),
+    path('imagenes/', views.lista_imagenes, name='images'),
+    path('imagenes/save', views.guardar_imagenes, name='save_images'),
+    path('imagenes/delete', views.borrar_imagenes, name='delete_images')
 ]

@@ -4,3 +4,4 @@
 #Ignore multiple "pychache" folders
 **/__pycache__
 .idea/
+**/mammotrck-firebase-adminsdk-hf2dq-18e04ab482.json

@@ -18,7 +18,7 @@ window.onload = function() {
 };
 
 
-function submit_form(){
+function submit_form_report(){
 
   var frm = $('#form_report');
   var select = $('#inp_form')
@@ -41,7 +41,7 @@ function submit_form(){
                 contenido.val('');
 
                 component = $('#component_value').attr("value");
-                
+
                 if(component == 'reportes'){
                   load_reportes($('#patient_id_value').attr("value"));
                 }

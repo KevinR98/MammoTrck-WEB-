@@ -10,10 +10,11 @@ from django.contrib import messages
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.conf import settings
 from django.views.decorators.cache import never_cache
 
 from .models import User, Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
-    Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco, Report
+    Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco, Report, Mamografia
 from .forms import RegistrationForm, SubForm_historia_personal_Form, SubForm_antecedentes_g_o_Form, \
     SubForm_historia_familiar_Form, ReportForm
 
@@ -237,6 +238,9 @@ def formulario(request):
         subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
 
 
+        list_imagenes = [1,2,3,4,5,7,7,77,7,7,7,7,8,8,8,8,8,8]
+
+
         context = {'patient_id': patient.id_patient,
                    'form_id': form.id_form,
                    'titulo_form': titulo_form,
@@ -246,7 +250,8 @@ def formulario(request):
                    'current_date': date,
                    'subform_h': subform_hist_per,
                    'subform_a': subform_ant_g_o,
-                   'subform_hf': subform_hist_fam
+                   'subform_hf': subform_hist_fam,
+                   'list_imagenes': list_imagenes
                    }
 
         return render(request, 'index/components/component_formulario.html', context)
@@ -454,10 +459,13 @@ def reportes_clinicos(request):
 
                 reporte = Report.objects.filter(formulario=form['id_form']).values()
                 if(reporte):
+
+                    user = User.objects.get(id=reporte[0]['user_id'])
                     reporte_dict = {}
                     reporte_dict['formulario_id'] = reporte[0]['formulario_id']
                     reporte_dict['contenido'] = reporte[0]['contenido']
                     reporte_dict['date'] = reporte[0]['updated_at'].strftime("%d/%m/%y %H:%M:%S")
+                    reporte_dict['user'] = user.username
                     list_reports += [reporte_dict]
 
 
@@ -476,7 +484,8 @@ def agregar_reporte(request):
         if request.method == 'POST':
 
             formulario = Form.objects.get(id_form=request.POST['formulario'])
-            new_report = Report.objects.create(formulario=formulario , contenido=request.POST['contenido'])
+            new_report = Report.objects.create(formulario=formulario , contenido=request.POST['contenido'], user=User.objects.get(username=request.user.username))
+
 
             new_report.save()
 
@@ -485,6 +494,126 @@ def agregar_reporte(request):
     else:
         return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
 
+@login_required
+def editar_reporte(request):
+    if is_roles(request.user, ["admin", "medico"]):
+        if request.method == 'POST':
+
+            formulario = Form.objects.get(id_form=request.POST['id_formulario'])
+            reporte = Report.objects.get(formulario=formulario)
+
+            reporte.contenido = request.POST['contenido']
+
+
+            reporte.save()
+
+            return redirect('/')
+
+    else:
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
+
+@login_required
+def borrar_reporte(request):
+    if is_roles(request.user, ["admin", "medico"]):
+        if request.method == 'GET':
+
+            formulario = Form.objects.get(id_form=request.GET['id_formulario'])
+            reporte = Report.objects.get(formulario=formulario)
+
+            reporte.delete()
+
+            return redirect('/')
+
+    else:
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
+
+
+@login_required
+@never_cache
+def lista_imagenes(request):
+
+    if request.method == 'GET':
+
+        list_imagenes_db = Mamografia.objects.filter(form=request.GET['id_form']).values()
+        list_imagenes = []
+        for imagen in list_imagenes_db:
+            url = imagen["url_imagen"]
+            list_imagenes += [url]
+
+
+        context = {'form_id': request.GET['id_form'],
+                   'username': request.user.username,
+                   'user_id': request.user.pk,
+                   'list_imagenes': list_imagenes
+                   }
+
+        return render(request, 'index/components/component_imagenes.html', context)
+
+@login_required
+def guardar_imagenes(request):
+    if is_roles(request.user, ["admin", "medico"]):
+        if request.method == 'POST':
+
+            files = request.FILES
+            form = Form.objects.get(id_form=request.POST['drop_form_id'])
+
+            for file in files:
+
+
+                steps = 0
+                exito = False
+                guardada = False
+
+                upload_name = datetime.today().strftime("%d_%m_%y_%H_%M_%S_%f")[:-2] + "_" + files[file].name
+
+                while steps < 5 and not exito:
+
+                    try:
+
+                        if guardada == False:
+                            blob = settings.FIREBASE_BUCKET.blob(upload_name)
+                            blob.upload_from_file(file_obj=files[file], content_type=files[file].content_type)
+                            guardada = True
+
+                        blob.make_public()
+                        url = blob.public_url
+
+                        new_mamografia = Mamografia(url_imagen=url, form=form, filename=upload_name)
+
+                        new_mamografia.save()
+
+                        exito = True
+
+                    except:
+                        steps += 1
+
+                if not exito:
+                    return error_page(request, 500, "No se pudo establecer conexión con la base de datos para imágenes después de 5 intentos realizados")
+
+
+
+            return redirect('/')
+
+    else:
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
+
+@login_required
+def borrar_imagenes(request):
+    if is_roles(request.user, ["admin", "medico"]):
+        if request.method == 'GET':
+
+            formulario = Form.objects.get(id_form=request.GET['id_formulario'])
+            mamografia = Mamografia.objects.get(url_imagen=request.GET['url_imagen'])
+
+            blob = settings.FIREBASE_BUCKET.delete_blob(mamografia.filename)
+
+
+            mamografia.delete()
+
+            return redirect('/')
+
+    else:
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
 
 def informacion(request):
     render(request, 'index/pagina.html')
