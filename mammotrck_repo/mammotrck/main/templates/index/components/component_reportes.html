@@ -1,0 +1,115 @@
+{% load static %}
+{% load auth_extras %}
+
+
+
+
+<header class="style50">
+    <div class="row"><i class="material-icons style56">arrow_back</i> <button id="btn3" onclick="load_pacientes();" class="btn newbutton active style59" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
+                id="boton_volver">Volver</span></button></div>
+    <label id="patient_id_value" type="hidden" value="{{patient_id}}" style="all: unset;" />
+    <label id="component_value" type="hidden" value="reportes" style="all: unset;" />
+</header>
+
+<header style="" class="bg-white">
+    <div class="row style62">
+        <p><b class="style61" id="id_paciente">Reportes de paciente {{patient_id}}</b></p>
+    </div>
+    <div class="row style64">
+        <p id="nombre_paciente">{{patient_name}}</p>
+    </div>
+
+</header>
+<section class="style63">
+    <div class="row no-gutters">
+        <div class="col">
+            <div class="row">
+                <div id="admin" class="col s12">
+
+                  <div class="row no-gutters style69 row-cols-xl-7" style="flex-grow: 1;">
+                    <div class="row hidden-md-up">
+                      {% for report in list_reports %}
+                            <div class="col-md-4">
+                              <div class="card" style="border-radius:10px;">
+                                <div class="card-body" style="width:70vw;  max-width: 100%; ">
+                                  <h4 class="card-title" style="color:#212529">Reporte de {{report.formulario_id}}</h4>
+
+                                  <h6 class="card-subtitle text-muted" style="padding-bottom: 20px">Última Entrada: {{report.date}}</h6>
+                                  <h6 class="card-subtitle text-muted" style="padding-bottom: 20px">Usuario: {{report.user}}</h6>
+
+                                  <div id="myCollapsible{{report.formulario_id}}" class="collapse ">
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">{{report.contenido}}</p>
+                                    <div style="display: flex; flex-direction: row-reverse;">
+                                      {% if user|has_group:"admin" or user|has_group:"medico" %}
+                                      {% if username == report.user%}
+                                      <i class="material-icons style56" style="cursor: pointer" onclick="delete_report('{{report.formulario_id}}')">delete</i>
+                                      <i class="material-icons style56" style="cursor: pointer" data-toggle="modal" data-target="#modal{{report.formulario_id}}" >edit</i>
+                                      {% endif %}
+                                      {% endif %}
+                                      <a href="#" class="card-link" style="text-decoration: underline; margin-right: 20px; padding-top: 10px;" onclick='load_formulario({{patient_id}}, "{{report.formulario_id}}");'>Ir a formulario</a>
+                                    </div>
+
+                                  </div>
+                                  <a href="#" id="toggle_{{report.formulario_id}}" class="card-link" style="text-decoration: underline;" onclick='toggle_contenido("#myCollapsible{{report.formulario_id}}", "#toggle_{{report.formulario_id}}");'>Ver más</a>
+
+                                </div>
+                              </div>
+
+                                <div class="modal fade" id="modal{{report.formulario_id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel{{report.formulario_id}}" aria-hidden="true" data-backdrop="false">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="ModalLabel{{report.formulario_id}}">Edición de Formulario {{report.formulario_id}}</h5>
+                                      </div>
+                                      <div class="modal-body" >
+                                        <form id='form_edit_report{{report.formulario_id}}' action="{%url 'edit_report' %}" method="post">
+                                          {% csrf_token %}
+                                          <div class="form-group">
+                                            <label for="contenido-text{{report.formulario_id}}" class="col-form-label">Contenido</label>
+                                            <textarea class="form-control" id="contenido-text{{report.formulario_id}}" style="height: 200px; border-radius:10px" >{{report.contenido}}</textarea>
+                                          </div>
+                                        </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary style108" data-dismiss="modal" style="margin-right: 5px; background-color: grey">Cancelar</button>
+                                        <button type="button" class="btn btn-primary style108" style=" background-color: var(--mammo_dark)" onclick="submit_form_edit_report('{{report.formulario_id}}')">Guardar Cambios</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+
+                      {% endfor %}
+
+
+
+
+                    </div>
+
+
+
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+  function toggle_contenido(element_id, link_id){
+    my_element =   $(element_id);
+    my_element.collapse("toggle");
+
+    link_element = $(link_id);
+
+    if (link_element.text() == 'Ver más'){
+      link_element.text("Ocultar");
+    }
+    else{
+      link_element.text("Ver más");
+    }
+  }
+</script>
+
+<script src="{% static 'index/frontend/js/reports.js'  %}"></script>

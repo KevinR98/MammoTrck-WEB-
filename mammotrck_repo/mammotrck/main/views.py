@@ -10,18 +10,28 @@ from django.contrib import messages
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.conf import settings
 from django.views.decorators.cache import never_cache
 
 from .models import User, Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
-    Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco
+    Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco, Report, Mamografia
 from .forms import RegistrationForm, SubForm_historia_personal_Form, SubForm_antecedentes_g_o_Form, \
-    SubForm_historia_familiar_Form
+    SubForm_historia_familiar_Form, ReportForm
 
 from .Clients import ClientFactory
 
 @login_required
 def index(request):
-    return redirect('/patients/')
+    if request.method == 'GET':
+
+        reporte = ReportForm()
+
+        date = datetime.today().strftime("%d/%m/%y")
+
+        context = {'username': request.user.username, 'user_id': request.user.pk, 'current_date': date, 'reporte_form': reporte}
+
+        return render(request, 'index/index.html', context)
+
 
 @receiver(user_login_failed)
 def user_login_failed_callback(sender, credentials, **kwargs):
@@ -48,7 +58,7 @@ def registration(request):
 
                 if User.objects.filter(email=request.POST['correo_electronico']):
                     print("Correo ya existe")
-                    return redirect('/patients/')
+                    return redirect('/registration/')
 
                 new_user = User.objects.create_user(request.POST['correo_electronico'], request.POST['correo_electronico'], request.POST['contrasena'])
                 new_user.firstname = request.POST['nombre']
@@ -79,7 +89,7 @@ def registration(request):
                     login(request, user)
 
                 print("Usuario creado.")
-                return redirect('/patients/')
+                return redirect('/')
 
             else:
                 print(form.errors)
@@ -92,7 +102,7 @@ def registration(request):
             return render(request, 'index/register.html', context)
 
     else:
-        return redirect('/patients/')
+        return redirect('/')
 
 
 @login_required
@@ -123,19 +133,20 @@ def pacientes(request):
             list_patients += [patient_dict]
 
         context = {'username': request.user.username, 'user_id': request.user.pk, 'current_date': date, 'list_patients' : list_patients}
-        return render(request, 'index/pacientes.html', context)
+        return render(request, 'index/components/component_pacientes.html', context)
 
 
 
 @login_required
 def lista_formularios(request):
-    print(request)
+
     if request.method == 'GET':
         list_forms_db = Form.objects.filter(id_patient=request.GET['id_patient']).values()
         patient = Patient.objects.get(id_patient=request.GET['id_patient'])
         date = datetime.today().strftime("%d/%m/%y")
 
         list_forms = []
+        list_forms_unreported = ""
         for form in list_forms_db:
             if form['habilitado']:
 
@@ -151,17 +162,22 @@ def lista_formularios(request):
 
                 list_forms += [form_dict]
 
+                reporte = Report.objects.filter(formulario=form['id_form']).values()
+                if(not reporte):
+                    list_forms_unreported += (str(form['id_form']) + ",")
+
+        list_forms_unreported = list_forms_unreported[:-1]
+        print(list_forms_unreported)
+
         context = {'patient_id':patient.id_patient,
                    'patient_name':patient.name ,
                    'username': request.user.username,
                    'user_id': request.user.pk,
                    'current_date': date,
-                    'list_forms': list_forms}
+                    'list_forms': list_forms,
+                    'list_forms_unreported': list_forms_unreported}
 
-        return render(request, 'index/formularios.html', context)
-
-
-
+        return render(request, 'index/components/component_formularios.html', context)
 
 
 
@@ -221,7 +237,10 @@ def formulario(request):
         subform_ant_g_o = SubForm_antecedentes_g_o_Form(id_subform=form.subform_ant_g_o.pk)
         subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
 
- 
+
+        list_imagenes = [1,2,3,4,5,7,7,77,7,7,7,7,8,8,8,8,8,8]
+
+
         context = {'patient_id': patient.id_patient,
                    'form_id': form.id_form,
                    'titulo_form': titulo_form,
@@ -231,10 +250,11 @@ def formulario(request):
                    'current_date': date,
                    'subform_h': subform_hist_per,
                    'subform_a': subform_ant_g_o,
-                   'subform_hf': subform_hist_fam
+                   'subform_hf': subform_hist_fam,
+                   'list_imagenes': list_imagenes
                    }
 
-        return render(request, 'index/formulario.html', context)
+        return render(request, 'index/components/component_formulario.html', context)
 
 
 @login_required
@@ -413,8 +433,187 @@ def is_roles(user, roles):
 def linea_de_tiempo(request):
     render(request, 'index/pagina.html')
 
+
+
+
+@login_required
 def reportes_clinicos(request):
-    render(request, 'index/pagina.html')
+    if request.method == 'GET':
+        list_forms_db = Form.objects.filter(id_patient=request.GET['id_patient']).values()
+        patient = Patient.objects.get(id_patient=request.GET['id_patient'])
+        date = datetime.today().strftime("%d/%m/%y")
+
+        list_reports = []
+        for form in list_forms_db:
+            if form['habilitado']:
+
+                estado = False
+                if form['submitted_at'] != None:
+                    estado = True
+
+                form_dict = {}
+                form_dict['id'] = form['id_form']
+                if form['submitted_at']:
+                    form_dict['date_created'] = form['submitted_at'].strftime("%d/%m/%y %H:%M:%S")
+                form_dict['state_form'] = estado
+
+                reporte = Report.objects.filter(formulario=form['id_form']).values()
+                if(reporte):
+
+                    user = User.objects.get(id=reporte[0]['user_id'])
+                    reporte_dict = {}
+                    reporte_dict['formulario_id'] = reporte[0]['formulario_id']
+                    reporte_dict['contenido'] = reporte[0]['contenido']
+                    reporte_dict['date'] = reporte[0]['updated_at'].strftime("%d/%m/%y %H:%M:%S")
+                    reporte_dict['user'] = user.username
+                    list_reports += [reporte_dict]
+
+
+        context = {'patient_id':patient.id_patient,
+                   'patient_name':patient.name ,
+                   'username': request.user.username,
+                   'user_id': request.user.pk,
+                   'current_date': date,
+                    'list_reports': list_reports}
+
+        return render(request, 'index/components/component_reportes.html', context)
+
+@login_required
+def agregar_reporte(request):
+    if is_roles(request.user, ["admin", "medico"]):
+        if request.method == 'POST':
+
+            formulario = Form.objects.get(id_form=request.POST['formulario'])
+            new_report = Report.objects.create(formulario=formulario , contenido=request.POST['contenido'], user=User.objects.get(username=request.user.username))
+
+
+            new_report.save()
+
+            return redirect('/')
+
+    else:
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
+
+@login_required
+def editar_reporte(request):
+    if is_roles(request.user, ["admin", "medico"]):
+        if request.method == 'POST':
+
+            formulario = Form.objects.get(id_form=request.POST['id_formulario'])
+            reporte = Report.objects.get(formulario=formulario)
+
+            reporte.contenido = request.POST['contenido']
+
+
+            reporte.save()
+
+            return redirect('/')
+
+    else:
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
+
+@login_required
+def borrar_reporte(request):
+    if is_roles(request.user, ["admin", "medico"]):
+        if request.method == 'GET':
+
+            formulario = Form.objects.get(id_form=request.GET['id_formulario'])
+            reporte = Report.objects.get(formulario=formulario)
+
+            reporte.delete()
+
+            return redirect('/')
+
+    else:
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
+
+
+@login_required
+@never_cache
+def lista_imagenes(request):
+
+    if request.method == 'GET':
+
+        list_imagenes_db = Mamografia.objects.filter(form=request.GET['id_form']).values()
+        list_imagenes = []
+        for imagen in list_imagenes_db:
+            url = imagen["url_imagen"]
+            list_imagenes += [url]
+
+
+        context = {'form_id': request.GET['id_form'],
+                   'username': request.user.username,
+                   'user_id': request.user.pk,
+                   'list_imagenes': list_imagenes
+                   }
+
+        return render(request, 'index/components/component_imagenes.html', context)
+
+@login_required
+def guardar_imagenes(request):
+    if is_roles(request.user, ["admin", "medico"]):
+        if request.method == 'POST':
+
+            files = request.FILES
+            form = Form.objects.get(id_form=request.POST['drop_form_id'])
+
+            for file in files:
+
+
+                steps = 0
+                exito = False
+                guardada = False
+
+                upload_name = datetime.today().strftime("%d_%m_%y_%H_%M_%S_%f")[:-2] + "_" + files[file].name
+
+                while steps < 5 and not exito:
+
+                    try:
+
+                        if guardada == False:
+                            blob = settings.FIREBASE_BUCKET.blob(upload_name)
+                            blob.upload_from_file(file_obj=files[file], content_type=files[file].content_type)
+                            guardada = True
+
+                        blob.make_public()
+                        url = blob.public_url
+
+                        new_mamografia = Mamografia(url_imagen=url, form=form, filename=upload_name)
+
+                        new_mamografia.save()
+
+                        exito = True
+
+                    except:
+                        steps += 1
+
+                if not exito:
+                    return error_page(request, 500, "No se pudo establecer conexión con la base de datos para imágenes después de 5 intentos realizados")
+
+
+
+            return redirect('/')
+
+    else:
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
+
+@login_required
+def borrar_imagenes(request):
+    if is_roles(request.user, ["admin", "medico"]):
+        if request.method == 'GET':
+
+            formulario = Form.objects.get(id_form=request.GET['id_formulario'])
+            mamografia = Mamografia.objects.get(url_imagen=request.GET['url_imagen'])
+
+            blob = settings.FIREBASE_BUCKET.delete_blob(mamografia.filename)
+
+
+            mamografia.delete()
+
+            return redirect('/')
+
+    else:
+        return error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
 
 def informacion(request):
     render(request, 'index/pagina.html')

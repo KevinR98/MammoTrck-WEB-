@@ -40,8 +40,7 @@ class Patient(models.Model):
     id_patient = models.CharField(primary_key=True, max_length=15)
 
 
-class Mamografia(models.Model):
-    url_imagen = models.URLField(null=True)
+
 
 
 class Form(models.Model):
@@ -55,8 +54,11 @@ class Form(models.Model):
     habilitado = models.BooleanField(max_length=1, null=True, blank=True)
     completed = models.BooleanField(max_length=1, null=True, blank=True)
 
-    urls_imgs = models.ManyToManyField(Mamografia)
+class Mamografia(models.Model):
+    url_imagen = models.URLField(null=True, unique=True)
+    filename = models.CharField(max_length=500, unique=True, null=True)
 
+    form = models.ForeignKey(Form, on_delete=models.PROTECT, default=2)
 
 @receiver(post_save, sender=Form)
 def create_forms(sender, instance, created ,**kwargs):
@@ -212,3 +214,5 @@ class Report(models.Model):
     formulario = models.OneToOneField(Form, on_delete=models.PROTECT, default=1)
 
     contenido = models.CharField(max_length=500, null=True)
+
+    user = models.ForeignKey(User, on_delete=models.PROTECT, default=2)

@@ -1,0 +1,81 @@
+{% load static %}
+{% load auth_extras %}
+
+
+
+
+<header class="style50">
+    <div class="row"><i class="material-icons style56">arrow_back</i> <button id="btn3" onclick="load_pacientes();" class="btn newbutton active style59" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
+                id="boton_volver">Volver</span></button></div>
+    <label id="patient_id_value" type="hidden" value="{{patient_id}}" style="all: unset;" />
+    <label id="forms_id_values" type="hidden" value="{{list_forms_unreported}}" style="all: unset;" />
+    <label id="component_value" type="hidden" value="formularios" style="all: unset;" />
+</header>
+
+<header style="" class="bg-white">
+    <div class="row style62">
+        <p><b class="style61" id="id_paciente">{{patient_id}}</b></p>
+    </div>
+    <div class="row style64">
+        <p id="nombre_paciente">{{patient_name}}</p>
+    </div>
+
+</header>
+<section class="style63">
+    <div class="row no-gutters">
+        <div class="col">
+            <div class="row">
+                <div id="admin" class="col s12">
+                    <div class="card material-table style58">
+                        <div class="table-header">
+                            <span class="table-title">Formularios</span>
+                            <div class="actions">
+                                <a href="#" class="search-toggle waves-effect btn-flat nopadding "><i class="material-icons" style="/* all: unset */">search</i></a>
+                            </div>
+                        </div>
+                        <table id="datatable">
+                            <thead>
+                                <tr>
+                                    <th>ID de formulario</th>
+                                    <th>Fecha de registro</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for form in list_forms %}
+                                        <tr >
+                                            <td onclick="load_formulario({{patient_id}}, '{{ form.id }}');">{{ form.id }}</td>
+                                            <td onclick="load_formulario({{patient_id}}, '{{ form.id }}');">{{ form.date_created }}</td>
+                                            {% if form.habilitado %}
+
+                                              <td onclick="load_formulario({{patient_id}}, '{{ form.id }}');">Registrado</td>
+                                            {% else %}
+                                              <td onclick="load_formulario({{patient_id}}, '{{ form.id }}');">No Registrado</td>
+                                            {% endif %}
+                                            <td>
+                                                <a onclick="deshabilitar_form({{patient_id}}, '{{ form.id }}');" style="cursor:pointer;"> Deshabilitar </a>
+                                            </td>
+                                        </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<section class="style106">
+    <div class="row justify-content-xl-end justify-content-lg-end  style107">
+      {% if user|has_group:"admin" or user|has_group:"medico"%}
+        <button onclick="crear_form({{patient_id}});" id="boton_agregar" class="btn text-xl-right style65 bg-secondary" style="">Agregar un formulario</button>
+      {% endif %}
+    </div>
+</section>
+
+<script src="{% static 'index/frontend/js/table.js'  %}"></script>
+<script src="{% static 'index/frontend/js/report_select_values.js'  %}"></script>

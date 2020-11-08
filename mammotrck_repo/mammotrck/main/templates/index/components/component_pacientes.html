@@ -1,0 +1,50 @@
+    {% load static %}
+
+    <header class="style50">
+        <p class="style51"><b class="style53">Pacientes</b></p>
+        <label id="component_value" type="hidden" value="pacientes" style="all: unset;" />
+    </header>
+    <section>
+        <div class="row no-gutters">
+            <div class="col">
+                <div class="row">
+                    <div id="admin" class="col s12">
+                        <div class="card material-table style58">
+                            <div class="table-header">
+                                <span class="table-title">Pacientes Del Sistema</span>
+                                <div class="actions">
+                                    <a href="#" class="search-toggle waves-effect btn-flat nopadding "><i class="material-icons" style="/* all: unset */">search</i></a>
+                                </div>
+                            </div>
+                            <table id="datatable">
+                                <thead>
+                                    <tr>
+                                        <th>Identificación del Sistema</th>
+                                        <th>Fecha de primer formulario</th>
+                                        <th>Fecha de último formulario</th>
+                                        <th>Total de formularios</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for patient in list_patients %}
+                                        <tr onclick="load_formularios({{patient.id}});">
+                                            <td>{{ patient.id }}</td>
+                                            <td>{{ patient.first_date }}</td>
+                                            <td>{{ patient.last_date }}</td>
+                                            <td>{{ patient.form_quantity }}</td>
+                                        </tr>
+                                    {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="{% static 'index/frontend/js/table.js'  %}"></script>

@@ -1,4 +1,18 @@
 /* CSS Document */
+
+:root{
+  --mammo_primary: #f48fb1;
+  --mammo_light: #ffc1e3;
+  --mammo_dark: #BF5F82;
+
+  --medical_primary: #448aff;
+  --medical_light: #83b9ff;
+  --medical_dark: #005ecb;
+
+  --medical2: #bbdefb;
+  --medical2_light: #eeffff;
+  --medical2_dark: #8aacc8;
+}
 body {
   padding-top: 55px;
 }
