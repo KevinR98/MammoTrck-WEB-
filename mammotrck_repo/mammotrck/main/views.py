@@ -238,8 +238,8 @@ def formulario(request):
         subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
 
 
-        list_imagenes = [1,2,3,4,5,7,7,77,7,7,7,7,8,8,8,8,8,8]
 
+        
 
         context = {'patient_id': patient.id_patient,
                    'form_id': form.id_form,
@@ -250,9 +250,7 @@ def formulario(request):
                    'current_date': date,
                    'subform_h': subform_hist_per,
                    'subform_a': subform_ant_g_o,
-                   'subform_hf': subform_hist_fam,
-                   'list_imagenes': list_imagenes
-                   }
+                   'subform_hf': subform_hist_fam}
 
         return render(request, 'index/components/component_formulario.html', context)
 
