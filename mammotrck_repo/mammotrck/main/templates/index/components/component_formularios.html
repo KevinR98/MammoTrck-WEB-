@@ -46,16 +46,16 @@
                             <tbody>
                             {% for form in list_forms %}
                                         <tr >
-                                            <td onclick="load_formulario({{patient_id}}, '{{ form.id }}');">{{ form.id }}</td>
-                                            <td onclick="load_formulario({{patient_id}}, '{{ form.id }}');">{{ form.date_created }}</td>
+                                            <td onclick="load_formulario('{{patient_id}}', '{{ form.id }}');">{{ form.id }}</td>
+                                            <td onclick="load_formulario('{{patient_id}}', '{{ form.id }}');">{{ form.date_created }}</td>
                                             {% if form.habilitado %}
 
-                                              <td onclick="load_formulario({{patient_id}}, '{{ form.id }}');">Registrado</td>
+                                              <td onclick="load_formulario('{{patient_id}}', '{{ form.id }}');">Registrado</td>
                                             {% else %}
-                                              <td onclick="load_formulario({{patient_id}}, '{{ form.id }}');">No Registrado</td>
+                                              <td onclick="load_formulario('{{patient_id}}', '{{ form.id }}');">No Registrado</td>
                                             {% endif %}
                                             <td>
-                                                <a onclick="deshabilitar_form({{patient_id}}, '{{ form.id }}');" style="cursor:pointer;"> Deshabilitar </a>
+                                                <a onclick="deshabilitar_form('{{patient_id}}', '{{ form.id }}');" style="cursor:pointer;"> Deshabilitar </a>
                                             </td>
                                         </tr>
                             {% endfor %}
@@ -72,7 +72,7 @@
 <section class="style106">
     <div class="row justify-content-xl-end justify-content-lg-end  style107">
       {% if user|has_group:"admin" or user|has_group:"medico"%}
-        <button onclick="crear_form({{patient_id}});" id="boton_agregar" class="btn text-xl-right style65 bg-secondary" style="">Agregar un formulario</button>
+        <button onclick="crear_form('{{patient_id}}');" id="boton_agregar" class="btn text-xl-right style65 bg-secondary" style="">Agregar un formulario</button>
       {% endif %}
     </div>
 </section>

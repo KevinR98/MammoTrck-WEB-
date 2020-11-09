@@ -28,7 +28,7 @@
                                 </thead>
                                 <tbody>
                                     {% for patient in list_patients %}
-                                        <tr onclick="load_formularios({{patient.id}});">
+                                        <tr onclick="load_formularios('{{patient.id}}');">
                                             <td>{{ patient.id }}</td>
                                             <td>{{ patient.first_date }}</td>
                                             <td>{{ patient.last_date }}</td>
