@@ -161,3 +161,181 @@ class android_client:
                        'subform_hf': subform_hist_fam}
 
             return self.__get_for_android(request, context)
+
+
+
+
+    def guardar_subform_personal_Form(self, request):
+
+        exito, mensaje = self.authenticate(request)
+
+        if(not exito):
+            return self.handle_error(request, status=403, message=mensaje)
+
+        if request.method == 'POST':
+
+            subform_Form = request.POST['subform_h']
+
+            print("Guardando cambios personal...")
+
+            form = Form.objects.get(id_form=request.GET['id_form'])
+
+            subform = SubForm_historia_personal.objects.get(id=form.subform_hist_per.pk)
+
+            subform.nombre = subform_Form['nombre']
+            subform.clinic = Clinic.objects.filter(pk=subform_Form['clinic']).get()
+            subform.cedula = subform_Form['cedula']
+            subform.fecha_de_nacimiento = subform_Form['fecha_de_nacimiento']
+            subform.nacionalidad = subform_Form["nacionalidad"]
+            subform.identidad_etnica = Identidad_etnica.objects.filter(pk=subform_Form["identidad_etnica"]).get()
+            subform.identidad_etnica_otro = subform_Form["identidad_etnica_otro"]
+            subform.peso = subform_Form["peso"]
+            subform.talla = subform_Form["talla"]
+            subform.imc = subform_Form["imc"]
+            subform.fuma = subform_Form["fuma"]
+            subform.fuma_edad = subform_Form["fuma_edad"]
+            subform.fuma_actualmente = subform_Form["fuma_actualmente"]
+            subform.fuma_cuanto = subform_Form["fuma_cuanto"]
+            subform.bebidas = subform_Form["bebidas"]
+            subform.bebidas_cuanto = subform_Form["bebidas_cuanto"]
+            subform.bebidas_cuanto_otro = subform_Form["bebidas_cuanto_otro"]
+            subform.actividad_fisica = subform_Form["actividad_fisica"]
+            subform.actividad_fisica_cuanto = subform_Form_Form["actividad_fisica_cuanto"]
+            subform.consume_alimentos_con_grasa = subform_Form["consume_alimentos_con_grasa"]
+            subform.consume_veg_frut_gram = subform_Form_Form["consume_veg_frut_gram"]
+            subform.diabetes = subform_Form["diabetes"]
+            subform.toma_medicamento_tamoxifeno = subform_Form["toma_medicamento_tamoxifeno"]
+            subform.cuanto_tamoxifeno = subform_Form["cuanto_tamoxifeno"]
+            subform.toma_medicamento_anastrozol = subform_Form["toma_medicamento_anastrozol"]
+            subform.cuanto_anastrozol = subform_Form["cuanto_anastrozol"]
+            subform.toma_medicamento_metformina = subform_Form["toma_medicamento_metformina"]
+            subform.cuanto_metformina = subform_Form["cuanto_metformina"]
+            subform.toma_medicamento_bifosfonatos = subform_Form["toma_medicamento_bifosfonatos"]
+            subform.cuanto_bifosfonatos = subform_Form["cuanto_bisfofonatos"]
+            subform.toma_medicamento_aspirina = subform_Form["toma_medicamento_aspirinas"]
+            subform.cuanto_aspirina = subform_Form["cuanto_aspirinas"]
+            subform.radiacion = subform_Form["radiacion"]
+
+            subform.save()
+            print("Cambios personal guardados")
+
+
+
+            context = {
+                'exito' : 'true'
+            }
+            return self.__get_for_android(request, context)
+
+        else:
+            return self.handle_error(request, status=400, message="Request inválido")
+
+
+
+    def guardar_subForm_antecedentes_g_o(self, request):
+
+        exito, mensaje = self.authenticate(request)
+
+        if(not exito):
+            return self.handle_error(request, status=403, message=mensaje)
+
+        if request.method == 'POST':
+
+            subform_Form = request.POST['subform_a']
+
+
+            print("Guardando cambios antecedentes...")
+
+            form = Form.objects.get(id_form=request.GET['id_form'])
+            subform = SubForm_antecedentes_g_o.objects.get(id=form.subform_ant_g_o.pk)
+
+            subform.manopausa_aplica = subform_Form["manopausa_aplica"]
+            subform.edad_menstruacion = subform_Form["edad_menstruacion"]
+            subform.edad_manopausa = subform_Form["edad_manopausa"]
+
+            subform.parto_cantidad = subform_Form["parto_cantidad"]
+            subform.parto_aplica = subform_Form["parto_aplica"]
+
+
+            subform.edad_ult_hijo = subform_Form["edad_ult_hijo"]
+
+            subform.lactancia_aplica = subform_Form["lactancia_aplica"]
+
+            subform.lactancia_tiempo = subform_Form["lactancia_tiempo"]
+
+            subform.anticonceptivos_aplica = subform_Form["anticonceptivos_aplica"]
+            subform.anticonceptivos_cuanto = subform_Form["anticonceptivos_cuanto"]
+            subform.anticonceptivos_ult_vez = subform_Form["anticonceptivos_ult_vez"]
+
+
+            subform.terapia_hormonal_aplica = subform_Form["terapia_hormonal_aplica"]
+
+            subform.terapia = subform_Form["terapia"]
+            subform.cuanto_tiempo_terapia = subform_Form["cuanto_tiempo_terapia"]
+
+
+            subform.biopsia_aplica = subform_Form["biopsia_aplica"]
+            subform.biopsia_cuantas = subform_Form["biopsia_cuantas"]
+            subform.biopsia_resultado = subform_Form["biopsia_resultado"]
+
+            subform.save()
+            print("Cambios antecedentes guardados")
+
+
+
+            context = {
+                'exito' : 'true'
+            }
+            return self.__get_for_android(request, context)
+
+        else:
+            return self.handle_error(request, status=400, message="Request inválido")
+
+
+    def guardar_subForm_historia_familiar(self, request):
+
+        exito, mensaje = self.authenticate(request)
+
+        if(not exito):
+            return self.handle_error(request, status=403, message=mensaje)
+
+        if request.method == 'POST':
+
+            subform_Form = request.POST['subform_hf']
+
+
+            print("Guardando historia familiar...")
+
+            form = Form.objects.get(id_form=request.GET['id_form'])
+            subform = SubForm_historia_familiar.objects.get(id=form.subform_hist_fam.pk)
+
+            subform.prueba_genetica = subform_Form['prueba_genetica']
+
+            subform.prueba_genetica_resultado = subform_Form['prueba_genetica_resultado']
+
+
+            subform.prueba_genetica_otro = subform_Form['prueba_genetica_otro']
+            subform.familiares_mama = subform_Form['familiares_mama']
+
+            subform.parentesco = subform_Form['parentesco']
+
+
+            subform.familiares_cancer = subform_Form['familiares_cancer']
+
+            subform.familiares_cancer_tipo = subform_Form['familiares_cancer_tipo']
+            subform.familiares_cancer_parentesco = subform_Form['familiares_cancer_parentesco']
+
+
+            subform.save()
+
+
+            print("Cambios historia guardados")
+
+
+
+            context = {
+                'exito' : 'true'
+            }
+            return self.__get_for_android(request, context)
+
+        else:
+            return self.handle_error(request, status=400, message="Request inválido")
