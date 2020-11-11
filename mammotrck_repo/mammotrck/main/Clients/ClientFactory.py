@@ -10,5 +10,5 @@ def get_client(request):
 
     if (type in clients):
         return clients[client]()
-        
-    return None
+
+    return clients['web']()
