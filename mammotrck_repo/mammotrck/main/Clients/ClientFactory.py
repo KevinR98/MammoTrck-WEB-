@@ -9,6 +9,6 @@ def get_client(request):
         type = request.POST.get('client')
 
     if (type in clients):
-        return clients[client]()
+        return clients[type]()
 
     return clients['web']()

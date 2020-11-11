@@ -1,12 +1,16 @@
 from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
+from django.db.models import Model
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models.query import QuerySet
 from django.forms.models import model_to_dict
 from io import BytesIO
+from itertools import chain
 #import requests
 import json
-
+from datetime import datetime
+from django.views.decorators.cache import never_cache
+from django.utils.decorators import method_decorator
 
 from ...models import Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
     Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco
@@ -25,6 +29,15 @@ class android_client:
         response.status_code = status
         return response
 
+    def to_dict(self, instance):
+        opts = instance._meta
+        data = {}
+        for f in chain(opts.concrete_fields, opts.private_fields):
+            data[f.name] = f.value_from_object(instance)
+        for f in opts.many_to_many:
+            data[f.name] = [i.id for i in f.value_from_object(instance)]
+        return data
+
 
     def __get_for_android(self, request, context=None):
 
@@ -39,7 +52,7 @@ class android_client:
                     if isinstance(context[key], QuerySet):
                         context[key] = list(context[key].values())
                     elif isinstance(context[key], Model):
-                        context[key] = model_to_dict(context[key])
+                        context[key] = self.to_dict(context[key])
 
                 context["token"] = token
                 print("Contexto en get_for_android: {}".format(context))
@@ -60,17 +73,25 @@ class android_client:
             return JsonResponse({'token' : token})
 
     def authenticate(self, request):
-        paciente_id = request.POST['patient_id']
-        formulario_id = request.POST['form_id']
+        paciente_id = ""
+        formulario_id = ""
         mensaje = ""
         exito = True
 
-        paciente = Patient.objects.filter(id_patient=paciente_id)
+        if(request.method == 'POST'):
+            paciente_id = request.POST['id_patient']
+            formulario_id = request.POST['id_form']
+
+        else:
+            paciente_id = request.GET['id_patient']
+            formulario_id = request.GET['id_form']
+
+        paciente = Patient.objects.get(id_patient=paciente_id)
         if(not paciente):
             mensaje = "La paciente no existe en el sistema"
             exito = False
 
-        formulario = Form.objects.filter(id_form=formulario, id_patient=paciente_id)
+        formulario = Form.objects.get(id_form=formulario_id, id_patient=paciente_id)
 
 
         if(not formulario):
@@ -96,7 +117,7 @@ class android_client:
 
         if(request.method == 'POST'):
 
-            exito, mensaje = authenticate(request)x 12 y 29    70  70
+            exito, mensaje = self.authenticate(request)
 
             if(not exito):
                 return self.handle_error(request, status=403, message=mensaje)
@@ -110,4 +131,33 @@ class android_client:
 
             return self.handle_error(request, status=400, message="Request inválido")
 
-    
+    @method_decorator(never_cache)
+    def formulario(self, request):
+
+        if request.method == 'GET':
+
+            exito, mensaje = self.authenticate(request)
+
+            if(not exito):
+                return self.handle_error(request, status=403, message=mensaje)
+
+
+            patient = Patient.objects.get(id_patient=request.GET['id_patient'])
+            form = Form.objects.get(id_form=request.GET['id_form'])
+            date = datetime.today().strftime("%d/%m/%y")
+
+
+
+            subform_hist_per = SubForm_historia_personal.objects.get(id=form.subform_hist_per.pk)
+            subform_ant_g_o = SubForm_antecedentes_g_o.objects.get(id=form.subform_ant_g_o.pk)
+            subform_hist_fam = SubForm_historia_familiar.objects.get(id=form.subform_hist_fam.pk)
+
+
+            context = {'patient_id': patient.id_patient,
+                       'form_id': form.id_form,
+                       'patient_name': patient.name,
+                       'subform_h': subform_hist_per,
+                       'subform_a': subform_ant_g_o,
+                       'subform_hf': subform_hist_fam}
+
+            return self.__get_for_android(request, context)
