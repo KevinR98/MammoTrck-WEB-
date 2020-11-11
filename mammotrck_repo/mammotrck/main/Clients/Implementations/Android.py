@@ -339,3 +339,29 @@ class android_client:
 
         else:
             return self.handle_error(request, status=400, message="Request inválido")
+
+
+    def agregar_formulario(self, request):
+
+        exito, mensaje = self.authenticate(request)
+
+        if(not exito):
+            return self.handle_error(request, status=403, message=mensaje)
+
+        if request.method == 'POST':
+            date = datetime.today().strftime("%d/%m/%y")
+
+            form = Form.objects.get(id_form=request.GET['id_form'])
+
+            form.submitted_at = date
+            form.completed = True
+
+            form.save()
+
+            context = {
+                'exito' : 'true'
+            }
+            return self.__get_for_android(request, context)
+
+        else:
+            return self.handle_error(request, status=400, message="Request inválido")
