@@ -24,11 +24,12 @@ class android_client:
         self.name = "android"
 
     def handle_error(self, request, status, message):
+        context = {
+            'status' : status,
+            'message' : message
+        }
 
-        response = HttpResponse(json.dumps({'message': message}),
-            content_type='application/json')
-        response.status_code = status
-        return response
+        return self.__get_for_android(request, context)
 
     def to_dict(self, instance):
         opts = instance._meta
@@ -87,25 +88,26 @@ class android_client:
             paciente_id = request.GET['id_patient']
             formulario_id = request.GET['id_form']
 
-        paciente = Patient.objects.get(id_patient=paciente_id)
+        paciente = Patient.objects.filter(id_patient=paciente_id).values()
         if(not paciente):
             mensaje = "La paciente no existe en el sistema"
             exito = False
 
-        formulario = Form.objects.get(id_form=formulario_id, id_patient=paciente_id)
+        else:
+            formulario = Form.objects.filter(id_form=formulario_id, id_patient=paciente_id).values()
+            if(not formulario):
+                mensaje = "El formulario no existe en el sistema o no está asociado a la paciente"
+                exito = False
+            else:
+                formulario = formulario[0]
 
+                if(not formulario["habilitado"]):
+                    mensaje = "El formulario está deshabilitado"
+                    exito = False
 
-        if(not formulario):
-            mensaje = "El formulario no existe en el sistema o no está asociado a la paciente"
-            exito = False
-
-        if(not formulario.habilitado):
-            mensaje = "El formulario está deshabilitado"
-            exito = False
-
-        if(formulario.completed):
-            mensaje = "El formulario ya fue registrado"
-            exito = False
+                if(formulario["completed"]):
+                    mensaje = "El formulario ya fue registrado"
+                    exito = False
 
         return (exito, mensaje)
 
@@ -129,11 +131,8 @@ class android_client:
 
             exito, mensaje = self.authenticate(request)
 
-            if(not exito):
-                return self.handle_error(request, status=403, message=mensaje)
-
             context = {
-                'exito' : 'true'
+                'exito' : exito
             }
             return self.__get_for_android(request, context)
 
