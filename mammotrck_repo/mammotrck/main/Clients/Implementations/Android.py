@@ -152,13 +152,22 @@ class android_client:
             subform_ant_g_o = SubForm_antecedentes_g_o.objects.get(id=form.subform_ant_g_o.pk)
             subform_hist_fam = SubForm_historia_familiar.objects.get(id=form.subform_hist_fam.pk)
 
+            clinicas = [(model.pk, model.name) for model in Clinic.objects.all()]
+            identidades = [(model.pk, model.identidad) for model in Identidad_etnica.objects.all()]
+            pruebas_geneticas = [(model.pk, model.tipo_prueba_genetica) for model in Prueba_genetica.objects.all()]
+            parentescos = [(model.pk, model.tipo_parentesco) for model in Parentesco.objects.all()]
+
 
             context = {'patient_id': patient.id_patient,
                        'form_id': form.id_form,
                        'patient_name': patient.name,
                        'subform_h': subform_hist_per,
                        'subform_a': subform_ant_g_o,
-                       'subform_hf': subform_hist_fam}
+                       'subform_hf': subform_hist_fam,
+                       'clinicas': clinicas,
+                       'identidades': identidades,
+                       'pruebas_geneticas': pruebas_geneticas,
+                       'parentescos': parentescos}
 
             return self.__get_for_android(request, context)
 
