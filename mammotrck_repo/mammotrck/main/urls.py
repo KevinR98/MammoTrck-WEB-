@@ -1,5 +1,5 @@
 from django.urls import path, include
-from . import views
+from . import views, api_methods
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -21,5 +21,12 @@ urlpatterns = [
     path('reportes/delete', views.borrar_reporte, name='delete_report'),
     path('imagenes/', views.lista_imagenes, name='images'),
     path('imagenes/save', views.guardar_imagenes, name='save_images'),
-    path('imagenes/delete', views.borrar_imagenes, name='delete_images')
+    path('imagenes/delete', views.borrar_imagenes, name='delete_images'),
+    path('app/login', api_methods.login, name='app_login'),
+    path('app/form/', api_methods.formulario, name='app_form'),
+    path('app/form/saveA', api_methods.guardar_subform_personal_Form, name='app_form_saveA'),
+    path('app/form/saveB', api_methods.guardar_subForm_antecedentes_g_o, name='app_form_saveB'),
+    path('app/form/saveC', api_methods.guardar_subForm_historia_familiar, name='app_form_saveC'),
+    path('app/form/register', api_methods.registrar_formulario, name='app_form_register')
+
 ]
