@@ -11,6 +11,7 @@ import json
 from datetime import datetime
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
+from django.template.context_processors import csrf
 
 from ...models import Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
     Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco
@@ -114,6 +115,15 @@ class android_client:
         return self.login(request)
 
     def login(self, request):
+
+        if(request.method == 'GET'):
+            csrf_tok = csrf(request)
+            csrf_token =  str(csrf_tok.get('csrf_token'))
+
+            context = {
+                'csrf_token' : csrf_token
+            }
+            return self.__get_for_android(request, context)
 
         if(request.method == 'POST'):
 
