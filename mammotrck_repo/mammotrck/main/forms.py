@@ -388,13 +388,13 @@ class RegistrationForm(forms.Form):
         self.fields['clinica'].widget.choices = [(model.pk, model.name) for model in Clinic.objects.all()]
 
 
-    nombre = forms.CharField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control style4', 'placeholder': 'Nombre Completo', 'pattern' : '[A-Za-z ]+', 'title' : 'Ingrese letras solamente.'}))
-    correo_electronico = forms.EmailField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control',  'placeholder': 'Correo electrónico', 'type': 'email', 'id': 'email'}))
-    contrasena = forms.CharField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña', 'type': 'password', 'id': 'password'}))
+    nombre = forms.CharField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control style4', 'placeholder': 'Nombre Completo', 'pattern' : '[A-Za-z ]+', 'title' : 'Ingrese letras solamente.', 'data-msg-required':'Este campo es requerido'}))
+    correo_electronico = forms.EmailField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control',  'placeholder': 'Correo electrónico', 'type': 'email', 'id': 'email', 'data-msg-required':'Este campo es requerido', 'data-msg-email': 'Por favor ingrese un correo válido'}))
+    contrasena = forms.CharField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña', 'type': 'password', 'id': 'password', 'data-msg-required':'Este campo es requerido'}))
     contrasena_confirmar = forms.CharField(max_length=40, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Contraseña', 'type': 'password', 'id': 'password_confirm', "data-rule-equalto" : "#password"}))
-    clinica = forms.CharField(widget=forms.Select(attrs={'class': 'custom-select style17', 'id': 'select1'}))
-    rol = forms.CharField(widget=forms.Select(attrs={'class': 'form-control style25', 'id': 'select2'}, choices=ROLES))
+        attrs={'class': 'form-control', 'placeholder': 'Contraseña', 'type': 'password', 'id': 'password_confirm', "data-rule-equalto" : "#password", 'data-msg-required':'Este campo es requerido', 'data-msg-equalto' : 'Las contraseñas no coinciden'}))
+    clinica = forms.CharField(widget=forms.Select(attrs={'class': 'custom-select style17', 'id': 'select1', 'data-msg-required':'Este campo es requerido'}))
+    rol = forms.CharField(widget=forms.Select(attrs={'class': 'custom-select style17', 'id': 'select2', 'data-msg-required':'Este campo es requerido'}, choices=ROLES))
 
 
 class ReportForm(forms.Form):

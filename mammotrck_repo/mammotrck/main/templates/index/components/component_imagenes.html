@@ -43,7 +43,7 @@
 
         <div class="row justify-content-xl-end justify-content-lg-end  style107" style="margin-top: 30px">
           {% if user|has_group:"admin" or user|has_group:"medico"%}
-            <button data-toggle="modal" data-target="#modal_upload" class="btn text-xl-right style65 bg-secondary" style="" onclick="$('#drop_form_id').attr('value', '{{form_id}}')">Añadir Imágenes</button>
+            <button data-toggle="modal" data-target="#modal_upload" class="btn text-xl-right style65  boton_b" style="" onclick="$('#drop_form_id').attr('value', '{{form_id}}')">Añadir Imágenes</button>
           {% endif %}
         </div>
     </section>
