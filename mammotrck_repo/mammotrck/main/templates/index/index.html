@@ -142,7 +142,7 @@
                         </div>
                         <section class="style83">
                             <div class="row">
-                                <i class="material-icons style56">info</i><button id="boton_informacion" class="btn newbutton active" style="all: unset; cursor: pointer;">Información</button>
+                                <i class="material-icons style56">info</i><button id="boton_informacion" class="btn newbutton active" style="all: unset; cursor: pointer;" data-toggle="modal" data-target="#modal_info">Información</button>
                             </div>
                              <form action="{% url 'logout' %}">
                                 <div class="row">
@@ -181,6 +181,45 @@
 
                   </div>
                 </div>
+
+                <div class="modal fade" id="modal_info" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" data-backdrop="false">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Acerca de Nosotros...</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body" >
+                        <p class="info">La plataforma MammoTrck ha sido desarrollada por Kevin Rojas y Diego Murillo, estudiantes de la carrera de Ingeniería en Computación, y diseñada por Ileana Brenes Mora, estudiante de la carrera de Ingeniería en Diseño Industrial, ambas del Instituto Tecnológico de Costa Rica. </p>
+
+                        <p class="info">El proyecto fue desarrollado bajo el marco del curso "Proyecto de Ingeniería de Software".</p>
+
+                        <p class="info">El proyecto se desarrolló con los objetivos principales de apoyar el esfuerzo de profesionales médicos en el diagnóstico de pacientes de mamografía, e impulsar la digitalización de procesos clínicos en las instituciones médicas del país.</p>
+
+                        <p class="info">El desarrollo del mismo fue hecho posible gracias al programa <a href="https://www.tec.ac.cr/programa-investigacion/escience">E-Science</a>, al <a href="https://www.tec.ac.cr/">Instituto Tecnológico de Costa Rica</a> y al <a href="https://www.tec.ac.cr/grupo-investigacion/parma">grupo PARMA de investigación</a>.</p>
+
+
+                        <div  style="display: flex; justify-content: center;">
+                            <img src="{% static 'index/assets/images/logo-tec.png'  %}" alt="logo tec" width="300" height="150">
+
+                        </div>
+
+                        <div  style="display: flex; justify-content: center;">
+
+                            <img src="{% static 'index/assets/images/logo-escience.png'  %}" alt="logo escience" width="100" height="100">
+                            <img src="{% static 'index/assets/images/PARMA_logo.png'  %}" alt="logo parma" width="150" height="100">
+                        </div>
+                      </div>
+                      <div class="modal-footer" >
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
 
                 <div id="content_loader" class="d-flex flex-column" style=" height : 100%">
 
