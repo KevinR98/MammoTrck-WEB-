@@ -192,7 +192,7 @@ class android_client:
 
         if request.method == 'POST':
 
-            subform_Form = request.POST['subform_h']
+            subform_Form = json.loads(request.POST['subform_h'])
 
             print("Guardando cambios personal...")
 
@@ -218,9 +218,9 @@ class android_client:
             subform.bebidas_cuanto = subform_Form["bebidas_cuanto"]
             subform.bebidas_cuanto_otro = subform_Form["bebidas_cuanto_otro"]
             subform.actividad_fisica = subform_Form["actividad_fisica"]
-            subform.actividad_fisica_cuanto = subform_Form_Form["actividad_fisica_cuanto"]
+            subform.actividad_fisica_cuanto = subform_Form["actividad_fisica_cuanto"]
             subform.consume_alimentos_con_grasa = subform_Form["consume_alimentos_con_grasa"]
-            subform.consume_veg_frut_gram = subform_Form_Form["consume_veg_frut_gram"]
+            subform.consume_veg_frut_gram = subform_Form["consume_veg_frut_gram"]
             subform.diabetes = subform_Form["diabetes"]
             subform.toma_medicamento_tamoxifeno = subform_Form["toma_medicamento_tamoxifeno"]
             subform.cuanto_tamoxifeno = subform_Form["cuanto_tamoxifeno"]
@@ -229,9 +229,9 @@ class android_client:
             subform.toma_medicamento_metformina = subform_Form["toma_medicamento_metformina"]
             subform.cuanto_metformina = subform_Form["cuanto_metformina"]
             subform.toma_medicamento_bifosfonatos = subform_Form["toma_medicamento_bifosfonatos"]
-            subform.cuanto_bifosfonatos = subform_Form["cuanto_bisfofonatos"]
-            subform.toma_medicamento_aspirina = subform_Form["toma_medicamento_aspirinas"]
-            subform.cuanto_aspirina = subform_Form["cuanto_aspirinas"]
+            subform.cuanto_bifosfonatos = subform_Form["cuanto_bifosfonatos"]
+            subform.toma_medicamento_aspirina = subform_Form["toma_medicamento_aspirina"]
+            subform.cuanto_aspirina = subform_Form["cuanto_aspirina"]
             subform.radiacion = subform_Form["radiacion"]
 
             subform.save()
@@ -258,7 +258,7 @@ class android_client:
 
         if request.method == 'POST':
 
-            subform_Form = request.POST['subform_a']
+            subform_Form = json.loads(request.POST['subform_a'])
 
 
             print("Guardando cambios antecedentes...")
@@ -318,7 +318,7 @@ class android_client:
 
         if request.method == 'POST':
 
-            subform_Form = request.POST['subform_hf']
+            subform_Form = json.loads(request.POST['subform_hf'])
 
 
             print("Guardando historia familiar...")
@@ -328,14 +328,15 @@ class android_client:
 
             subform.prueba_genetica = subform_Form['prueba_genetica']
 
-            subform.prueba_genetica_resultado = subform_Form['prueba_genetica_resultado']
+            subform.prueba_genetica_resultado.clear()
+            subform.prueba_genetica_resultado.add(*subform_Form['prueba_genetica_resultado'])
 
 
             subform.prueba_genetica_otro = subform_Form['prueba_genetica_otro']
             subform.familiares_mama = subform_Form['familiares_mama']
 
-            subform.parentesco = subform_Form['parentesco']
-
+            subform.parentesco.clear()
+            subform.parentesco.add(*subform_Form['parentesco'])
 
             subform.familiares_cancer = subform_Form['familiares_cancer']
 
