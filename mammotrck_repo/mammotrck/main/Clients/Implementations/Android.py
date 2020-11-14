@@ -368,7 +368,7 @@ class android_client:
             return self.handle_error(request, status=403, message=mensaje)
 
         if request.method == 'POST':
-            date = datetime.today().strftime("%d/%m/%y")
+            date = datetime.today().strftime("%Y-%m-%d %H:%M")
 
             form = Form.objects.get(id_form=request.GET['id_form'])
 
