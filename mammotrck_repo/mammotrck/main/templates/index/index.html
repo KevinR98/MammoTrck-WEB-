@@ -92,12 +92,12 @@
         <div class="row style36 justify-content-xl-start row-cols-xl-7" style="margin-bottom: 0px;">
             <div class="col-12 col-md-4 col-lg-3 style35 col-xl align-self-xl-stretch offset-xl-0 w-auto border-right border-dark col-xl-2">
                 <div class="contentArea style40">
-                    <section class="style80">
+                    <section class="style80" style="padding-top:20px">
                       <p id="nombre_usuario" class="style37"><b>Correo: {{username}}</b></p>
-                      <p id="id_usuario" class="style39">Id de usuario: {{user_id}}</p>
+                      <p id="id_usuario" class="style39" style="margin-top: 4px">Id de usuario: {{user_id}}</p>
                       <p id="fecha_hoy"><b class="style54">Fecha de hoy: {{current_date}}</b></p>
                     </section>
-                    <section class="style84" style="padding-top: 24px; padding-bottom: 0px; height:325px">
+                    <section class="style84" style="padding-top: 27px; padding-bottom: 0px; height:325px">
 
                         {% if user|has_group:"admin" %}
 
@@ -138,15 +138,15 @@
                     </section>
                     <section class="style81" style="padding-bottom:0px;">
                         <div class="d-block p-4 bg-transparent style42">
-                            <img src="{% static 'index/frontend/assets/images/1598155-200.png'  %}" class="style41">
+                            <img src="{% static 'index/frontend/assets/images/logo_1.png'  %}" class="style41">
                         </div>
                         <section class="style83">
                             <div class="row">
-                                <i class="material-icons style56">info</i><button id="boton_informacion" class="btn newbutton active" style="all: unset; cursor: pointer;" data-toggle="modal" data-target="#modal_info">Información</button>
+                                <i class="material-icons style56">info</i><button id="boton_informacion" class="btn newbutton active" style="all: unset; cursor: pointer; font-size:1rem" data-toggle="modal" data-target="#modal_info">Información</button>
                             </div>
                              <form action="{% url 'logout' %}">
                                 <div class="row">
-                                    <i class="material-icons style56">logout</i> <button id="boton_logout" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer;" data-toggle="button">Cerrar sesión</button>
+                                    <i class="material-icons style56">logout</i> <button id="boton_logout" class="btn newbutton active" type="submit" style="all: unset; cursor: pointer; font-size:1rem" data-toggle="button">Cerrar sesión</button>
                                 </div>
                              </form>
                         </section>
@@ -253,7 +253,7 @@
                               <form id='form_report' action="{%url 'create_report'%}" method="post" class="style110">
                                 {% csrf_token %}
                                   <div class="form-group">
-                                      <label for="inp_form">Formulario Asociado</label>
+                                      <label for="inp_form" style="font-size: 13px">Formulario Asociado</label>
                                       {{reporte_form.formulario}}
                                   </div>
                                   <fieldset class="style111">

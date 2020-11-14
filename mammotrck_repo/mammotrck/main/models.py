@@ -216,3 +216,18 @@ class Report(models.Model):
     contenido = models.CharField(max_length=500, null=True)
 
     user = models.ForeignKey(User, on_delete=models.PROTECT, default=2)
+
+
+
+
+
+
+#--------------------------------------------------------------------------------------------------
+
+
+dependencias = {
+    "fuma_edad" :"fuma",
+    "fuma_cuanto" : "fuma_actualmente",
+    "bebidas_cuanto" : "bebidas",
+    "bebidas" : ""
+}

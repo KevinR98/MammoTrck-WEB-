@@ -733,17 +733,18 @@ h3.section-title {
   margin-bottom: -6px;
 }
 .style39 {
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin-bottom: 0px;
 }
 .style54 {
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 link {
 }
 .style56 {
   margin-top: 2px;
   margin-right: 7px;
+  color: gray;
 }
 .style59 {
   font-weight: bold;
@@ -774,6 +775,7 @@ link {
 }
 .style64 {
   margin-left: 20px;
+  font-size: 18px;
 }
 @media (min-width: 992px) {
   .style65 {

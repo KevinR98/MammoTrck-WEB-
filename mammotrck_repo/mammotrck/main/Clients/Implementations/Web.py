@@ -527,8 +527,10 @@ class web_client(View):
             list_imagenes_db = Mamografia.objects.filter(form=request.GET['id_form']).values()
             list_imagenes = []
             for imagen in list_imagenes_db:
-                url = imagen["url_imagen"]
-                list_imagenes += [url]
+                temp = {}
+                temp["url"] = imagen["url_imagen"]
+                temp["id"] = imagen["id"]
+                list_imagenes += [temp]
 
 
             context = {'form_id': request.GET['id_form'],
@@ -596,7 +598,7 @@ class web_client(View):
             if request.method == 'GET':
 
                 formulario = Form.objects.get(id_form=request.GET['id_formulario'])
-                mamografia = Mamografia.objects.get(url_imagen=request.GET['url_imagen'])
+                mamografia = Mamografia.objects.get(id=request.GET['id_imagen'])
 
                 blob = settings.FIREBASE_BUCKET.delete_blob(mamografia.filename)
 

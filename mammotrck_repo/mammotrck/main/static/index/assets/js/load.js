@@ -31,7 +31,12 @@ function nav_formularios(){
 }
 
 function deshabilitar_form(id_paciente, id_formulario){
-  $('#content_loader').load("/forms/deactivate/?id_patient=" + id_paciente + "&id_form=" + id_formulario);
+  var r = confirm("Se deshabilitará el formulario. ¿Desea continuar?")
+
+  if (r == true) {
+     $('#content_loader').load("/forms/deactivate/?id_patient=" + id_paciente + "&id_form=" + id_formulario);
+  }
+
 }
 
 function crear_form(id_paciente){
@@ -53,11 +58,11 @@ function load_images(id_formulario){
 
 }
 
-function delete_image(url, id_formulario){
+function delete_image(id_imagen, id_formulario){
   var r = confirm("Se borrará la imagen escogida. ¿Desea continuar?")
 
   if (r == true) {
-    datos = "id_formulario=" + id_formulario + "&url_imagen=" + url;
+    datos = "id_formulario=" + id_formulario + "&id_imagen=" + id_imagen;
           $.ajax({
               type: "GET",
               url: "/imagenes/delete",

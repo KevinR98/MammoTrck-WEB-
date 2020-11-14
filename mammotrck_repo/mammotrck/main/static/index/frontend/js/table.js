@@ -193,7 +193,7 @@ $(document).ready(function () {
             "sSearch": "",
             "sSearchPlaceholder": "Ingrese búsqueda",
             "sInfo": "_START_ -_END_ of _TOTAL_",
-            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+            "sLengthMenu": '<span>Filas por página:</span><select class="browser-default">' +
                 '<option value="10">10</option>' +
                 '<option value="20">20</option>' +
                 '<option value="30">30</option>' +
