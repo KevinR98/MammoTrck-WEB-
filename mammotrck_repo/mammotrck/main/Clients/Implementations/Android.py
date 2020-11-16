@@ -14,7 +14,7 @@ from django.utils.decorators import method_decorator
 from django.template.context_processors import csrf
 
 from ...models import Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
-    Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco
+    Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco, dependencias, opcionales
 from ...forms import SubForm_historia_personal_Form, SubForm_antecedentes_g_o_Form, \
     SubForm_historia_familiar_Form
 
@@ -57,7 +57,7 @@ class android_client:
                         context[key] = self.to_dict(context[key])
 
                 context["token"] = token
-                print("Contexto en get_for_android: {}".format(context))
+                #print("Contexto en get_for_android: {}".format(context))
 
                 try:
                     return JsonResponse(context, safe=False)
@@ -73,6 +73,28 @@ class android_client:
         else:
 
             return JsonResponse({'token' : token})
+
+    def verify_full(self, subform):
+        fields = self.to_dict(subform)
+        for field, value in fields.items():
+            if (value == None or value == []):
+                if (field in opcionales):
+                    continue
+                if (self.verify_recursive(field, fields)):
+                    continue
+                print("campo vacio ", field)
+                return False
+        return True
+
+    def verify_recursive(self, field, fields):
+        if (field in dependencias):
+            dependencia = dependencias[field]
+            if (fields[dependencia] == False):
+                return True
+            if (fields[dependencia] == True):
+                return self.verify_recursive(dependencia, fields)
+
+        return False
 
     def authenticate(self, request):
         paciente_id = ""
@@ -160,6 +182,8 @@ class android_client:
             subform_hist_per = SubForm_historia_personal.objects.get(id=form.subform_hist_per.pk)
             subform_ant_g_o = SubForm_antecedentes_g_o.objects.get(id=form.subform_ant_g_o.pk)
             subform_hist_fam = SubForm_historia_familiar.objects.get(id=form.subform_hist_fam.pk)
+
+
 
             clinicas = [(model.pk, model.name) for model in Clinic.objects.all()]
             identidades = [(model.pk, model.identidad) for model in Identidad_etnica.objects.all()]
@@ -372,13 +396,31 @@ class android_client:
 
             form = Form.objects.get(id_form=request.GET['id_form'])
 
-            form.submitted_at = date
-            form.completed = True
+            subform_hist_per = SubForm_historia_personal.objects.get(id=form.subform_hist_per.pk)
+            subform_ant_g_o = SubForm_antecedentes_g_o.objects.get(id=form.subform_ant_g_o.pk)
+            subform_hist_fam = SubForm_historia_familiar.objects.get(id=form.subform_hist_fam.pk)
 
-            form.save()
+            exito = True
+            incompletos = []
+            if(not self.verify_full(subform_hist_per)):
+                exito = False
+                incompletos += [1]
+            if(not self.verify_full(subform_ant_g_o)):
+                exito = False
+                incompletos += [2]
+            if(not self.verify_full(subform_hist_fam)):
+                exito = False
+                incompletos += [3]
+
+            if (exito):
+                form.submitted_at = date
+                form.completed = True
+
+                form.save()
 
             context = {
-                'exito' : 'true'
+                'exito' : exito,
+                'incompletos' : incompletos
             }
             return self.__get_for_android(request, context)
 

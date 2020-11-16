@@ -12,7 +12,7 @@ function load_pacientes(){
     $('#nav_pacientes').attr("hidden",true);
     $('#nav_formularios').attr("hidden",true);
     $('#nav_reportes').attr("hidden",true);
-    $('#nav_timeline').attr("hidden",true);
+    //$('#nav_timeline').attr("hidden",true);
 }
 
 
@@ -23,7 +23,7 @@ function load_formularios(id_paciente){
     $('#nav_pacientes').attr("hidden",false);
     $('#nav_formularios').attr("hidden",true);
     $('#nav_reportes').attr("hidden",false);
-    $('#nav_timeline').attr("hidden",false);
+    //$('#nav_timeline').attr("hidden",false);
 }
 
 function nav_formularios(){
@@ -49,7 +49,7 @@ function load_formulario(id_paciente, id_formulario){
     $('#nav_pacientes').attr("hidden",false);
     $('#nav_formularios').attr("hidden",false);
     $('#nav_reportes').attr("hidden",false);
-    $('#nav_timeline').attr("hidden",false);
+    //$('#nav_timeline').attr("hidden",false);
 }
 
 function load_images(id_formulario){
@@ -90,7 +90,7 @@ function load_reportes(id_paciente){
     $('#nav_pacientes').attr("hidden",false);
     $('#nav_formularios').attr("hidden",false);
     $('#nav_reportes').attr("hidden",true);
-    $('#nav_timeline').attr("hidden",false);
+    //$('#nav_timeline').attr("hidden",false);
 }
 
 function nav_reportes(){

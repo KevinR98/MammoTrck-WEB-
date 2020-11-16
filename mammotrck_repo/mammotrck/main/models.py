@@ -96,7 +96,7 @@ class SubForm_historia_personal(models.Model):
 
     peso = models.PositiveSmallIntegerField(null=True)
     talla = models.PositiveSmallIntegerField(null=True)
-    imc = models.PositiveSmallIntegerField(null=True)
+    imc = models.FloatField(null=True)
 
     fuma = models.BooleanField(max_length=1, null=True, blank=True)
     fuma_edad = models.PositiveSmallIntegerField(null=True)
@@ -133,6 +133,10 @@ class SubForm_historia_personal(models.Model):
     radiacion = models.BooleanField(max_length=1, null=True, blank=True)
 
     form = models.OneToOneField(Form, on_delete=models.PROTECT, default=2, null=False, related_name='subform_hist_per')
+
+
+
+
 
 
 
@@ -228,6 +232,27 @@ class Report(models.Model):
 dependencias = {
     "fuma_edad" :"fuma",
     "fuma_cuanto" : "fuma_actualmente",
-    "bebidas_cuanto" : "bebidas",
-    "bebidas" : ""
+    "actividad_fisica_cuanto" : "actividad_fisica",
+    "cuanto_tamoxifeno" : "toma_medicamento_tamoxifeno",
+    "cuanto_anastrozol" : "toma_medicamento_anastrozol",
+    "cuanto_metformina" : "toma_medicamento_metformina",
+    "cuanto_bifosfonatos" : "toma_medicamento_bifosfonatos",
+    "cuanto_aspirina" : "toma_medicamento_aspirina",
+    "parto_cantidad" : "parto_aplica",
+    "edad_ult_hijo" : "parto_aplica",
+    "lactancia_aplica" : "parto_aplica",
+    "lactancia_tiempo" : "lactancia_aplica",
+    "anticonceptivos_cuanto" : "anticonceptivos_aplica",
+    "anticonceptivos_ult_vez" : "anticonceptivos_aplica",
+    "edad_manopausa" : "manopausa_aplica",
+    "terapia_hormonal_aplica" : "manopausa_aplica",
+    "cuanto_tiempo_terapia" : "terapia_hormonal_aplica",
+    "biopsia_cuantas" : "biopsia_aplica",
+    "biopsia_resultado" : "biopsia_aplica",
+    "prueba_genetica_resultado" : "prueba_genetica",
+    "parentesco" : "familiares_mama",
+    "familiares_cancer_tipo" : "familiares_cancer",
+    "familiares_cancer_parentesco" : "familiares_cancer"
 }
+
+opcionales = ["identidad_etnica_otro", "bebidas_cuanto_otro", "prueba_genetica_otro"]

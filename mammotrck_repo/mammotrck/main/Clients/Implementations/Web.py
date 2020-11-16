@@ -225,6 +225,7 @@ class web_client(View):
 
             patient = Patient.objects.get(id_patient=request.GET['id_patient'])
             form = Form.objects.get(id_form=request.GET['id_form'])
+
             date = datetime.today().strftime("%d/%m/%y")
 
             print(request.GET['id_patient'])
@@ -239,8 +240,7 @@ class web_client(View):
             subform_ant_g_o = SubForm_antecedentes_g_o_Form(id_subform=form.subform_ant_g_o.pk)
             subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
 
-
-
+        
 
 
             context = {'patient_id': patient.id_patient,
