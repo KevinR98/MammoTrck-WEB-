@@ -245,7 +245,6 @@ class web_client(View):
 
 
 
-
             context = {'patient_id': patient.id_patient,
                        'form_id': form.id_form,
                        'titulo_form': titulo_form,
@@ -259,6 +258,8 @@ class web_client(View):
 
             return render(request, 'index/components/component_formulario.html', context)
 
+        if request.method == 'POST':
+            request.POST['subform_h_filter']
 
 
 
@@ -645,6 +646,7 @@ class web_client(View):
                     while i < len(forms)-1:
                         form_act = forms[i]
                         form_next = forms[i+1]
+                        print("anterior: ", form_act.submitted_at, "siguiente: ", form_next.submitted_at)
 
                         subform_fam = (form_act.subform_hist_fam, form_next.subform_hist_fam)
                         subform_ant = (form_act.subform_ant_g_o, form_next.subform_ant_g_o)
@@ -663,27 +665,29 @@ class web_client(View):
 
                         for subform_key, subform in subforms:
                             values_list = json.loads(serializers.serialize('json', subform))
-                            
+
                             fields_ant = values_list[0].get('fields')
                             fields_sig = values_list[1].get('fields')
 
-                            changes = {}
+                            changes = []
                             for key in fields_ant:
                                 if key not in ignore:
                                     elem_a = fields_ant.get(key)
                                     elem_b = fields_sig.get(key)
 
                                     if(elem_a != elem_b):
-                                        changes[key] = {
+                                        changes.append( {
+                                            'campo': key,
                                             'ant': elem_a,
                                             'sig': elem_b,
                                             'ult': False
-                                        }
+                                        })
 
                             form_dict[subform_key] = {
                                 'num_changes': len(changes),
                                 'changes': changes
                             }
+                        print(form_dict, '\n\n')
                         context_aux['changes'].append(form_dict)
 
                         i += 1
@@ -694,7 +698,6 @@ class web_client(View):
                     context['no_findings'] = True
                 context['changes'] == diferencias
                 '''
-
 
             return render(request, 'index/components/component_timeline.html', context)
 
