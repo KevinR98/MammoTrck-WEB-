@@ -108,7 +108,9 @@ def guardar_subForm_historia_familiar(request):
 
 
 def linea_de_tiempo(request):
-    render(request, 'index/pagina.html')
+    client = ClientFactory.get_client(request)
+
+    return client.guardar_subForm_historia_familiar(request)
 
 
 

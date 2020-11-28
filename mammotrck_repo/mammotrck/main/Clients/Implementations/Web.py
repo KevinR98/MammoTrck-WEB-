@@ -609,3 +609,17 @@ class web_client(View):
 
         else:
             return self.error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
+
+
+    def linea_de_tiempo(self, request):
+        if request.method == 'GET':
+
+            context = {}
+
+            if request.GET['date_start'] and request.GET['date_end']:
+
+
+                return render(request, 'index/components/component_imagenes.html', context)
+
+            else:
+                return render(request, 'index/components/component_imagenes.html', context)
