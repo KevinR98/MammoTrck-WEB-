@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{% static 'index/frontend/css/style.css'  %}" />
     <link rel="stylesheet" href="{% static 'index/frontend/css/dropzone.css'  %}" />
     <link rel="stylesheet" href="{% static 'index/frontend/css/upload.css'  %}" />
+    <link rel="stylesheet" href="{% static 'index/frontend/css/timeline.css'  %}" />
 
 
     <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
@@ -220,6 +221,41 @@
                   </div>
                 </div>
 
+                <div class="modal fade" id="modal_filtros_0" tabindex="-1" role="dialog" aria-labelledby="ModalLabelmodal_filtros_0" aria-hidden="true" data-backdrop="false">
+                  <div class="modal-dialog " role="document">
+                    <div class="modal-content">
+                      <div class="modal-header" style="flex-direction:column;">
+                        <h5 class="modal-title" id="ModalLabel{{report.formulario_id}}">Edición de Filtros en Historia Personal</h5>
+
+                        <h6 class="card-subtitle text-muted" style="margin-top:10px">Seleccione los filtros para los campos del formulario que desee que se muestren</h6>
+                      </div>
+
+                      <div id="filtros_historia_personal" class="modal-body" >
+
+                        <div class="control-group">
+                          
+                          <div class="controls span2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="filterA1">
+                                <label class="form-check-label style70" for="filterA1" style="font-size: 0.8rem !important; padding-left: 25px;">Filtros de Información</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="filterA2">
+                                <label class="form-check-label style70" for="filterA2" style="font-size: 0.8rem !important; padding-left: 25px;">Filtros de Información</label>
+                            </div>
+                          </div>
+
+                      </div>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary style108" data-dismiss="modal" style="margin-right: 5px; background-color: grey">Cancelar</button>
+                        <button type="button" class="btn btn-primary style108" style=" background-color: var(--mammo_dark)" onclick="save_filters_A()')">Guardar Cambios</button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
 
                 <div id="content_loader" class="d-flex flex-column" style=" height : 100%">
 
@@ -326,6 +362,7 @@
 
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
     Copyright (c) 2020 by Mehmet mert (https://codepen.io/mehmetmert/pen/zbKpv)
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -336,6 +373,15 @@
 
 
     Copyright (c) 2020 by Daniel (https://codepen.io/iiCe89/pen/GZVjBp)
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+    Copyright (c) 2020 by Jones  Joseph (https://codepen.io/jo_Geek/pen/NLoGZZ)
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

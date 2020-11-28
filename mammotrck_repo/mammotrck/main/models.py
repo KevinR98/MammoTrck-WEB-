@@ -255,4 +255,4 @@ dependencias = {
     "familiares_cancer_parentesco" : "familiares_cancer"
 }
 
-opcionales = ["identidad_etnica_otro", "bebidas_cuanto_otro", "prueba_genetica_otro"]
+opcionales = ["identidad_etnica_otro", "bebidas_cuanto_otro", "prueba_genetica_otro", "bebidas_cuanto"]

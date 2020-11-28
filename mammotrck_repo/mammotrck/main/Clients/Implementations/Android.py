@@ -91,8 +91,8 @@ class android_client:
             dependencia = dependencias[field]
             if (fields[dependencia] == False):
                 return True
-            if (fields[dependencia] == True):
-                return self.verify_recursive(dependencia, fields)
+
+            return self.verify_recursive(dependencia, fields)
 
         return False
 
@@ -183,7 +183,9 @@ class android_client:
             subform_ant_g_o = SubForm_antecedentes_g_o.objects.get(id=form.subform_ant_g_o.pk)
             subform_hist_fam = SubForm_historia_familiar.objects.get(id=form.subform_hist_fam.pk)
 
-
+            self.verify_full(subform_hist_per)
+            self.verify_full(subform_ant_g_o)
+            self.verify_full(subform_hist_fam)
 
             clinicas = [(model.pk, model.name) for model in Clinic.objects.all()]
             identidades = [(model.pk, model.identidad) for model in Identidad_etnica.objects.all()]
@@ -394,7 +396,7 @@ class android_client:
         if request.method == 'POST':
             date = datetime.today().strftime("%Y-%m-%d %H:%M")
 
-            form = Form.objects.get(id_form=request.GET['id_form'])
+            form = Form.objects.get(id_form=request.POST['id_form'])
 
             subform_hist_per = SubForm_historia_personal.objects.get(id=form.subform_hist_per.pk)
             subform_ant_g_o = SubForm_antecedentes_g_o.objects.get(id=form.subform_ant_g_o.pk)
@@ -421,6 +423,42 @@ class android_client:
             context = {
                 'exito' : exito,
                 'incompletos' : incompletos
+            }
+            return self.__get_for_android(request, context)
+
+        else:
+            return self.handle_error(request, status=400, message="Request inválido")
+
+
+    def formularios(self, request):
+
+        exito, mensaje = self.authenticate(request)
+
+        if(not exito):
+            return self.handle_error(request, status=403, message=mensaje)
+
+        if request.method == 'GET':
+
+            form = Form.objects.get(id_form=request.GET['id_form'])
+
+            index_subForm = request.GET['index_subform']
+
+            subform = None
+
+            if (index_subForm == 0):
+                subform = SubForm_historia_personal.objects.get(id=form.subform_hist_per.pk)
+            if (index_subForm == 1):
+                subform = SubForm_antecedentes_g_o.objects.get(id=form.subform_ant_g_o.pk)
+            if (index_subForm == 2):
+                subform = SubForm_historia_familiar.objects.get(id=form.subform_hist_fam.pk)
+
+            exito = True
+            if(not self.verify_full(subform)):
+                exito = False
+
+
+            context = {
+                'exito' : exito
             }
             return self.__get_for_android(request, context)
 
