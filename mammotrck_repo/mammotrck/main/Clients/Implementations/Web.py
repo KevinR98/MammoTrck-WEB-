@@ -1,8 +1,10 @@
+import json
 from datetime import datetime
 import random
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import user_passes_test, login_required
+from django.core import serializers
 from django.utils.decorators import method_decorator
 
 from django.contrib.auth.models import User, Group
@@ -15,6 +17,7 @@ from django.conf import settings
 from django.views.decorators.cache import never_cache
 from django.views import View
 
+from ... import models
 from ...models import User, Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
     Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco, Report, Mamografia
 from ...forms import RegistrationForm, SubForm_historia_personal_Form, SubForm_antecedentes_g_o_Form, \
@@ -618,13 +621,73 @@ class web_client(View):
             date = datetime.today().strftime("%d/%m/%y")
 
             context = {'patient_id':patient.id_patient,
-                       'patient_name':patient.name ,
+                       'patient_name':patient.name,
                        'username': request.user.username,
                        'user_id': request.user.pk,
                        'current_date': date}
 
 
             if 'fecha_inicio' in request.GET and 'fecha_fin' in request.GET:
+
+                date_start = datetime.strptime(request.GET['fecha_inicio'], '%Y-%m-%d')
+                date_end = datetime.strptime(request.GET['fecha_fin'], '%Y-%m-%d')
+
+                difference = date_end - date_start
+                if difference.days == 0:
+                    context.update({'no_findings': True})
+
+                else:
+                    context_aux = {'changes': []}
+                    forms = Form.objects.exclude(submitted_at=None).filter(id_patient=request.GET['id_patient'], submitted_at__range=[date_start, date_end]).order_by('-submitted_at')
+                    forms = list(forms)
+
+                    i = 0
+                    while i < len(forms)-1:
+                        form_act = forms[i]
+                        form_next = forms[i+1]
+
+                        subform_fam = (form_act.subform_hist_fam, form_next.subform_hist_fam)
+                        subform_ant = (form_act.subform_ant_g_o, form_next.subform_ant_g_o)
+                        subform_per = (form_act.subform_hist_per, form_next.subform_hist_per)
+
+                        subforms = [('subf_form_C', subform_fam), ('subf_form_B', subform_ant), ('subf_form_A', subform_per)]
+                        ignore = ['id', 'pk', 'created_at', 'updated_at', 'form']
+
+                        form_dict = {
+                                'id_form': form_act.id_form,
+                                'date_submitted': form_act.submitted_at,
+                                'subf_form_A': {},
+                                'subf_form_B': {},
+                                'subf_form_C': {},
+                        }
+
+                        for subform_key, subform in subforms:
+                            values_list = json.loads(serializers.serialize('json', subform))
+                            
+                            fields_ant = values_list[0].get('fields')
+                            fields_sig = values_list[1].get('fields')
+
+                            changes = {}
+                            for key in fields_ant:
+                                if key not in ignore:
+                                    elem_a = fields_ant.get(key)
+                                    elem_b = fields_sig.get(key)
+
+                                    if(elem_a != elem_b):
+                                        changes[key] = {
+                                            'ant': elem_a,
+                                            'sig': elem_b,
+                                            'ult': False
+                                        }
+
+                            form_dict[subform_key] = {
+                                'num_changes': len(changes),
+                                'changes': changes
+                            }
+                        context_aux['changes'].append(form_dict)
+
+                        i += 1
+                    context.update(context_aux)
                 '''
                 diferencias = f(fecha1, fecha2)
                 if len(diferencias) == 0:
@@ -633,69 +696,5 @@ class web_client(View):
                 '''
 
 
-
-
             return render(request, 'index/components/component_timeline.html', context)
 
-
-    '''changes :[
-        	   {
-                id_form: id
-                date_submitted: datetime,
-        		subf_form_A:
-        			{
-            			num_changes: int
-            			changes:[
-            				{
-                                'campo':char,
-                                'ant':char,
-            					'sig':char,
-            					'ult':bool
-            				},
-            				{
-                                'campo':char,
-                                'ant':char,
-            					'sig':char,
-            					'ult':bool
-            				}
-            			],
-                    },
-        		subf_form_B:
-        			{
-            			num_changes: int
-            			changes:[
-            				{
-                                'campo':char,
-                                'ant':char,
-            					'sig':char,
-            					'ult':bool
-            				},
-            				{
-                                'campo':char,
-                                'ant':char,
-            					'sig':char,
-            					'ult':bool
-            				}
-            			],
-                    },
-
-        		subf_form_C: {
-        			{
-            			num_changes: int
-            			changes:[
-            				{
-                                'campo':char,
-                                'ant':char,
-            					'sig':char,
-            					'ult':bool
-            				},
-            				{
-                                'campo':char,
-                                'ant':char,
-            					'sig':char,
-            					'ult':bool
-            				}
-            			],
-                    }
-        	]
-        }'''
