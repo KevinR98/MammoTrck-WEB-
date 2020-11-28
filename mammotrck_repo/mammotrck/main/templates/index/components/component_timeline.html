@@ -126,16 +126,16 @@
                                     </button>
                                   </div>
                                   <div class="modal-body" >
-                                    {% for change in form.subf_form_A.changes}
-                                    <p class="info" style="font-size:1.3rem;">change.campo </p>
+                                    {% for change in form.subf_form_A.changes %}
+                                    <p class="info" style="font-size:1.3rem;">{{change.campo}} </p>
                                     <h6 class="card-subtitle text-muted">Formulario Anterior: </h6>
-                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.ant</p>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">{{change.ant}}</p>
                                     <h6 class="card-subtitle text-muted">Formulario Actual: </h6>
-                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.sig</p>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">{{change.sig}}</p>
                                     {% if change.ult == False %}
                                     <hr>
                                     {% endif %}
-                                    {% endfor}
+                                    {% endfor %}
                                   </div>
                                   <div class="modal-footer" >
 
@@ -155,16 +155,16 @@
                                     </button>
                                   </div>
                                   <div class="modal-body" >
-                                    {% for change in form.subf_form_B.changes}
-                                    <p class="info" style="font-size:1.3rem;">change.campo </p>
+                                    {% for change in form.subf_form_B.changes %}
+                                    <p class="info" style="font-size:1.3rem;">{{change.campo}} </p>
                                     <h6 class="card-subtitle text-muted">Formulario Anterior: </h6>
-                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.ant</p>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">{{change.ant}}</p>
                                     <h6 class="card-subtitle text-muted">Formulario Actual: </h6>
-                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.sig</p>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">{{change.sig}}</p>
                                     {% if change.ult == False %}
                                     <hr>
                                     {% endif %}
-                                    {% endfor}
+                                    {% endfor %}
 
                                   </div>
                                   <div class="modal-footer" >
@@ -185,16 +185,16 @@
                                     </button>
                                   </div>
                                   <div class="modal-body" >
-                                    {% for change in form.subf_form_C.changes}
-                                    <p class="info" style="font-size:1.3rem;">change.campo </p>
+                                    {% for change in form.subf_form_C.changes %}
+                                    <p class="info" style="font-size:1.3rem;">{{change.campo}} </p>
                                     <h6 class="card-subtitle text-muted">Formulario Anterior: </h6>
-                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.ant</p>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">{{change.ant}}</p>
                                     <h6 class="card-subtitle text-muted">Formulario Actual: </h6>
-                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.sig</p>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">{{change.sig}}</p>
                                     {% if change.ult == False %}
                                     <hr>
                                     {% endif %}
-                                    {% endfor}
+                                    {% endfor %}
                                   </div>
                                   <div class="modal-footer" >
 
