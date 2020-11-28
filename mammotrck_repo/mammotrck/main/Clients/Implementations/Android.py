@@ -93,6 +93,8 @@ class android_client:
                 return True
             return self.verify_recursive(dependencia, fields)
 
+            return self.verify_recursive(dependencia, fields)
+
         return False
 
     def authenticate(self, request):
@@ -182,7 +184,9 @@ class android_client:
             subform_ant_g_o = SubForm_antecedentes_g_o.objects.get(id=form.subform_ant_g_o.pk)
             subform_hist_fam = SubForm_historia_familiar.objects.get(id=form.subform_hist_fam.pk)
 
-
+            self.verify_full(subform_hist_per)
+            self.verify_full(subform_ant_g_o)
+            self.verify_full(subform_hist_fam)
 
             clinicas = [(model.pk, model.name) for model in Clinic.objects.all()]
             identidades = [(model.pk, model.identidad) for model in Identidad_etnica.objects.all()]
@@ -393,7 +397,7 @@ class android_client:
         if request.method == 'POST':
             date = datetime.today().strftime("%Y-%m-%d %H:%M")
 
-            form = Form.objects.get(id_form=request.GET['id_form'])
+            form = Form.objects.get(id_form=request.POST['id_form'])
 
             subform_hist_per = SubForm_historia_personal.objects.get(id=form.subform_hist_per.pk)
             subform_ant_g_o = SubForm_antecedentes_g_o.objects.get(id=form.subform_ant_g_o.pk)

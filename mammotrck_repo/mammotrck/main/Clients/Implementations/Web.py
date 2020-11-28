@@ -240,7 +240,7 @@ class web_client(View):
             subform_ant_g_o = SubForm_antecedentes_g_o_Form(id_subform=form.subform_ant_g_o.pk)
             subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
 
-        
+
 
 
             context = {'patient_id': patient.id_patient,
@@ -611,15 +611,91 @@ class web_client(View):
             return self.error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
 
 
+    @method_decorator(login_required)
     def linea_de_tiempo(self, request):
         if request.method == 'GET':
+            patient = Patient.objects.get(id_patient=request.GET['id_patient'])
+            date = datetime.today().strftime("%d/%m/%y")
 
-            context = {}
+            context = {'patient_id':patient.id_patient,
+                       'patient_name':patient.name ,
+                       'username': request.user.username,
+                       'user_id': request.user.pk,
+                       'current_date': date}
 
-            if request.GET['date_start'] and request.GET['date_end']:
+
+            if 'fecha_inicio' in request.GET and 'fecha_fin' in request.GET:
+                '''
+                diferencias = f(fecha1, fecha2)
+                if len(diferencias) == 0:
+                    context['no_findings'] = True
+                context['changes'] == diferencias
+                '''
 
 
-                return render(request, 'index/components/component_imagenes.html', context)
 
-            else:
-                return render(request, 'index/components/component_imagenes.html', context)
+
+            return render(request, 'index/components/component_timeline.html', context)
+
+
+    '''changes :[
+        	   {
+                id_form: id
+                date_submitted: datetime,
+        		subf_form_A:
+        			{
+            			num_changes: int
+            			changes:[
+            				{
+                                'campo':char,
+                                'ant':char,
+            					'sig':char,
+            					'ult':bool
+            				},
+            				{
+                                'campo':char,
+                                'ant':char,
+            					'sig':char,
+            					'ult':bool
+            				}
+            			],
+                    },
+        		subf_form_B:
+        			{
+            			num_changes: int
+            			changes:[
+            				{
+                                'campo':char,
+                                'ant':char,
+            					'sig':char,
+            					'ult':bool
+            				},
+            				{
+                                'campo':char,
+                                'ant':char,
+            					'sig':char,
+            					'ult':bool
+            				}
+            			],
+                    },
+
+        		subf_form_C: {
+        			{
+            			num_changes: int
+            			changes:[
+            				{
+                                'campo':char,
+                                'ant':char,
+            					'sig':char,
+            					'ult':bool
+            				},
+            				{
+                                'campo':char,
+                                'ant':char,
+            					'sig':char,
+            					'ult':bool
+            				}
+            			],
+                    }
+        	]
+        }'''

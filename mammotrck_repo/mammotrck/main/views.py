@@ -110,7 +110,7 @@ def guardar_subForm_historia_familiar(request):
 def linea_de_tiempo(request):
     client = ClientFactory.get_client(request)
 
-    return client.guardar_subForm_historia_familiar(request)
+    return client.linea_de_tiempo(request)
 
 
 

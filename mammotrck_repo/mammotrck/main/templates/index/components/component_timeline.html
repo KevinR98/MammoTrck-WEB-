@@ -1,0 +1,233 @@
+{% load static %}
+{% load auth_extras %}
+
+<header class="style50">
+    <div class="row"><i class="material-icons style56" style="color:#333840">arrow_back</i> <button id="btn3" onclick="load_pacientes();" class="btn newbutton active style59" style="all: unset; cursor: pointer;" data-toggle="button"><span class="style60"
+                id="boton_volver">Volver a pacientes</span></button></div>
+    <label id="patient_id_value" type="hidden" value="{{patient_id}}" style="all: unset;" />
+    <label id="component_value" type="hidden" value="timeline" style="all: unset;" />
+</header>
+
+<header style="" class="bg-white">
+    <div class="row style62">
+        <p><b class="style61" id="id_paciente">Linea de tiempo de paciente {{patient_id}}</b></p>
+    </div>
+    <div class="row style64">
+        <p id="nombre_paciente">Nombre de paciente: {{patient_name}}</p>
+    </div>
+
+</header>
+
+{% if no_findings %}
+<script type="text/javascript">
+  alert('No se encontraron formularios')
+</script>
+{% endif %}
+
+<section class="style63">
+    <div class="row no-gutters">
+        <div class="col">
+            <div class="row">
+                <div id="admin" class="col s12">
+
+
+
+                      <div class="row" style="margin-top:25px;">
+
+
+                          <div class="col style105" style="flex-grow:0">
+                              <div class="date-field">
+                                  <input id="fecha_inicio" type="date" class="form-control" style="border-radius:1rem; height:30px; margin-bottom:3px;" placeholder="Fecha de Inicio" value="">
+                                  <label class="form-check-label" for="fecha_inicio" style="font-size: 0.8rem !important; margin-bottom:20px;">Fecha de Inicio</label>
+                              </div>
+                              <div class="date-field">
+                                  <input id="fecha_fin" type="date" class="form-control" style="border-radius:1rem; height:30px; margin-bottom:3px;" placeholder="Fecha de Fin" value="">
+                                  <label class="form-check-label" for="fecha_fin" style="font-size: 0.8rem !important; margin-bottom:20px;">Fecha de Fin</label>
+                              </div>
+                          </div>
+                          <div class="col" style="margin-top:1px">
+                              <button class="btn btn-primary style1 boton_c" onclick="query_timeline()">Buscar</button>
+                          </div>
+
+                      </div>
+
+
+                      {% if changes %}
+                      <div class="container">
+                        <div class="timeline">
+
+                        {% for form in changes %}
+                          <div class="timeline-section">
+                            <div class="timeline-date">
+                              Formulario {{form.id_form}} registrado el {{form.date_submitted}}
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <div class="card" style="border-radius:10px;">
+                                  <div class="card-body" style="width:70vw;  max-width: 100%; ">
+                                    <h4 class="card-title" style="color:#212529; font-size:16px"><b>Historia Personal</b></h4>
+                                    {% if form.subf_form_A.num_changes == 0 %}
+                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px"><b>Sin cambios</b></h6>
+                                    {% else %}
+                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px">Cambios: {{form.subf_form_A.num_changes}}</h6>
+                                    {% endif %}
+
+
+                                    <div style="margin-left:200px;">
+                                    <a data-toggle="modal" data-target="#modal_timeline_{{form.id_form}}_0"><h6 class="card-subtitle" style="padding-top: 20px; cursor:pointer">Más Detalles</h6></a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="card" style="border-radius:10px;">
+                                  <div class="card-body" style="width:70vw;  max-width: 100%; ">
+                                    <h4 class="card-title" style="color:#212529; font-size:16px"><b>Antecedentes Gineco-Obstétricos</b></h4>
+
+                                    {% if form.subf_form_B.num_changes == 0 %}
+                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px"><b>Sin cambios</b></h6>
+                                    {% else %}
+                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px">Cambios: {{form.subf_form_B.num_changes}}</h6>
+                                    {% endif %}
+
+                                    <div style="margin-left:200px;">
+                                    <a data-toggle="modal" data-target="#modal_timeline_{{form.id_form}}_1"><h6 class="card-subtitle" style="padding-top: 20px; cursor:pointer">Más Detalles</h6></a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="card" style="border-radius:10px;">
+                                  <div class="card-body" style="width:70vw;  max-width: 100%; ">
+                                    <h4 class="card-title" style="color:#212529; font-size:16px"><b>Historia Familiar</b></h4>
+
+                                    {% if form.subf_form_C.num_changes == 0 %}
+                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px"><b>Sin cambios</b></h6>
+                                    {% else %}
+                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px">Cambios: {{form.subf_form_C.num_changes}}</h6>
+                                    {% endif %}
+
+                                    <div style="margin-left:200px;">
+                                    <a data-toggle="modal" data-target="#modal_timeline_{{form.id_form}}_2"><h6 class="card-subtitle" style="padding-top: 20px; cursor:pointer">Más Detalles</h6></a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          <!--Modals-->
+                            <div class="modal fade" id="modal_timeline_{{form.id_form}}_0" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" data-backdrop="false">
+                              <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content" style="width:800px !important">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Historia Personal</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body" >
+                                    {% for change in form.subf_form_A.changes}
+                                    <p class="info" style="font-size:1.3rem;">change.campo </p>
+                                    <h6 class="card-subtitle text-muted">Formulario Anterior: </h6>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.ant</p>
+                                    <h6 class="card-subtitle text-muted">Formulario Actual: </h6>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.sig</p>
+                                    {% if change.ult == False %}
+                                    <hr>
+                                    {% endif %}
+                                    {% endfor}
+                                  </div>
+                                  <div class="modal-footer" >
+
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+
+                            <div class="modal fade" id="modal_timeline_{{form.id_form}}_1" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" data-backdrop="false">
+                              <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Antecedentes Gineco-Obstétricos</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body" >
+                                    {% for change in form.subf_form_B.changes}
+                                    <p class="info" style="font-size:1.3rem;">change.campo </p>
+                                    <h6 class="card-subtitle text-muted">Formulario Anterior: </h6>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.ant</p>
+                                    <h6 class="card-subtitle text-muted">Formulario Actual: </h6>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.sig</p>
+                                    {% if change.ult == False %}
+                                    <hr>
+                                    {% endif %}
+                                    {% endfor}
+
+                                  </div>
+                                  <div class="modal-footer" >
+
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+
+                            <div class="modal fade" id="modal_timeline_{{form.id_form}}_2" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" data-backdrop="false">
+                              <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Historia Familiar</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body" >
+                                    {% for change in form.subf_form_C.changes}
+                                    <p class="info" style="font-size:1.3rem;">change.campo </p>
+                                    <h6 class="card-subtitle text-muted">Formulario Anterior: </h6>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.ant</p>
+                                    <h6 class="card-subtitle text-muted">Formulario Actual: </h6>
+                                    <p class="card-text p-y-1" style="font-size:0.9rem">change.sig</p>
+                                    {% if change.ult == False %}
+                                    <hr>
+                                    {% endif %}
+                                    {% endfor}
+                                  </div>
+                                  <div class="modal-footer" >
+
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+
+
+                          <!---->
+                          </div>
+
+
+
+
+                        {% endfor %}
+                        {% endif %}
+                        </div>
+                        </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+  function toggle_contenido(element_id, link_id){
+    return 0
+  }
+</script>
