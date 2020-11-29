@@ -195,7 +195,7 @@
                             <i class="fa fa-file-o fa-5x" aria-hidden="true"></i><br> <br>
                             <span class="note needsclick" style="font-size: 1rem">Presione acá o arrastre los archivos a cargar</span>
                           </div>
-                          <input type="hidden" value="" id="drop_form_csv_id" name="drop_form_csv_id">
+                          <input type="hidden" value="" id="drop_patient_id" name="drop_patient_id">
                         </form>
 
                       </div>
@@ -478,6 +478,22 @@
           },
           accept: function(file, done) {
             valid = ["application/dicom","image/png"];
+
+            if (!valid.includes(file.type)) {
+                done("Tipo de archivo no soportado");
+            }
+            else { done(); }
+        }
+      }
+
+      Dropzone.options.drop_csv = {
+
+          success: function(file, response) {
+            $('#content_loader').load("/forms/?id_patient=" + id_paciente);
+
+          },
+          accept: function(file, done) {
+            valid = ["text/csv"];
 
             if (!valid.includes(file.type)) {
                 done("Tipo de archivo no soportado");
