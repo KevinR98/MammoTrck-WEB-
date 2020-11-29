@@ -183,6 +183,30 @@
                   </div>
                 </div>
 
+                <div class="modal fade" id="modal_upload_csv" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" data-backdrop="false">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                      <div class="modal-body" >
+
+                        <form action="#" method="post"  class="dropzone" id="drop_csv">
+                          {% csrf_token %}
+                          <div class="dz-message needsclick">
+                            <i class="fa fa-file-o fa-5x" aria-hidden="true"></i><br> <br>
+                            <span class="note needsclick" style="font-size: 1rem">Presione acá o arrastre los archivos a cargar</span>
+                          </div>
+                          <input type="hidden" value="" id="drop_form_csv_id" name="drop_form_csv_id">
+                        </form>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary style108" data-dismiss="modal" style="margin-right: 5px; background-color: grey" onclick="Dropzone.forElement('#drop_csv').removeAllFiles(true)">Volver</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
                 <div class="modal fade" id="modal_info" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" data-backdrop="false">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -225,36 +249,158 @@
                   <div class="modal-dialog " role="document">
                     <div class="modal-content">
                       <div class="modal-header" style="flex-direction:column;">
-                        <h5 class="modal-title" id="ModalLabel{{report.formulario_id}}">Edición de Filtros en Historia Personal</h5>
+                        <h5 class="modal-title" >Edición de Filtros en Historia Personal</h5>
 
                         <h6 class="card-subtitle text-muted" style="margin-top:10px">Seleccione los filtros para los campos del formulario que desee que se muestren</h6>
                       </div>
 
                       <div id="filtros_historia_personal" class="modal-body" >
+                        <label id="camposA_id_values" type="hidden" value="" style="all: unset;" />
 
-                        <div class="control-group">
-                          
-                          <div class="controls span2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="filterA1">
-                                <label class="form-check-label style70" for="filterA1" style="font-size: 0.8rem !important; padding-left: 25px;">Filtros de Información</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="filterA2">
-                                <label class="form-check-label style70" for="filterA2" style="font-size: 0.8rem !important; padding-left: 25px;">Filtros de Información</label>
-                            </div>
+                        <div class="row">
+
+                          <div class="col" style="padding: 0px;">
+
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_hospital" onclick="setFilterA(this)" id="filterA0"><label class="form-check-label style70" for="filterA0" style="font-size: 0.8rem !important; padding-left: 25px;">hospital</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_nombre" onclick="setFilterA(this)" id="filterA1"><label class="form-check-label style70" for="filterA1" style="font-size: 0.8rem !important; padding-left: 25px;">nombre</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_cedula" onclick="setFilterA(this)" id="filterA2"><label class="form-check-label style70" for="filterA2" style="font-size: 0.8rem !important; padding-left: 25px;">cédula</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_fecha_nacimiento" onclick="setFilterA(this)" id="filterA3"><label class="form-check-label style70" for="filterA3" style="font-size: 0.8rem !important; padding-left: 25px;">fecha nacimiento</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_nacionalidad" onclick="setFilterA(this)" id="filterA4"><label class="form-check-label style70" for="filterA4" style="font-size: 0.8rem !important; padding-left: 25px;">nacionalidad</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_etnia" onclick="setFilterA(this)" id="filterA5"><label class="form-check-label style70" for="filterA5" style="font-size: 0.8rem !important; padding-left: 25px;">etnia</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_otra_identidad" onclick="setFilterA(this)" id="filterA6"><label class="form-check-label style70" for="filterA6" style="font-size: 0.8rem !important; padding-left: 25px;">otra identidad</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_peso" onclick="setFilterA(this)" id="filterA7"><label class="form-check-label style70" for="filterA7" style="font-size: 0.8rem !important; padding-left: 25px;">peso</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_talla" onclick="setFilterA(this)" id="filterA8"><label class="form-check-label style70" for="filterA8" style="font-size: 0.8rem !important; padding-left: 25px;">talla</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_imc" onclick="setFilterA(this)" id="filterA9"><label class="form-check-label style70" for="filterA9" style="font-size: 0.8rem !important; padding-left: 25px;">imc</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_fumador" onclick="setFilterA(this)" id="filterA10"><label class="form-check-label style70" for="filterA10" style="font-size: 0.8rem !important; padding-left: 25px;">fumador</label></div>
                           </div>
 
+                          <div class="col" style="padding: 0px;">
+
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_inicio_fumado" onclick="setFilterA(this)" id="filterA11"><label class="form-check-label style70" for="filterA11" style="font-size: 0.8rem !important; padding-left: 25px;">inicio fumado</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_fuma" onclick="setFilterA(this)" id="filterA12"><label class="form-check-label style70" for="filterA12" style="font-size: 0.8rem !important; padding-left: 25px;">fuma</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_tiempo_fumado" onclick="setFilterA(this)" id="filterA13"><label class="form-check-label style70" for="filterA13" style="font-size: 0.8rem !important; padding-left: 25px;">tiempo fumado</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_bebe" onclick="setFilterA(this)" id="filterA14"><label class="form-check-label style70" for="filterA14" style="font-size: 0.8rem !important; padding-left: 25px;">bebe</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_frecuencia_bebe" onclick="setFilterA(this)" id="filterA15"><label class="form-check-label style70" for="filterA15" style="font-size: 0.8rem !important; padding-left: 25px;">frecuencia bebe</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_otra_frecuencia" onclick="setFilterA(this)" id="filterA16"><label class="form-check-label style70" for="filterA16" style="font-size: 0.8rem !important; padding-left: 25px;">otra frecuencia</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_actividad_fisica" onclick="setFilterA(this)" id="filterA17"><label class="form-check-label style70" for="filterA17" style="font-size: 0.8rem !important; padding-left: 25px;">actividad física</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_frecuencia_actividad_fisica" onclick="setFilterA(this)" id="filterA18"><label class="form-check-label style70" for="filterA18" style="font-size: 0.8rem !important; padding-left: 25px;">frec. actividad física</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_consume_grasa" onclick="setFilterA(this)" id="filterA19"><label class="form-check-label style70" for="filterA19" style="font-size: 0.8rem !important; padding-left: 25px;">consume grasa</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_consume_vegetales" onclick="setFilterA(this)" id="filterA20"><label class="form-check-label style70" for="filterA20" style="font-size: 0.8rem !important; padding-left: 25px;">consume vegetales</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_diabetes" onclick="setFilterA(this)" id="filterA21"><label class="form-check-label style70" for="filterA21" style="font-size: 0.8rem !important; padding-left: 25px;">diabetes</label></div>
+                          </div>
+
+                          <div class="col" style="padding: 0px;">
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_toma_tamoxifeno" onclick="setFilterA(this)" id="filterA22"><label class="form-check-label style70" for="filterA22" style="font-size: 0.8rem !important; padding-left: 25px;">toma tamoxifeno</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_cuanto_tamoxifeno" onclick="setFilterA(this)" id="filterA23"><label class="form-check-label style70" for="filterA23" style="font-size: 0.8rem !important; padding-left: 25px;">cant. tamoxifeno</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_toma_anastrozol" onclick="setFilterA(this)" id="filterA24"><label class="form-check-label style70" for="filterA24" style="font-size: 0.8rem !important; padding-left: 25px;">toma anastrozol</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_cuanto_anastrozol" onclick="setFilterA(this)" id="filterA25"><label class="form-check-label style70" for="filterA25" style="font-size: 0.8rem !important; padding-left: 25px;">cant. anastrozol</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_toma_metformina" onclick="setFilterA(this)" id="filterA26"><label class="form-check-label style70" for="filterA26" style="font-size: 0.8rem !important; padding-left: 25px;">toma metformina</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_cuanto_metformina" onclick="setFilterA(this)" id="filterA27"><label class="form-check-label style70" for="filterA27" style="font-size: 0.8rem !important; padding-left: 25px;">cant. metformina</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_toma_bifosfonatos" onclick="setFilterA(this)" id="filterA28"><label class="form-check-label style70" for="filterA28" style="font-size: 0.8rem !important; padding-left: 25px;">toma bifosfonatos</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_cuanto_bifosfonatos" onclick="setFilterA(this)" id="filterA29"><label class="form-check-label style70" for="filterA29" style="font-size: 0.8rem !important; padding-left: 25px;">cant. bifosfonatos</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_toma_aspirina" onclick="setFilterA(this)" id="filterA30"><label class="form-check-label style70" for="filterA30" style="font-size: 0.8rem !important; padding-left: 25px;">toma aspirina</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_cuanto_aspirina" onclick="setFilterA(this)" id="filterA31"><label class="form-check-label style70" for="filterA31" style="font-size: 0.8rem !important; padding-left: 25px;">cant. aspirina</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="p_radiacion" onclick="setFilterA(this)" id="filterA32"><label class="form-check-label style70" for="filterA32" style="font-size: 0.8rem !important; padding-left: 25px;">radiación</label></div>
+                          </div>
                       </div>
 
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary style108" data-dismiss="modal" style="margin-right: 5px; background-color: grey">Cancelar</button>
-                        <button type="button" class="btn btn-primary style108" style=" background-color: var(--mammo_dark)" onclick="save_filters_A()')">Guardar Cambios</button>
+                        <button type="button"  class="btn btn-secondary style108" data-dismiss="modal" style="margin-right: 5px; background-color: grey">Volver</button>
+
                       </div>
                     </div>
                   </div>
               </div>
+
+              <div class="modal fade" id="modal_filtros_1" tabindex="-1" role="dialog" aria-labelledby="ModalLabelmodal_filtros_1" aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog " role="document">
+                  <div class="modal-content">
+                    <div class="modal-header" style="flex-direction:column;">
+                      <h5 class="modal-title" >Edición de Filtros en Antecedentes Gineco-Obstétricos</h5>
+
+                      <h6 class="card-subtitle text-muted" style="margin-top:10px">Seleccione los filtros para los campos del formulario que desee que se muestren</h6>
+                    </div>
+
+                    <div id="filtros_antecendentes" class="modal-body" >
+                      <label id="camposB_id_values" type="hidden" value="" style="all: unset;" />
+
+                      <div class="row">
+
+                        <div class="col" style="padding: 0px;">
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_primera_menstruacion" onclick="setFilterB(this)" id="filterB0"><label class="form-check-label style70" for="filterB0" style="font-size: 0.8rem !important; padding-left: 25px;">primera menstruación</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_menopausia" onclick="setFilterB(this)" id="filterB1"><label class="form-check-label style70" for="filterB1" style="font-size: 0.8rem !important; padding-left: 25px;">menopausia</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_edad_menopausia" onclick="setFilterB(this)" id="filterB2"><label class="form-check-label style70" for="filterB2" style="font-size: 0.8rem !important; padding-left: 25px;">edad menopausia</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_cantidad_partos" onclick="setFilterB(this)" id="filterB3"><label class="form-check-label style70" for="filterB3" style="font-size: 0.8rem !important; padding-left: 25px;">cantidad partos</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_edad_ultimo_hijo" onclick="setFilterB(this)" id="filterB4"><label class="form-check-label style70" for="filterB4" style="font-size: 0.8rem !important; padding-left: 25px;">edad último hijo</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_tiempo_lactancia" onclick="setFilterB(this)" id="filterB5"><label class="form-check-label style70" for="filterB5" style="font-size: 0.8rem !important; padding-left: 25px;">tiempo lactancia</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_lactancia" onclick="setFilterB(this)" id="filterB6"><label class="form-check-label style70" for="filterB6" style="font-size: 0.8rem !important; padding-left: 25px;">lactancia</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_anticonceptivos" onclick="setFilterB(this)" id="filterB7"><label class="form-check-label style70" for="filterB7" style="font-size: 0.8rem !important; padding-left: 25px;">anticonceptivos</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_tiempo_anticonceptivos" onclick="setFilterB(this)" id="filterB8"><label class="form-check-label style70" for="filterB8" style="font-size: 0.8rem !important; padding-left: 25px;">tiempo anticonceptivos</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_ultimo_uso_anticonceptivos" onclick="setFilterB(this)" id="filterB9"><label class="form-check-label style70" for="filterB9" style="font-size: 0.8rem !important; padding-left: 25px;">último uso anticonceptivos</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_terapia_hormonal" onclick="setFilterB(this)" id="filterB10"><label class="form-check-label style70" for="filterB10" style="font-size: 0.8rem !important; padding-left: 25px;">terapia hormonal</label></div>
+
+                        </div>
+
+                        <div class="col" style="padding: 0px;">
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_tipo_terapia" onclick="setFilterB(this)" id="filterB11"><label class="form-check-label style70" for="filterB11" style="font-size: 0.8rem !important; padding-left: 25px;">tipo terapia</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_tiempo_terapia" onclick="setFilterB(this)" id="filterB12"><label class="form-check-label style70" for="filterB12" style="font-size: 0.8rem !important; padding-left: 25px;">tiempo terapia</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_biopsias" onclick="setFilterB(this)" id="filterB13"><label class="form-check-label style70" for="filterB13" style="font-size: 0.8rem !important; padding-left: 25px;">biopsias</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_numero_biopsias" onclick="setFilterB(this)" id="filterB14"><label class="form-check-label style70" for="filterB14" style="font-size: 0.8rem !important; padding-left: 25px;">número biopsias</label></div>
+                          <div class="form-check"><input class="form-check-input" type="checkbox" value="p_resultado_biopsias" onclick="setFilterB(this)" id="filterB15"><label class="form-check-label style70" for="filterB15" style="font-size: 0.8rem !important; padding-left: 25px;">resultado biopsias</label></div>
+
+                        </div>
+
+
+                    </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button"  class="btn btn-secondary style108" data-dismiss="modal" style="margin-right: 5px; background-color: grey">Volver</button>
+
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modal_filtros_2" tabindex="-1" role="dialog" aria-labelledby="ModalLabelmodal_filtros_2" aria-hidden="true" data-backdrop="false">
+              <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                  <div class="modal-header" style="flex-direction:column;">
+                    <h5 class="modal-title" >Edición de Filtros en Histora Familiar</h5>
+
+                    <h6 class="card-subtitle text-muted" style="margin-top:10px">Seleccione los filtros para los campos del formulario que desee que se muestren</h6>
+                  </div>
+
+                  <div id="filtros_historia_familiar" class="modal-body" >
+                    <label id="camposC_id_values" type="hidden" value="" style="all: unset;" />
+
+                    <div class="row">
+
+                      <div class="col" style="padding: 0px;">
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="p_pruebas_geneticas" onclick="setFilterC(this)" id="filterC0"><label class="form-check-label style70" for="filterC0" style="font-size: 0.8rem !important; padding-left: 25px;">pruebas genéticas</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="p_resultados_pruebas" onclick="setFilterC(this)" id="filterC1"><label class="form-check-label style70" for="filterC1" style="font-size: 0.8rem !important; padding-left: 25px;">resultados de pruebas</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="p_otro_resultado" onclick="setFilterC(this)" id="filterC2"><label class="form-check-label style70" for="filterC2" style="font-size: 0.8rem !important; padding-left: 25px;">otro resultado</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="p_familiares_con_cancer_mama" onclick="setFilterC(this)" id="filterC3"><label class="form-check-label style70" for="filterC3" style="font-size: 0.8rem !important; padding-left: 25px;">familiares con cáncer de mama</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="p_parentescos" onclick="setFilterC(this)" id="filterC4"><label class="form-check-label style70" for="filterC4" style="font-size: 0.8rem !important; padding-left: 25px;">parentescos</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="p_familiares_con_otros_canceres" onclick="setFilterC(this)" id="filterC5"><label class="form-check-label style70" for="filterC5" style="font-size: 0.8rem !important; padding-left: 25px;">familiares con otros cánceres</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="p_tipos_de_cancer" onclick="setFilterC(this)" id="filterC6"><label class="form-check-label style70" for="filterC6" style="font-size: 0.8rem !important; padding-left: 25px;">tipos de cancer</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="p_otros_parentescos" onclick="setFilterC(this)" id="filterC7"><label class="form-check-label style70" for="filterC7" style="font-size: 0.8rem !important; padding-left: 25px;">otros parentescos</label></div>
+                      </div>
+
+
+
+
+                  </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button"  class="btn btn-secondary style108" data-dismiss="modal" style="margin-right: 5px; background-color: grey">Volver</button>
+
+                  </div>
+                </div>
+              </div>
+          </div>
 
 
                 <div id="content_loader" class="d-flex flex-column" style=" height : 100%">

@@ -59,6 +59,7 @@ $( document ).ready(function() {
 
 
 
+
 function modify_historia_personal(id_paciente, id_formulario) {
   // Get the checkbox
   var checkBox = document.getElementById("edit1");
@@ -158,6 +159,7 @@ function enable_historia_personal(){
   for (var i = 0, len = elements.length; i < len; ++i) {
       elements[i].disabled = false;
   }
+
 }
 
 
@@ -208,4 +210,146 @@ function enable_historia_familiar(){
   for (var i = 0, len = elements.length; i < len; ++i) {
       elements[i].disabled = false;
   }
+}
+
+
+function setFilterA(element){
+  value = element.value
+  filtros = $('#camposA_id_values').attr("value")
+  if (filtros == ""){
+    filtros = []
+  }
+  else{
+    filtros = filtros.split(",")
+  }
+
+  if (element.checked){
+    filtros.push(value)
+  }
+  else{
+    const index = filtros.indexOf(value);
+    if (index > -1) {
+      filtros.splice(index, 1);
+    }
+  }
+  $('#camposA_id_values').attr("value", filtros)
+
+}
+
+function setFilterB(element){
+  value = element.value
+  filtros = $('#camposB_id_values').attr("value")
+  if (filtros == ""){
+    filtros = []
+  }
+  else{
+    filtros = filtros.split(",")
+  }
+
+  if (element.checked){
+    filtros.push(value)
+  }
+  else{
+    const index = filtros.indexOf(value);
+    if (index > -1) {
+      filtros.splice(index, 1);
+    }
+  }
+  $('#camposB_id_values').attr("value", filtros)
+
+}
+function setFilterC(element){
+  value = element.value
+  filtros = $('#camposC_id_values').attr("value")
+  if (filtros == ""){
+    filtros = []
+  }
+  else{
+    filtros = filtros.split(",")
+  }
+
+  if (element.checked){
+    filtros.push(value)
+  }
+  else{
+    const index = filtros.indexOf(value);
+    if (index > -1) {
+      filtros.splice(index, 1);
+    }
+  }
+  $('#camposC_id_values').attr("value", filtros)
+
+}
+
+function applyFilter(value, index, array){
+  $('#' + value).attr("hidden", true)
+}
+function removeFilter(value, index, array){
+  $('#' + value).attr("hidden", false)
+}
+function applyFiltersA(element){
+  filtros = $('#camposA_id_values').attr("value")
+
+  if (filtros == ""){
+    alert("Por favor elija los campos sobre los que quiere aplicar los filtros")
+    element.checked = false
+  }
+  else{
+    filtros = filtros.split(",")
+    if (element.checked){
+      alert("Aplicando filtros...")
+      filtros.forEach(applyFilter);
+      $('#edit_filters1').attr("hidden", true)
+    }
+    else{
+      alert("Desactivando filtros...")
+      filtros.forEach(removeFilter);
+      $('#edit_filters1').attr("hidden", false)
+    }
+  }
+
+}
+function applyFiltersB(element){
+  filtros = $('#camposB_id_values').attr("value")
+
+  if (filtros == ""){
+    alert("Por favor elija los campos sobre los que quiere aplicar los filtros")
+    element.checked = false
+  }
+  else{
+    filtros = filtros.split(",")
+    if (element.checked){
+      alert("Aplicando filtros...")
+      filtros.forEach(applyFilter);
+      $('#edit_filters2').attr("hidden", true)
+    }
+    else{
+      alert("Desactivando filtros...")
+      filtros.forEach(removeFilter);
+      $('#edit_filters2').attr("hidden", false)
+    }
+  }
+
+}
+function applyFiltersC(element){
+  filtros = $('#camposC_id_values').attr("value")
+
+  if (filtros == ""){
+    alert("Por favor elija los campos sobre los que quiere aplicar los filtros")
+    element.checked = false
+  }
+  else{
+    filtros = filtros.split(",")
+    if (element.checked){
+      alert("Aplicando filtros...")
+      filtros.forEach(applyFilter);
+      $('#edit_filters3').attr("hidden", true)
+    }
+    else{
+      alert("Desactivando filtros...")
+      filtros.forEach(removeFilter);
+      $('#edit_filters3').attr("hidden", false)
+    }
+  }
+
 }
