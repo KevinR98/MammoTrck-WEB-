@@ -159,7 +159,10 @@ def borrar_imagenes(request):
 
     return client.borrar_imagenes(request)
 
+def load_file(request):
+    client = ClientFactory.get_client(request)
 
+    return client.load_file(request)
 
 
 

@@ -1,3 +1,4 @@
+import csv
 import json
 from datetime import datetime
 import random
@@ -243,6 +244,24 @@ class web_client(View):
             subform_ant_g_o = SubForm_antecedentes_g_o_Form(id_subform=form.subform_ant_g_o.pk)
             subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
 
+
+            a = json.loads(serializers.serialize('json', [form.subform_hist_per]))
+            b = json.loads(serializers.serialize('json', [form.subform_hist_fam]))
+            c = json.loads(serializers.serialize('json', [form.subform_ant_g_o]))
+            lista = [('historia_personal' , a), ('historial_familiar', b), ('antecedentes_gineco_obstetricos', c)]
+            for name, subform in lista:
+
+                subform = subform[0].get('fields')
+                for key in subform:
+                    value = subform.get(key)
+                    if isinstance(value, list):
+                        temp = ""
+                        for i in value:
+                            temp += str(i) + "_"
+                        temp = temp[:-1]
+                        value = temp
+
+                    print(name, ',', key, ',', value)
 
 
             context = {'patient_id': patient.id_patient,
@@ -700,4 +719,66 @@ class web_client(View):
                 '''
 
             return render(request, 'index/components/component_timeline.html', context)
+
+
+    def load_file(self, request):
+
+        if self.is_roles(request.user, ["admin", "medico"]):
+            if request.method == 'POST':
+
+                file = request.FILE
+
+                patient_id = Form.objects.get(id_form=request.POST['id_patient'])
+                clinic_name = request.user.profile.clinic.acronym
+                form_id = clinic_name + str(random.randint(0, 1000))
+                while Form.objects.filter(id_form=id):
+                    form_id = clinic_name + str(random.randint(0, 100))
+
+                if file.content_type == 'csv':
+                    self.load_csv(file, form_id, patient_id)
+                    print("Form guardado")
+
+                else:
+                    print("Formato no aceptable")
+
+
+
+    def load_csv(self, file, form_id, patient_id):
+
+        new_form = Form.objects.create(id_form=form_id, id_patient=patient_id)
+        new_form.habilitado = True
+        new_form.save()
+
+        subform_fam = new_form.subform_hist_fam
+        subform_ant = new_form.subform_ant_g_o
+        subform_per = new_form.subform_hist_per
+
+        subform_dict = {
+            'historia_personal': subform_per,
+            'historial_familiar': subform_fam,
+            'antecedentes_gineco_obstetricos': subform_ant
+        }
+
+        try:
+            with open(file, newline='') as csvfile:
+                reader = csv.reader(csvfile)
+                for row in reader:
+                    subform = row[0]
+                    attr = row[1]
+                    value = row[2]
+
+                    if '_' in value:
+                        value = value.split("_")
+
+                    setattr(subform_dict[subform], attr, value)
+
+            subform_fam.save()
+            subform_ant.save()
+            subform_per.save()
+
+        except:
+            print("Error leyendo el csv")
+
+
+
 
