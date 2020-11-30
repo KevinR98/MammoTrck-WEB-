@@ -723,23 +723,35 @@ class web_client(View):
 
     def load_file(self, request):
 
-        if self.is_roles(request.user, ["admin", "medico"]):
+        if self.is_roles(request.user, ["admin", "medico", "asistente"]):
             if request.method == 'POST':
+                print("leyendo archivo...")
 
-                file = request.FILE
+                files = request.FILES
 
-                patient_id = Form.objects.get(id_form=request.POST['id_patient'])
-                clinic_name = request.user.profile.clinic.acronym
-                form_id = clinic_name + str(random.randint(0, 1000))
-                while Form.objects.filter(id_form=id):
-                    form_id = clinic_name + str(random.randint(0, 100))
+                for file in files:
+                    file = files[file]
 
-                if file.content_type == 'csv':
+                    with open(file, newline='') as csvfile:
+                        reader = csv.reader(csvfile)
+                        for row in reader:
+                            print(row)
+
+                    """
+                    patient_id = Form.objects.get(id_form=request.POST['id_patient'])
+                    clinic_name = request.user.profile.clinic.acronym
+                    form_id = clinic_name + str(random.randint(0, 1000))
+                    while Form.objects.filter(id_form=id):
+                        form_id = clinic_name + str(random.randint(0, 100))
+
                     self.load_csv(file, form_id, patient_id)
                     print("Form guardado")
+                    """
 
-                else:
-                    print("Formato no aceptable")
+            return redirect('/')
+
+        else:
+            return self.error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
 
 
 

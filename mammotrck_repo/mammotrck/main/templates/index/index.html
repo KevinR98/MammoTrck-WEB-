@@ -189,7 +189,7 @@
 
                       <div class="modal-body" >
 
-                        <form action="#" method="post"  class="dropzone" id="drop_csv">
+                        <form action="{% url 'import_form' %}" method="post"  class="dropzone" id="drop_csv">
                           {% csrf_token %}
                           <div class="dz-message needsclick">
                             <i class="fa fa-file-o fa-5x" aria-hidden="true"></i><br> <br>
@@ -489,7 +489,7 @@
       Dropzone.options.drop_csv = {
 
           success: function(file, response) {
-            $('#content_loader').load("/forms/?id_patient=" + id_paciente);
+            load_formularios($('#patient_id_value').attr("value"))
 
           },
           accept: function(file, done) {

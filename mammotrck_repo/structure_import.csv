@@ -34,7 +34,6 @@ historia_personal,cuanto_bifosfonatos,None
 historia_personal,toma_medicamento_aspirina,False
 historia_personal,cuanto_aspirina,None
 historia_personal,radiacion,False
-historia_personal,form,SJD134
 historial_familiar,created_at,2020-11-27T22:46:56.290Z
 historial_familiar,updated_at,2020-11-27T22:51:57.281Z
 historial_familiar,prueba_genetica,True
@@ -43,7 +42,6 @@ historial_familiar,familiares_mama,False
 historial_familiar,familiares_cancer,False
 historial_familiar,familiares_cancer_tipo,None
 historial_familiar,familiares_cancer_parentesco,None
-historial_familiar,form,SJD134
 historial_familiar,prueba_genetica_resultado,2_4
 historial_familiar,parentesco,
 antecedentes_gineco_obstetricos,created_at,2020-11-27T22:46:56.286Z
@@ -65,4 +63,3 @@ antecedentes_gineco_obstetricos,cuanto_tiempo_terapia,None
 antecedentes_gineco_obstetricos,biopsia_aplica,False
 antecedentes_gineco_obstetricos,biopsia_cuantas,None
 antecedentes_gineco_obstetricos,biopsia_resultado,None
-antecedentes_gineco_obstetricos,form,SJD134
