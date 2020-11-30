@@ -748,7 +748,7 @@ class web_client(View):
                     print("Form guardado")
                     """
 
-            return redirect('/')
+            return self.index(request)
 
         else:
             return self.error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
@@ -790,7 +790,3 @@ class web_client(View):
 
         except:
             print("Error leyendo el csv")
-
-
-
-
