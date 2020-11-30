@@ -1,4 +1,5 @@
 import csv
+import io
 import json
 from datetime import datetime
 import random
@@ -258,7 +259,6 @@ class web_client(View):
                         temp = ""
                         for i in value:
                             temp += str(i) + "_"
-                        temp = temp[:-1]
                         value = temp
 
                     print(name, ',', key, ',', value)
@@ -732,23 +732,15 @@ class web_client(View):
                 for file in files:
                     file = files[file]
 
-                    with open(file, newline='') as csvfile:
-                        reader = csv.reader(csvfile)
-                        for row in reader:
-                            print(row)
-
-                    """
-                    patient_id = Form.objects.get(id_form=request.POST['id_patient'])
+                    patient_id = Patient.objects.get(id_patient=request.POST['drop_patient_id'])
                     clinic_name = request.user.profile.clinic.acronym
                     form_id = clinic_name + str(random.randint(0, 1000))
                     while Form.objects.filter(id_form=id):
                         form_id = clinic_name + str(random.randint(0, 100))
 
                     self.load_csv(file, form_id, patient_id)
-                    print("Form guardado")
-                    """
 
-            return self.index(request)
+            return redirect('/')
 
         else:
             return self.error_page(request, 400, 'Usuario no tiene permisos para esta funcionalidad.')
@@ -766,27 +758,50 @@ class web_client(View):
         subform_per = new_form.subform_hist_per
 
         subform_dict = {
+            'form': new_form,
             'historia_personal': subform_per,
             'historial_familiar': subform_fam,
             'antecedentes_gineco_obstetricos': subform_ant
         }
 
         try:
-            with open(file, newline='') as csvfile:
-                reader = csv.reader(csvfile)
-                for row in reader:
-                    subform = row[0]
-                    attr = row[1]
-                    value = row[2]
+            dropdown_fk = ['clinic', 'identidad_etnica']
+            decoded_file = io.StringIO(file.read().decode('utf-8'))
+            reader = csv.DictReader(decoded_file)
+            for row in reader:
+                subform = row['name_subform']
+                attr = row['name_field']
+                value = row['value']
 
-                    if '_' in value:
-                        value = value.split("_")
+
+
+                if '_' in value:
+                    value = value.split("_")[:-1]
+
+                    if value in ('None_', "_", ""):
+                        value = None
+
+                    getattr(subform_dict[subform], attr).set(value)
+
+                else:
+                    if attr in dropdown_fk:
+                        attr = attr + '_id'
+
+                    if value in ('None', ""):
+                        value = None
 
                     setattr(subform_dict[subform], attr, value)
+
 
             subform_fam.save()
             subform_ant.save()
             subform_per.save()
+            print("Form %s guardado" %(form_id))
 
-        except:
-            print("Error leyendo el csv")
+
+        except Exception as e:
+            subform_fam.delete()
+            subform_ant.delete()
+            subform_per.delete()
+            new_form.delete()
+            print("Error leyendo el csv \n", str(e))

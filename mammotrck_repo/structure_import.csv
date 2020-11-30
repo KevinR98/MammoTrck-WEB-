@@ -1,6 +1,4 @@
 name_subform,name_field,value
-historia_personal,created_at,2020-11-27T22:46:56.280Z
-historia_personal,updated_at,2020-11-27T22:51:57.274Z
 historia_personal,clinic,1
 historia_personal,nombre,nombre
 historia_personal,cedula,cedula
@@ -34,18 +32,14 @@ historia_personal,cuanto_bifosfonatos,None
 historia_personal,toma_medicamento_aspirina,False
 historia_personal,cuanto_aspirina,None
 historia_personal,radiacion,False
-historial_familiar,created_at,2020-11-27T22:46:56.290Z
-historial_familiar,updated_at,2020-11-27T22:51:57.281Z
 historial_familiar,prueba_genetica,True
 historial_familiar,prueba_genetica_otro,None
 historial_familiar,familiares_mama,False
 historial_familiar,familiares_cancer,False
 historial_familiar,familiares_cancer_tipo,None
 historial_familiar,familiares_cancer_parentesco,None
-historial_familiar,prueba_genetica_resultado,2_4
-historial_familiar,parentesco,
-antecedentes_gineco_obstetricos,created_at,2020-11-27T22:46:56.286Z
-antecedentes_gineco_obstetricos,updated_at,2020-11-27T22:51:57.278Z
+historial_familiar,prueba_genetica_resultado,2_4_
+historial_familiar,parentesco,1_
 antecedentes_gineco_obstetricos,manopausa_aplica,False
 antecedentes_gineco_obstetricos,edad_menstruacion,20
 antecedentes_gineco_obstetricos,edad_manopausa,None
