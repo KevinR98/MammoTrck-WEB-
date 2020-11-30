@@ -256,10 +256,13 @@ class web_client(View):
                 for key in subform:
                     value = subform.get(key)
                     if isinstance(value, list):
-                        temp = ""
-                        for i in value:
-                            temp += str(i) + "_"
-                        value = temp
+                        if not len(value):
+                            value = "_"
+                        else:
+                            temp = ""
+                            for i in value:
+                                temp += str(i) + "_"
+                            value = temp
 
                     print(name, ',', key, ',', value)
 
@@ -751,11 +754,14 @@ class web_client(View):
 
         new_form = Form.objects.create(id_form=form_id, id_patient=patient_id)
         new_form.habilitado = True
+        new_form.completed = True
+        new_form.submitted_at = datetime.today().strftime("%Y-%m-%d")
         new_form.save()
 
         subform_fam = new_form.subform_hist_fam
         subform_ant = new_form.subform_ant_g_o
         subform_per = new_form.subform_hist_per
+
 
         subform_dict = {
             'form': new_form,
@@ -796,6 +802,7 @@ class web_client(View):
             subform_fam.save()
             subform_ant.save()
             subform_per.save()
+
             print("Form %s guardado" %(form_id))
 
 
