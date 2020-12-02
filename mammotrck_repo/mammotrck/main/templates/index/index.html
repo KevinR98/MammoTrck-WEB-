@@ -489,8 +489,8 @@
       Dropzone.options.drop_csv = {
 
           success: function(file, response) {
+            alert("Prueba")
             load_formularios($('#patient_id_value').attr("value"))
-
           },
           accept: function(file, done) {
             valid = ["text/csv"];
