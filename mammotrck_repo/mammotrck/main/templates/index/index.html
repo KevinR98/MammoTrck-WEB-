@@ -200,7 +200,7 @@
 
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary style108" data-dismiss="modal" style="margin-right: 5px; background-color: grey" onclick="Dropzone.forElement('#drop_csv').removeAllFiles(true)">Volver</button>
+                        <button type="button" class="btn btn-secondary style108" data-dismiss="modal" style="margin-right: 5px; background-color: grey" onclick="Dropzone.forElement('#csv').removeAllFiles(true)">Volver</button>
                       </div>
                     </div>
 
@@ -491,7 +491,7 @@
 
           success: function(file, response) {
             load_formularios($('#patient_id_value').attr("value"));
-
+            alert('Formulario cargado')
           },
           accept: function(file, done) {
             valid = ["csv"];
@@ -501,7 +501,7 @@
                 done("Tipo de archivo no soportado");
             }
             else { done(); }
-        }
+          }
       }
 
     </script>

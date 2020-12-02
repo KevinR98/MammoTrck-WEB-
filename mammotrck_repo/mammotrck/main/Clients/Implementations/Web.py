@@ -725,7 +725,7 @@ class web_client(View):
 
 
     def load_file(self, request):
-
+        #return HttpResponse(status=400, content='Usuario no tiene permisos para esta funcionalidad.')
         if self.is_roles(request.user, ["admin", "medico", "asistente"]):
             if request.method == 'POST':
                 print("leyendo archivo...")
