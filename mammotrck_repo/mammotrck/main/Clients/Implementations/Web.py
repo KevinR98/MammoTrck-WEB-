@@ -784,6 +784,7 @@ class web_client(View):
                 if '_' in value:
                     value = value.split("_")[:-1]
 
+
                     if value in ('None_', "_", ""):
                         value = None
 

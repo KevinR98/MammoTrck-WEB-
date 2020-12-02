@@ -1,4 +1,5 @@
 name_subform,name_field,value
+form,id_form,SAFASTA
 historia_personal,clinic,1
 historia_personal,nombre,nombre
 historia_personal,cedula,cedula
