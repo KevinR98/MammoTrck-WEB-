@@ -189,7 +189,7 @@
 
                       <div class="modal-body" >
 
-                        <form action="{% url 'import_form' %}" method="post"  class="dropzone" id="drop_csv">
+                        <form action="{% url 'import_form' %}" method="post"  class="dropzone" id="csv">
                           {% csrf_token %}
                           <div class="dz-message needsclick">
                             <i class="fa fa-file-o fa-5x" aria-hidden="true"></i><br> <br>
@@ -470,6 +470,7 @@
     <script src="{% static 'index/frontend/bootstrap/4/js/bootstrap.min.js'  %}"></script>
 
     <script>
+
       Dropzone.options.drop = {
 
           success: function(file, response) {
@@ -486,16 +487,17 @@
         }
       }
 
-      Dropzone.options.drop_csv = {
+      Dropzone.options.csv = {
 
           success: function(file, response) {
-            load_formularios($('#patient_id_value').attr("value"))
+            load_formularios($('#patient_id_value').attr("value"));
 
           },
           accept: function(file, done) {
-            valid = ["text/csv"];
+            valid = ["csv"];
+            extention = file.name.split('.').pop();
 
-            if (!valid.includes(file.type)) {
+            if (!valid.includes(extention)) {
                 done("Tipo de archivo no soportado");
             }
             else { done(); }

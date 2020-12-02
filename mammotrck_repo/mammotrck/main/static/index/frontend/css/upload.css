@@ -3,7 +3,7 @@
  * The MIT License
  * Copyright (c) 2012 Matias Meno <m@tias.me>
  */
-#drop, #drop_csv{
+#drop, #csv{
   width:100%;
   height:100%;
   padding:15px;
