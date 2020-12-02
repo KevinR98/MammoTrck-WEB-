@@ -679,6 +679,7 @@ class web_client(View):
                         form_dict = {
                                 'id_form': form_act.id_form,
                                 'date_submitted': form_act.submitted_at,
+                                'first': False,
                                 'subf_form_A': {},
                                 'subf_form_B': {},
                                 'subf_form_C': {},
@@ -712,6 +713,9 @@ class web_client(View):
                         context_aux['changes'].append(form_dict)
 
                         i += 1
+
+                    context_aux['changes'][-1]['first'] = True
+                    print(context_aux)
                     context.update(context_aux)
 
             return render(request, 'index/components/component_timeline.html', context)
