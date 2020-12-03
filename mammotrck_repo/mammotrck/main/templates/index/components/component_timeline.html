@@ -65,16 +65,18 @@
                               <div class="col-sm-4">
                                 <div class="card" style="border-radius:10px;">
                                   <div class="card-body" style="width:70vw;  max-width: 100%; ">
-                                    <h4 class="card-title" style="color:#212529; font-size:16px"><b>Historia Personal</b></h4>
+                                    <h4 class="card-title" style="color:#212529; font-size:18px"><b>Historia Personal</b></h4>
                                     {% if form.subf_form_A.num_changes == 0 %}
-                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px"><b>Sin cambios</b></h6>
+                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px"><b><u>Sin cambios</u></b></h6>
                                     {% else %}
                                     <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px">Cambios: {{form.subf_form_A.num_changes}}</h6>
                                     {% endif %}
 
 
                                     <div style="margin-left:200px;">
+                                    {% if form.subf_form_A.num_changes != 0 %}
                                     <a data-toggle="modal" data-target="#modal_timeline_{{form.id_form}}_0"><h6 class="card-subtitle" style="padding-top: 20px; cursor:pointer">Más Detalles</h6></a>
+                                    {% endif %}
                                     </div>
                                   </div>
                                 </div>
@@ -82,16 +84,18 @@
                               <div class="col-sm-4">
                                 <div class="card" style="border-radius:10px;">
                                   <div class="card-body" style="width:70vw;  max-width: 100%; ">
-                                    <h4 class="card-title" style="color:#212529; font-size:16px"><b>Antecedentes Gineco-Obstétricos</b></h4>
+                                    <h4 class="card-title" style="color:#212529; font-size:18px"><b>Antecedentes Gineco-Obstétricos</b></h4>
 
                                     {% if form.subf_form_B.num_changes == 0 %}
-                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px"><b>Sin cambios</b></h6>
+                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px"><b><u>Sin cambios</u></b></h6>
                                     {% else %}
                                     <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px">Cambios: {{form.subf_form_B.num_changes}}</h6>
                                     {% endif %}
 
                                     <div style="margin-left:200px;">
+                                    {% if form.subf_form_A.num_changes != 0 %}
                                     <a data-toggle="modal" data-target="#modal_timeline_{{form.id_form}}_1"><h6 class="card-subtitle" style="padding-top: 20px; cursor:pointer">Más Detalles</h6></a>
+                                    {% endif %}
                                     </div>
                                   </div>
                                 </div>
@@ -99,16 +103,18 @@
                               <div class="col-sm-4">
                                 <div class="card" style="border-radius:10px;">
                                   <div class="card-body" style="width:70vw;  max-width: 100%; ">
-                                    <h4 class="card-title" style="color:#212529; font-size:16px"><b>Historia Familiar</b></h4>
+                                    <h4 class="card-title" style="color:#212529; font-size:18px"><b>Historia Familiar</b></h4>
 
                                     {% if form.subf_form_C.num_changes == 0 %}
-                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px"><b>Sin cambios</b></h6>
+                                    <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px"><b><u>Sin cambios</u></b></h6>
                                     {% else %}
                                     <h6 class="card-subtitle" style="padding-top:10px; padding-bottom: 20px">Cambios: {{form.subf_form_C.num_changes}}</h6>
                                     {% endif %}
 
                                     <div style="margin-left:200px;">
+                                    {% if form.subf_form_A.num_changes != 0 %}
                                     <a data-toggle="modal" data-target="#modal_timeline_{{form.id_form}}_2"><h6 class="card-subtitle" style="padding-top: 20px; cursor:pointer">Más Detalles</h6></a>
+                                    {% endif %}
                                     </div>
                                   </div>
                                 </div>
@@ -147,7 +153,7 @@
 
                             <div class="modal fade" id="modal_timeline_{{form.id_form}}_1" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" data-backdrop="false">
                               <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                <div class="modal-content">
+                                <div class="modal-content" style="width:800px !important">
                                   <div class="modal-header">
                                     <h5 class="modal-title">Antecedentes Gineco-Obstétricos</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -177,7 +183,7 @@
 
                             <div class="modal fade" id="modal_timeline_{{form.id_form}}_2" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" data-backdrop="false">
                               <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                <div class="modal-content">
+                                <div class="modal-content" style="width:800px !important">
                                   <div class="modal-header">
                                     <h5 class="modal-title">Historia Familiar</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

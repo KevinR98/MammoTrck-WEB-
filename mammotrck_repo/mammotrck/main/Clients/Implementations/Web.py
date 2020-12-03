@@ -675,10 +675,11 @@ class web_client(View):
 
                         subforms = [('subf_form_C', subform_fam), ('subf_form_B', subform_ant), ('subf_form_A', subform_per)]
                         ignore = ['id', 'pk', 'created_at', 'updated_at', 'form']
-
+                        fecha = form_act.submitted_at
+                        fecha = fecha.strftime("%d/%m/%y")
                         form_dict = {
                                 'id_form': form_act.id_form,
-                                'date_submitted': form_act.submitted_at,
+                                'date_submitted': fecha,
                                 'first': False,
                                 'subf_form_A': {},
                                 'subf_form_B': {},
@@ -722,7 +723,6 @@ class web_client(View):
 
 
     def load_file(self, request):
-        #return HttpResponse(status=400, content='Usuario no tiene permisos para esta funcionalidad.')
         if self.is_roles(request.user, ["admin", "medico", "asistente"]):
             if request.method == 'POST':
                 print("leyendo archivo...")
