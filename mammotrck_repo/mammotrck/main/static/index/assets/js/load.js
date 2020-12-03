@@ -17,7 +17,6 @@ function load_pacientes(){
 
 
 function load_formularios(id_paciente){
-    alert("Alert load")
     $('#content_loader').load("/forms/?id_patient=" + id_paciente);
     $('#live-chat').show();
     $('#nav_pacientes').attr("hidden",false);
