@@ -705,7 +705,8 @@ class web_client(View):
                                             'sig': elem_b,
                                             'ult': False
                                         })
-
+                            if(len(changes) > 0):
+                                changes[-1]['ult'] = True
                             form_dict[subform_key] = {
                                 'num_changes': len(changes),
                                 'changes': changes
