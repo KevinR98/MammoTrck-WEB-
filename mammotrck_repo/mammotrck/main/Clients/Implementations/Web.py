@@ -247,7 +247,8 @@ class web_client(View):
             subform_ant_g_o = SubForm_antecedentes_g_o_Form(id_subform=form.subform_ant_g_o.pk)
             subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
 
-
+            """
+            #Print fields of form
             a = json.loads(serializers.serialize('json', [form.subform_hist_per]))
             b = json.loads(serializers.serialize('json', [form.subform_hist_fam]))
             c = json.loads(serializers.serialize('json', [form.subform_ant_g_o]))
@@ -267,7 +268,7 @@ class web_client(View):
                             value = temp
 
                     print(name, ',', key, ',', value)
-
+            """
 
             context = {'patient_id': patient.id_patient,
                        'form_id': form.id_form,
@@ -662,11 +663,6 @@ class web_client(View):
 
                 if len(forms) == 0:
                     context.update({'no_findings': True})
-
-                elif len(forms) == 1:
-                    None
-                    #TODO mandar uno pero como ultimo nada mas
-
                 else:
                     i = 0
                     while i < len(forms)-1:
@@ -704,22 +700,8 @@ class web_client(View):
                                     elem_b = fields_sig.get(key)
 
                                     if(elem_a != elem_b):
-                                        print(type(elem_a))
-                                        if isinstance(elem_a, bool):
-                                            elem_a = "Sí" if elem_a else "No"
-
-                                        if isinstance(elem_b, bool):
-                                            elem_b = "Sí" if elem_b else "No"
-
-                                        if elem_a == None:
-                                            elem_a = "Campo Vacío"
-
-                                        if elem_b == None:
-                                            elem_b = "Campo Vacío"
-
-
-
-                                        #TODO cambiar de indice a nombre
+                                        elem_a = get_values_fk(key, elem_a)
+                                        elem_b = get_values_fk(key, elem_b)
 
                                         changes.append({
                                             'campo': key,
@@ -733,15 +715,31 @@ class web_client(View):
                                 'num_changes': len(changes),
                                 'changes': changes
                             }
-                        print(form_dict, '\n\n')
                         context_aux['changes'].append(form_dict)
 
                         i += 1
 
-                    context_aux['changes'][-1]['first'] = True
-                    print(context_aux)
-                    context.update(context_aux)
 
+                    context_aux['changes'].append({
+                                'id_form': forms[-1].id_form,
+                                'date_submitted': forms[-1].submitted_at,
+                                'first': True,
+                                'subf_form_A': {
+                                    'num_changes': 0,
+                                    'changes': {}
+                                },
+                                'subf_form_B': {
+                                    'num_changes': 0,
+                                    'changes': {}
+                                },
+                                'subf_form_C': {
+                                    'num_changes': 0,
+                                    'changes': {}
+                                }
+                        })
+
+            context.update(context_aux)
+            print(context_aux['changes'])
             return render(request, 'index/components/component_timeline.html', context)
 
 
@@ -843,38 +841,45 @@ class web_client(View):
         return data
 
 
-def get_values_fk(field, elem_a, elem_b):
+def get_values_fk(field, element):
+    if element == None or element == []:
+        element = "Campo Vacío"
 
-    if field == 'nacionalidad':
-        elem_a = NATIONALITIES[elem_a]
-        elem_b = NATIONALITIES[elem_b]
+    elif isinstance(element, bool):
+        element = "Sí" if element else "No"
 
-    elif field == '':
-        elem_a = FRECUENCIA_BEBE[elem_a][1]
-        elem_b = FRECUENCIA_BEBE[elem_b][1]
+    elif field == 'nacionalidad':
+        element = NATIONALITIES[int(element)]
 
-    elif field == '':
-        elem_a = DIABETES[elem_a][1]
-        elem_b = DIABETES[elem_b][1]
+    elif field == 'bebidas_cuanto':
+        print(element)
+        element = FRECUENCIA_BEBE[int(element)][1]
 
-    elif field == '':
-        elem_a = TIPO_TERAPIA[elem_a][1]
-        elem_b = TIPO_TERAPIA[elem_b][1]
+    elif field == 'diabetes':
+        element = DIABETES[int(element)][1]
 
-    elif field == '':
-        elem_a = Clinic.objects.get(pk=elem_a).name
-        elem_b = Clinic.objects.get(pk=elem_a).name
+    elif field == 'terapia':
+        element = TIPO_TERAPIA[int(element)][1]
 
-    elif field == '':
-        elem_a = Identidad_etnica.objects.get(pk=elem_a).name
-        elem_b = Identidad_etnica.objects.get(pk=elem_a).name
+    elif field == 'clinic':
+        element = Clinic.objects.get(pk=element).name
 
-    elif field == '':
-        elem_a = Prueba_genetica.objects.get(pk=elem_a).name
-        elem_b = Prueba_genetica.objects.get(pk=elem_a).name
+    elif field == 'identidad_etnica':
+        element = Identidad_etnica.objects.get(pk=element).identidad
 
-    elif field == '':
-        elem_a = Parentesco.objects.get(pk=elem_a).name
-        elem_b = Parentesco.objects.get(pk=elem_a).name
+    elif field == 'prueba_genetica_resultado':
+        str_element = ""
 
-    return (elem_a, elem_b)
+        for pk in element:
+            str_element += str(Prueba_genetica.objects.get(pk=pk).tipo_prueba_genetica) + ","
+
+        element = str_element[:-1]
+
+    elif field == 'parentesco':
+        str_element = ""
+
+        for pk in element:
+            str_element += str(Parentesco.objects.get(pk=pk).tipo_parentesco) + ","
+        element = str_element[:-1]
+
+    return element
