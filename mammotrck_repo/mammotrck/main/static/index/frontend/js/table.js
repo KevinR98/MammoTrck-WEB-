@@ -206,7 +206,7 @@ $(document).ready(function () {
 
         buttons: [
             {
-                text: '<span style="color:#4d4d4d; margin-right:15px">Print<span>',
+                text: '<span style="color:#4d4d4d; margin-right:15px">Imprimir<span>',
                 extend: 'print',
                 className: '',
                 title: '',
@@ -234,7 +234,7 @@ $(document).ready(function () {
             },
             {
 
-                text: '<span style="color:#4d4d4d; margin-right:15px">Copy<span>',
+                text: '<span style="color:#4d4d4d; margin-right:15px">Copiar<span>',
                 extend: 'copyHtml5',
 
             },

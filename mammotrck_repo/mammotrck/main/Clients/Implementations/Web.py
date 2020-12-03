@@ -127,9 +127,7 @@ class web_client(View):
                 form_list = list(Form.objects.filter(id_patient=patient['id_patient']).exclude(submitted_at=None).exclude(habilitado=False).order_by('submitted_at').values())
                 quantity_form = len(form_list)
 
-                if quantity_form != 0:
-                    print("ultimo ", form_list[0], "\n")
-                    print("ultimo ", form_list[-1], "\n")
+                
 
                 patient_dict = {}
 

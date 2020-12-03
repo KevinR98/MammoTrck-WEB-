@@ -73,14 +73,14 @@
     <div class="row justify-content-xl-end justify-content-lg-end  style107 ">
 
       {% if user|has_group:"admin" or user|has_group:"medico"%}
-        <button onclick="crear_form('{{patient_id}}');" id="boton_agregar" class="btn text-xl-center style65  boton_b" style="width:300px">Agregar un formulario</button>
+        <button onclick="crear_form('{{patient_id}}');" id="boton_agregar" class="btn text-xl-center style65  boton_b" style="width:270px">Agregar un Formulario</button>
       {% endif %}
 
     </div>
     <div class="row justify-content-xl-end justify-content-lg-end  style107 ">
 
 
-      <button onclick="$('#drop_patient_id').attr('value', '{{patient_id}}')" data-toggle="modal" data-target="#modal_upload_csv" class="btn text-xl-center style65  boton_b" style="width:300px" >Cargar Formularios en CSV</button>
+      <button onclick="$('#drop_patient_id').attr('value', '{{patient_id}}')" data-toggle="modal" data-target="#modal_upload_csv" class="btn text-xl-center style65  boton_b" style="width:270px" >Cargar Formularios en CSV</button>
 
     </div>
 </section>
