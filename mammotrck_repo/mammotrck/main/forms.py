@@ -120,7 +120,7 @@ class SubForm_historia_personal_Form(forms.Form):
                'placeholder': ''}))
 
     imc = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_imc',
+        attrs={'type': 'number', 'step': 'any', 'class': 'form-control', 'id': 'inp_imc',
                'name': 'imc', 'aria-describedby': 'inp_imc_help',
                'placeholder': ''}))
 

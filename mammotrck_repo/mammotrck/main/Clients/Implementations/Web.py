@@ -1,6 +1,7 @@
 import csv
 import io
 import json
+import types
 from datetime import datetime
 import random
 
@@ -24,7 +25,7 @@ from ... import models
 from ...models import User, Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
     Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco, Report, Mamografia
 from ...forms import RegistrationForm, SubForm_historia_personal_Form, SubForm_antecedentes_g_o_Form, \
-    SubForm_historia_familiar_Form, ReportForm
+    SubForm_historia_familiar_Form, ReportForm, ROLES, NATIONALITIES, FRECUENCIA_BEBE, DIABETES, TIPO_TERAPIA
 
 
 class web_client(View):
@@ -659,8 +660,12 @@ class web_client(View):
                 forms = Form.objects.exclude(submitted_at=None).filter(id_patient=request.GET['id_patient'], submitted_at__range=[date_start, date_end]).order_by('-submitted_at')
                 forms = list(forms)
 
-                if len(forms) <= 1:
+                if len(forms) == 0:
                     context.update({'no_findings': True})
+
+                elif len(forms) == 1:
+                    None
+                    #TODO mandar uno pero como ultimo nada mas
 
                 else:
                     i = 0
@@ -699,10 +704,27 @@ class web_client(View):
                                     elem_b = fields_sig.get(key)
 
                                     if(elem_a != elem_b):
-                                        changes.append( {
+                                        print(type(elem_a))
+                                        if isinstance(elem_a, bool):
+                                            elem_a = "Sí" if elem_a else "No"
+
+                                        if isinstance(elem_b, bool):
+                                            elem_b = "Sí" if elem_b else "No"
+
+                                        if elem_a == None:
+                                            elem_a = "Campo Vacío"
+
+                                        if elem_b == None:
+                                            elem_b = "Campo Vacío"
+
+
+
+                                        #TODO cambiar de indice a nombre
+
+                                        changes.append({
                                             'campo': key,
-                                            'ant': elem_a,
-                                            'sig': elem_b,
+                                            'ant': elem_b,
+                                            'sig': elem_a,
                                             'ult': False
                                         })
 
@@ -818,3 +840,40 @@ class web_client(View):
             data[subform][attr] = value
 
         return data
+
+
+def get_values_fk(field, elem_a, elem_b):
+
+    if field == 'nacionalidad':
+        elem_a = NATIONALITIES[elem_a]
+        elem_b = NATIONALITIES[elem_b]
+
+    elif field == '':
+        elem_a = FRECUENCIA_BEBE[elem_a][1]
+        elem_b = FRECUENCIA_BEBE[elem_b][1]
+
+    elif field == '':
+        elem_a = DIABETES[elem_a][1]
+        elem_b = DIABETES[elem_b][1]
+
+    elif field == '':
+        elem_a = TIPO_TERAPIA[elem_a][1]
+        elem_b = TIPO_TERAPIA[elem_b][1]
+
+    elif field == '':
+        elem_a = Clinic.objects.get(pk=elem_a).name
+        elem_b = Clinic.objects.get(pk=elem_a).name
+
+    elif field == '':
+        elem_a = Identidad_etnica.objects.get(pk=elem_a).name
+        elem_b = Identidad_etnica.objects.get(pk=elem_a).name
+
+    elif field == '':
+        elem_a = Prueba_genetica.objects.get(pk=elem_a).name
+        elem_b = Prueba_genetica.objects.get(pk=elem_a).name
+
+    elif field == '':
+        elem_a = Parentesco.objects.get(pk=elem_a).name
+        elem_b = Parentesco.objects.get(pk=elem_a).name
+
+    return (elem_a, elem_b)
