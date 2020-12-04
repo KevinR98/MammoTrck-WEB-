@@ -656,7 +656,7 @@ class web_client(View):
                 date_end = datetime.strptime(request.GET['fecha_fin'], '%Y-%m-%d')
 
                 context_aux = {'changes': []}
-                forms = Form.objects.exclude(submitted_at=None).filter(id_patient=request.GET['id_patient'], submitted_at__range=[date_start, date_end]).order_by('-submitted_at')
+                forms = Form.objects.exclude(submitted_at=None).filter(habilitado=True, id_patient=request.GET['id_patient'], submitted_at__range=[date_start, date_end]).order_by('-submitted_at')
                 forms = list(forms)
 
                 if len(forms) == 0:
