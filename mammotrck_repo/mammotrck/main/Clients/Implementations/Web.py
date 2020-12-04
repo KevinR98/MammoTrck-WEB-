@@ -23,7 +23,7 @@ from django.views import View
 
 from ... import models
 from ...models import User, Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
-    Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco, Report, Mamografia
+    Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco, Report, Mamografia, FIELD_PARSER
 from ...forms import RegistrationForm, SubForm_historia_personal_Form, SubForm_antecedentes_g_o_Form, \
     SubForm_historia_familiar_Form, ReportForm, ROLES, NATIONALITIES, FRECUENCIA_BEBE, DIABETES, TIPO_TERAPIA
 
@@ -700,9 +700,10 @@ class web_client(View):
                                     if(elem_a != elem_b):
                                         elem_a = get_values_fk(key, elem_a)
                                         elem_b = get_values_fk(key, elem_b)
+                                        print(subform_key, key)
 
                                         changes.append({
-                                            'campo': key,
+                                            'campo': FIELD_PARSER[subform_key][key],
                                             'ant': elem_b,
                                             'sig': elem_a,
                                             'ult': False
@@ -817,7 +818,7 @@ class web_client(View):
         decoded_file = io.StringIO(file.read().decode('utf-8'))
         reader = csv.DictReader(decoded_file)
         for row in reader:
-            subform = row['name_subform']
+            subform = row['form_section']
             attr = row['name_field']
             value = row['value']
 

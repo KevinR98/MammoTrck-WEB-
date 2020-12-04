@@ -1,4 +1,4 @@
-name_subform,name_field,value
+form_section,name_field,value
 form,id_form,prueb1
 historia_personal,clinic,2
 historia_personal,nombre,Nombre de prueba

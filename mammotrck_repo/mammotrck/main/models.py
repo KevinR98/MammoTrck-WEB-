@@ -5,6 +5,80 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
 
+HISTORIA_PERSONAL_FIELD_PARSER = {
+    'clinic': 'Hospital',
+    'nombre': 'Nombre',
+    'cedula': 'Cédula',
+    'fecha_de_nacimiento': 'Fecha de nacimiento',
+    'nacionalidad': 'Nacionalidad',
+    'identidad_etnica': 'Identidad étnica',
+    'identidad_etnica_otro': 'Otra identidad',
+    'peso': 'Peso (kg)',
+    'talla': 'Talla (m)',
+    'imc': 'IMC (kg/m2)',
+    'fuma': 'Fumador',
+    'fuma_edad': 'Edad que empezó a fumar',
+    'fuma_actualmente': 'Fuma actualmente',
+    'fuma_cuanto': 'Por cuánto tiempo ha fumado',
+    'bebidas': 'Bebe alcohol',
+    'bebidas_cuanto': 'Frecuencia en que bebe',
+    'bebidas_cuanto_otro': 'Otra frecuencia',
+    'actividad_fisica': 'Realiza actividad física',
+    'actividad_fisica_cuanto': 'Minutos por semana de actividad física',
+    'consume_alimentos_con_grasa': 'Consume alimentos con mucha grasa',
+    'consume_veg_frut_gram': 'Consume vegetales, frutas y granos regularmente',
+    'diabetes': 'Diabetes',
+    'toma_medicamento_tamoxifeno': 'Toma Tamoxifeno',
+    'cuanto_tamoxifeno': 'Por cuánto tiempo',
+    'toma_medicamento_anastrozol': 'Toma Anastrozol',
+    'cuanto_anastrozol': 'Por cuánto tiempo',
+    'toma_medicamento_metformina': 'Toma Metformina',
+    'cuanto_metformina': 'Por cuánto tiempo',
+    'toma_medicamento_bifosfonatos': 'Toma Bifosfonatos',
+    'cuanto_bifosfonatos': 'Por cuánto tiempo',
+    'toma_medicamento_aspirina': 'Toma Aspirina',
+    'cuanto_aspirina': 'Por cuánto tiempo',
+    'radiacion': 'Ha recibido tratamientos con radiación en el tórax',
+}
+
+ANTECEDENTES_FIELD_PARSER = {
+    'edad_menstruacion': 'Edad (años) de la primera menstruación',
+    'manopausa_aplica': 'Menopausia',
+    'edad_manopausa': 'Edad (años) al momento de la menopausia',
+    'parto_cantidad': 'Cantidad de partos',
+    'edad_ult_hijo': 'Edad (años) del último hijo',
+    'lactancia_tiempo': 'Tiempo de lactancia del último hijo',
+    'lactancia_aplica': 'Lactancia en su último hijo',
+    'anticonceptivos_aplica': 'Anticonceptivos orales',
+    'anticonceptivos_cuanto': 'Tiempo que los tomó',
+    'anticonceptivos_ult_vez': 'Última vez que los usó',
+    'terapia_hormonal_aplica': 'Terapia hormonal para menopausia',
+    'terapia': 'Tipo de terapia',
+    'cuanto_tiempo_terapia': 'Tiempo de uso',
+    'biopsia_aplica': 'Biopsias de mama',
+    'biopsia_cuantas': 'Número biopsias',
+    'biopsia_resultado': 'Resultado',
+    'parto_aplica': '¿Ha tenido partos?'
+
+}
+HISTORIA_FAMILIAR_FIELD_PARSER = {
+    'prueba_genetica': 'Pruebas genéticas previas',
+    'prueba_genetica_resultado': 'Resultado',
+    'prueba_genetica_otro': 'Otro resultado',
+    'familiares_mama': 'Familiares con cáncer de mama u ovario',
+    'parentesco': 'Parentesco',
+    'familiares_cancer': 'Familiares con otro tipo de cáncer',
+    'familiares_cancer_tipo': 'Tipo de cáncer',
+    'familiares_cancer_parentesco': 'Parentesco'
+}
+
+
+FIELD_PARSER = {
+    'subf_form_A': HISTORIA_PERSONAL_FIELD_PARSER,
+    'subf_form_B': ANTECEDENTES_FIELD_PARSER,
+    'subf_form_C': HISTORIA_FAMILIAR_FIELD_PARSER
+}
+
 class Clinic(models.Model):
     name = models.CharField(max_length=40, null=True)
     acronym = models.CharField(max_length=40, null=True)
