@@ -127,7 +127,7 @@ class web_client(View):
                 form_list = list(Form.objects.filter(id_patient=patient['id_patient']).exclude(submitted_at=None).exclude(habilitado=False).order_by('submitted_at').values())
                 quantity_form = len(form_list)
 
-                
+
 
                 patient_dict = {}
 
@@ -721,7 +721,7 @@ class web_client(View):
 
                     context_aux['changes'].append({
                                 'id_form': forms[-1].id_form,
-                                'date_submitted': forms[-1].submitted_at,
+                                'date_submitted': forms[-1].submitted_at.strftime("%d/%m/%y"),
                                 'first': True,
                                 'subf_form_A': {
                                     'num_changes': 0,
