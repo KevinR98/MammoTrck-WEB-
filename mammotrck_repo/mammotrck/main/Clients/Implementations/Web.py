@@ -752,54 +752,59 @@ class web_client(View):
                     file = files[file]
 
                     data = self.load_csv(file)
-                    patient_id = Patient.objects.get(id_patient=request.POST['drop_patient_id'])
+                    if data == None:
+                        print("Error leyendo el csv")
+                        return HttpResponse(status=400, content='Error leyendo el csv.')
 
-                    if 'id_form' in data['form']:
-                        form_id = data['form']['id_form']
-
-                        if not Form.objects.filter(id_form=form_id).exists():
-                            form_model = Form.objects.create(id_form=form_id, id_patient=patient_id)
-                            form_model.habilitado = True
-                            form_model.completed = True
-                            form_model.submitted_at = datetime.today().strftime("%Y-%m-%d")
-                            form_model.save()
-
-                        else:
-                            form_model = Form.objects.get(id_form=form_id)
-                            form_model.habilitado = True
-                            form_model.save()
-
-                        subform_fam = form_model.subform_hist_fam
-                        subform_ant = form_model.subform_ant_g_o
-                        subform_per = form_model.subform_hist_per
-
-                        subform_dict = {
-                            'form': form_model,
-                            'historia_personal': subform_per,
-                            'historial_familiar': subform_fam,
-                            'antecedentes_gineco_obstetricos': subform_ant
-                        }
-
-                        try:
-                            for subform in data:
-                                for attr in data[subform]:
-                                    value = data[subform][attr]
-
-                                    if subform_dict[subform]._meta.get_field(attr).__class__ == ManyToManyField:
-                                        getattr(subform_dict[subform], attr).set(value)
-                                    else:
-                                        setattr(subform_dict[subform], attr, value)
-
-                            subform_fam.save()
-                            subform_ant.save()
-                            subform_per.save()
-                            print("Form %s guardado" %(form_id))
-
-                        except Exception as e:
-                            print("Error leyendo el csv \n", str(e))
-                            return HttpResponse(status=400, content='Error leyendo el csv.')
                     else:
-                        return self.error_page(request, 400, 'El csv no posee id del formulario.')
+                        patient_id = Patient.objects.get(id_patient=request.POST['drop_patient_id'])
+
+                        if 'id_form' in data['form']:
+                            form_id = data['form']['id_form']
+
+                            if not Form.objects.filter(id_form=form_id).exists():
+                                form_model = Form.objects.create(id_form=form_id, id_patient=patient_id)
+                                form_model.habilitado = True
+                                form_model.completed = True
+                                form_model.submitted_at = datetime.today().strftime("%Y-%m-%d")
+                                form_model.save()
+
+                            else:
+                                form_model = Form.objects.get(id_form=form_id)
+                                form_model.habilitado = True
+                                form_model.save()
+
+                            subform_fam = form_model.subform_hist_fam
+                            subform_ant = form_model.subform_ant_g_o
+                            subform_per = form_model.subform_hist_per
+
+                            subform_dict = {
+                                'form': form_model,
+                                'historia_personal': subform_per,
+                                'historial_familiar': subform_fam,
+                                'antecedentes_gineco_obstetricos': subform_ant
+                            }
+
+                            try:
+                                for subform in data:
+                                    for attr in data[subform]:
+                                        value = data[subform][attr]
+
+                                        if subform_dict[subform]._meta.get_field(attr).__class__ == ManyToManyField:
+                                            getattr(subform_dict[subform], attr).set(value)
+                                        else:
+                                            setattr(subform_dict[subform], attr, value)
+
+                                subform_fam.save()
+                                subform_ant.save()
+                                subform_per.save()
+                                print("Form %s guardado" %(form_id))
+
+                            except Exception as e:
+                                print("Error guardando datos del csv \n", str(e))
+                                return HttpResponse(status=400, content='Error guardando datos del csv')
+                        else:
+                            return HttpResponse(status=400, content='El csv no posee id del formulario.')
 
             return redirect('/')
 
@@ -819,27 +824,31 @@ class web_client(View):
         dropdown_fk = ['clinic', 'identidad_etnica']
         decoded_file = io.StringIO(file.read().decode('utf-8'))
         reader = csv.DictReader(decoded_file)
-        for row in reader:
-            subform = row['form_section']
-            attr = row['name_field']
-            value = row['value']
+        try:
+            for row in reader:
+                subform = row['form_section']
+                attr = row['name_field']
+                value = row['value']
 
-            if '_' in value:
-                if value in ('None_', '_', ''):
-                    value = []
+                if '_' in value:
+                    if value in ('None_', '_', ''):
+                        value = []
+                    else:
+                        value = value.split("_")[:-1]
+
                 else:
-                    value = value.split("_")[:-1]
+                    if attr in dropdown_fk:
+                        attr = attr + '_id'
 
-            else:
-                if attr in dropdown_fk:
-                    attr = attr + '_id'
+                    if value in ('None', ""):
+                        value = None
 
-                if value in ('None', ""):
-                    value = None
+                data[subform][attr] = value
 
-            data[subform][attr] = value
+            return data
 
-        return data
+        except:
+            return None
 
 
 def get_values_fk(field, element):
