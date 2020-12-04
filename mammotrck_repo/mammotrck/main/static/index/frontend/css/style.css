@@ -17,10 +17,12 @@
 .boton_a{
   background-color: var(--mammo_dark) !important;
   border-color: var(--mammo_dark) !important;
+  text-transform: none !important;
 }
 .boton_b{
   background-color: var(--medical_dark) !important;
   border-color: var(--medical_dark) !important;
+  text-transform: none !important;
 }
 
 .info{
@@ -413,6 +415,7 @@ h3.section-title {
     margin-bottom: -2px;
     margin-right: 19px;
   }
+  
   .style71 {
     margin-top: 10px;
     margin-bottom: -15px;
@@ -832,11 +835,12 @@ link {
   margin-top: 19px;
   padding-left: 10px;
   padding-right: 10px;
-  font-size: 0.85rem;
+  font-size: 1rem;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  text-transform: none;
 }
 .style109 {
   -webkit-box-orient: vertical;
