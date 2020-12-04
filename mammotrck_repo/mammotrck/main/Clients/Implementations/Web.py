@@ -798,6 +798,8 @@ class web_client(View):
                         except Exception as e:
                             print("Error leyendo el csv \n", str(e))
                             return HttpResponse(status=400, content='Error leyendo el csv.')
+                    else:
+                        return self.error_page(request, 400, 'El csv no posee id del formulario.')
 
             return redirect('/')
 
