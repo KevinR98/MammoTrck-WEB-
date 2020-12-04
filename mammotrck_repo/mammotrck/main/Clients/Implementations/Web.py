@@ -738,8 +738,8 @@ class web_client(View):
                                 }
                         })
 
-            context.update(context_aux)
-            print(context_aux['changes'])
+                    context.update(context_aux)
+
             return render(request, 'index/components/component_timeline.html', context)
 
 
