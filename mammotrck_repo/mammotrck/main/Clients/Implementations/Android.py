@@ -230,7 +230,15 @@ class android_client:
             subform.nombre = subform_Form['nombre']
             subform.clinic = Clinic.objects.filter(pk=subform_Form['clinic']).get()
             subform.cedula = subform_Form['cedula']
+
+            try:
+                format ="^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[1][0-9]|3[01])$"
+                datetime.datetime.strptime(subform_Form['fecha_de_nacimiento'], format)
+            except ValueError:
+                subform_Form['fecha_de_nacimiento'] = None
+
             subform.fecha_de_nacimiento = subform_Form['fecha_de_nacimiento']
+
             subform.nacionalidad = subform_Form["nacionalidad"]
             subform.identidad_etnica = Identidad_etnica.objects.filter(pk=subform_Form["identidad_etnica"]).get()
             subform.identidad_etnica_otro = subform_Form["identidad_etnica_otro"]

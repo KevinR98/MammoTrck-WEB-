@@ -388,7 +388,9 @@ class RegistrationForm(forms.Form):
         self.fields['clinica'].widget.choices = [(model.pk, model.name) for model in Clinic.objects.all()]
 
 
-    nombre = forms.CharField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control style4', 'placeholder': 'Nombre Completo', 'pattern' : '[A-Za-z ]+', 'title' : 'Ingrese letras solamente.', 'data-msg-required':'Este campo es requerido'}))
+    nombre = forms.CharField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control style4', 'placeholder': 'Nombre', 'pattern' : '[A-Za-z ]+', 'title' : 'Ingrese letras solamente.', 'data-msg-required':'Este campo es requerido'}))
+    apellido1 = forms.CharField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control style4', 'placeholder': 'Primer Apellido', 'pattern' : '[A-Za-z ]+', 'title' : 'Ingrese letras solamente.', 'data-msg-required':'Este campo es requerido'}))
+    apellido2 = forms.CharField(required=False, max_length=40, widget=forms.TextInput(attrs={'class': 'form-control style4', 'placeholder': 'Segundo Apellido', 'pattern' : '[A-Za-z ]+', 'title' : 'Ingrese letras solamente.'}))
     correo_electronico = forms.EmailField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control',  'placeholder': 'Correo electrónico', 'type': 'email', 'id': 'email', 'data-msg-required':'Este campo es requerido', 'data-msg-email': 'Por favor ingrese un correo válido'}))
     contrasena = forms.CharField(max_length=40, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña', 'type': 'password', 'id': 'password', 'data-msg-required':'Este campo es requerido'}))
     contrasena_confirmar = forms.CharField(max_length=40, widget=forms.TextInput(

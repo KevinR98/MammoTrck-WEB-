@@ -71,8 +71,11 @@ class web_client(View):
                         return redirect('/registration/')
 
                     new_user = User.objects.create_user(request.POST['correo_electronico'], request.POST['correo_electronico'], request.POST['contrasena'])
-                    new_user.firstname = request.POST['nombre']
+                    new_user.first_name = request.POST['nombre']
+                    new_user.last_name = request.POST['apellido1'] + " " + request.POST['apellido2']
                     new_user.save()
+
+
 
                     new_user.profile.clinic = Clinic.objects.filter(pk=int(request.POST['clinica'])).get()
 
