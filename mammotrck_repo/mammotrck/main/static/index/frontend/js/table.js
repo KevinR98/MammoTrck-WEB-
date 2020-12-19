@@ -192,7 +192,11 @@ $(document).ready(function () {
         "oLanguage": {
             "sSearch": "",
             "sSearchPlaceholder": "Ingrese búsqueda",
-            "sInfo": "_START_ -_END_ of _TOTAL_",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sZeroRecords": "No se encontraron resultados",
             "sLengthMenu": '<span>Filas por página:</span><select class="browser-default">' +
                 '<option value="10">10</option>' +
                 '<option value="20">20</option>' +
@@ -200,7 +204,14 @@ $(document).ready(function () {
                 '<option value="40">40</option>' +
                 '<option value="50">50</option>' +
                 '<option value="-1">All</option>' +
-                '</select></div>'
+                '</select></div>',
+                buttons: {
+                    copyTitle: 'Datos copiados al portapapeles',
+                    copySuccess: {
+                        _: '%d registros copiados',
+                        1: '1 registro copiado'
+                    }
+                }
         },
         bAutoWidth: false,
 
