@@ -16,7 +16,7 @@ HISTORIA_PERSONAL_FIELD_PARSER = {
     'peso': 'Peso (kg)',
     'talla': 'Talla (m)',
     'imc': 'IMC (kg/m2)',
-    'fuma': 'Fumador',
+    'fuma': 'Fumadora',
     'fuma_edad': 'Edad que empezó a fumar',
     'fuma_actualmente': 'Fuma actualmente',
     'fuma_cuanto': 'Por cuánto tiempo ha fumado',
