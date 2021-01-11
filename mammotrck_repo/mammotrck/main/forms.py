@@ -100,52 +100,22 @@ class SubForm_antecedentes_g_o_Form(forms.ModelForm):
         }
 
 
-class SubForm_historia_familiar_Form(forms.Form):
+class SubForm_historia_familiar_Form(forms.ModelForm):
 
     class Meta:
         model = SubForm_historia_familiar
         fields = ['prueba_genetica', 'prueba_genetica_resultado', 'prueba_genetica_otro', 'familiares_mama', 'parentesco',
                   'familiares_cancer', 'familiares_cancer_tipo', 'familiares_cancer_parentesco']
-        widgets = {'prueba_genetica',
-                   'prueba_genetica_resultado',
-                   'prueba_genetica_otro',
-                   'familiares_mama',
-                   'parentesco',
-                  'familiares_cancer',
-                   'familiares_cancer_tipo',
-                   'familiares_cancer_parentesco'}
-
-
-    pruebas_geneticas = forms.CharField(required=False, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]), empty_value=None)
-
-    resultado = forms.MultipleChoiceField(
-        required=False,
-        widget=forms.CheckboxSelectMultiple()
-    )
-
-    otro_resultado = forms.CharField(required=False, max_length=40, widget=forms.TextInput(
-                attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_resultado_o',
-                       'name': 'resultado_o', 'aria-describedby': 'inp_resultado_o_help',
-                       'placeholder': ''}), empty_value=None)
-
-    familiares = forms.CharField(required=False, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]), empty_value=None)
-
-    parentesco = forms.MultipleChoiceField(
-        required=False,
-        widget=forms.CheckboxSelectMultiple()
-    )
-
-    familiares_otro = forms.CharField(required=False, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]), empty_value=None)
-
-    tipo = forms.CharField(required=False, max_length=40, widget=forms.TextInput(
-                    attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_tipo_c',
-                           'name': 'tipo_c', 'aria-describedby': 'inp_tipo_c_help',
-                           'placeholder': ''}), empty_value=None)
-
-    parentesco_tipo = forms.CharField(required=False, max_length=40, widget=forms.TextInput(
-                    attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_parentescoc',
-                           'name': 'parentescoc', 'aria-describedby': 'inp_parentescoc_help',
-                           'placeholder': ''}), empty_value=None)
+        widgets = {
+            'prueba_genetica': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'prueba_genetica_resultado': forms.CheckboxSelectMultiple(),
+            'prueba_genetica_otro': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_resultado_o','name': 'resultado_o', 'aria-describedby': 'inp_resultado_o_help','placeholder': ''}),
+            'familiares_mama': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'parentesco': forms.CheckboxSelectMultiple(),
+            'familiares_cancer': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'familiares_cancer_tipo': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_tipo_c','name': 'tipo_c', 'aria-describedby': 'inp_tipo_c_help','placeholder': ''}),
+            'familiares_cancer_parentesco': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_parentescoc','name': 'parentescoc', 'aria-describedby': 'inp_parentescoc_help','placeholder': ''})
+    }
 
 
 

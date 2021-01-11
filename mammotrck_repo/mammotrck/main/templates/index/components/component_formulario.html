@@ -715,7 +715,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Pruebas genéticas previas</label>
-                                                        {% for radio in subform_hf.pruebas_geneticas%}
+                                                        {% for radio in subform_hf.prueba_genetica%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -730,7 +730,7 @@
                                                     <div class="form-group">
 
                                                         <label>Resultado</label>
-                                                        {% for box in subform_hf.resultado%}
+                                                        {% for box in subform_hf.prueba_genetica_resultado%}
                                                         <div class="form-check">
                                                             {{box.tag }}
                                                             <label class="form-check-label" for="{{box.id_for_label }}">{{box.choice_label}}</label>
@@ -747,7 +747,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_resultado_o">Otro resultado</label>
-                                                        {{subform_hf.otro_resultado}}
+                                                        {{subform_hf.prueba_genetica_otro}}
 
                                                     </div>
                                                 </div>
@@ -760,7 +760,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Familiares con cáncer de mama u ovario</label>
-                                                        {% for radio in subform_hf.familiares%}
+                                                        {% for radio in subform_hf.familiares_mama%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -794,7 +794,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Familiares con otro tipo de cáncer</label>
-                                                        {% for radio in subform_hf.familiares_otro%}
+                                                        {% for radio in subform_hf.familiares_cancer%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -809,7 +809,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_tipo_c">Tipo de cáncer</label>
-                                                        {{subform_hf.tipo}}
+                                                        {{subform_hf.familiares_cancer_tipo}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -818,7 +818,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_parentescoc">Parentesco</label>
-                                                        {{subform_hf.parentesco_tipo}}
+                                                        {{subform_hf.familiares_cancer_parentesco}}
                                                     </div>
                                                 </div>
                                             </div>

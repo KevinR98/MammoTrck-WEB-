@@ -224,30 +224,30 @@ class SubForm_antecedentes_g_o(models.Model):
 
 
     menopausia_aplica = models.BooleanField(max_length=1, null=True, blank=True)
-    edad_menstruacion = models.PositiveSmallIntegerField(null=True)
-    edad_menopausia = models.PositiveSmallIntegerField(null=True)
+    edad_menstruacion = models.PositiveSmallIntegerField(null=True, blank=True)
+    edad_menopausia = models.PositiveSmallIntegerField(null=True, blank=True)
 
 
     parto_aplica = models.BooleanField(max_length=1, null=True, blank=True) #
-    parto_cantidad = models.PositiveSmallIntegerField(null=True)
-    edad_ult_hijo = models.PositiveSmallIntegerField(null=True)
+    parto_cantidad = models.PositiveSmallIntegerField(null=True, blank=True)
+    edad_ult_hijo = models.PositiveSmallIntegerField(null=True, blank=True)
 
     lactancia_aplica = models.BooleanField(max_length=1, null=True, blank=True)
-    lactancia_tiempo = models.CharField(max_length=40, null=True)
+    lactancia_tiempo = models.CharField(max_length=40, null=True, blank=True)
 
     anticonceptivos_aplica = models.BooleanField(max_length=1, null=True, blank=True)
-    anticonceptivos_cuanto = models.CharField(max_length=40, null=True)
-    anticonceptivos_ult_vez = models.CharField(max_length=40, null=True)
+    anticonceptivos_cuanto = models.CharField(max_length=40, null=True, blank=True)
+    anticonceptivos_ult_vez = models.CharField(max_length=40, null=True, blank=True)
 
     terapia_hormonal_aplica = models.BooleanField(max_length=1, null=True, blank=True)
 
     terapia = models.CharField(max_length=1, null=True, blank=True)
-    cuanto_tiempo_terapia = models.CharField(max_length=40, null=True)
+    cuanto_tiempo_terapia = models.CharField(max_length=40, null=True, blank=True)
 
 
     biopsia_aplica = models.BooleanField(max_length=1, null=True, blank=True)
-    biopsia_cuantas = models.PositiveSmallIntegerField(null=True)
-    biopsia_resultado = models.CharField(max_length=40, null=True)
+    biopsia_cuantas = models.PositiveSmallIntegerField(null=True, blank=True)
+    biopsia_resultado = models.CharField(max_length=40, null=True, blank=True)
 
     form = models.OneToOneField(Form, on_delete=models.PROTECT, default=2, null=False, related_name='subform_ant_g_o')
 
@@ -256,26 +256,26 @@ class SubForm_antecedentes_g_o(models.Model):
 # Clases de subformulario Historia Familiar ============================================================================
 
 class Prueba_genetica(models.Model):
-    tipo_prueba_genetica = models.CharField(max_length=40, null=True)
+    tipo_prueba_genetica = models.CharField(max_length=40, null=True, blank=True)
 
 class Parentesco(models.Model):
-    tipo_parentesco = models.CharField(max_length=40, null=True)
+    tipo_parentesco = models.CharField(max_length=40, null=True, blank=True)
 
 class SubForm_historia_familiar(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
-    updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, auto_now=False, blank=True)
+    updated_at = models.DateTimeField(auto_now_add=False, auto_now=True, blank=True)
 
     prueba_genetica = models.BooleanField(max_length=1, null=True, blank=True)
-    prueba_genetica_resultado = models.ManyToManyField(Prueba_genetica)
-    prueba_genetica_otro = models.CharField(max_length=40, null=True, default=None)
+    prueba_genetica_resultado = models.ManyToManyField(Prueba_genetica, blank=True)
+    prueba_genetica_otro = models.CharField(max_length=40, null=True, default=None, blank=True)
 
     familiares_mama = models.BooleanField(max_length=1, null=True, blank=True)
-    parentesco = models.ManyToManyField(Parentesco)
+    parentesco = models.ManyToManyField(Parentesco, blank=True)
 
     familiares_cancer = models.BooleanField(max_length=1, null=True, blank=True)
 
-    familiares_cancer_tipo = models.CharField(max_length=40, null=True)
-    familiares_cancer_parentesco = models.CharField(max_length=40, null=True)
+    familiares_cancer_tipo = models.CharField(max_length=40, null=True, blank=True)
+    familiares_cancer_parentesco = models.CharField(max_length=40, null=True, blank=True)
 
     form = models.OneToOneField(Form, on_delete=models.PROTECT, default=2, null=False, related_name='subform_hist_fam')
 

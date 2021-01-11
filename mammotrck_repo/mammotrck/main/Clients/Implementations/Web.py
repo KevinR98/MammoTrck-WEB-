@@ -247,8 +247,7 @@ class web_client(View):
 
             subform_hist_per = SubForm_historia_personal_Form(instance=form.subform_hist_per)
             subform_ant_g_o = SubForm_antecedentes_g_o_Form(instance=form.subform_ant_g_o)
-
-            subform_hist_fam = SubForm_historia_familiar_Form(id_subform=form.subform_hist_fam.pk)
+            subform_hist_fam = SubForm_historia_familiar_Form(instance=form.subform_hist_fam)
 
             context = {'patient_id': patient.id_patient,
                        'form_id': form.id_form,
@@ -336,37 +335,14 @@ class web_client(View):
     def guardar_subForm_historia_familiar(self, request):
         if self.is_roles(request.user, ["admin", "medico"]):
             if request.method == 'POST':
+                print("Guardando historia familiar...")
 
-                subform_Form = SubForm_historia_familiar_Form(request.POST)
+                form = Form.objects.get(id_form=request.GET['id_form'])
+                subform = form.subform_hist_fam
+                subform_Form = SubForm_historia_familiar_Form(request.POST, instance=subform)
 
                 if subform_Form.is_valid():
-                    print("Guardando historia familiar...")
-
-                    form = Form.objects.get(id_form=request.GET['id_form'])
-                    subform = form.subform_hist_fam
-
-                    subform.prueba_genetica = subform_Form.cleaned_data.get("pruebas_geneticas")
-
-                    subform.prueba_genetica_resultado.clear()
-                    for element in subform_Form.cleaned_data.get('resultado'):
-                        subform.prueba_genetica_resultado.add(element)
-
-                    subform.prueba_genetica_otro = subform_Form.cleaned_data.get("otro_resultado")
-                    subform.familiares_mama = subform_Form.cleaned_data.get("familiares")
-
-                    subform.parentesco.clear()
-                    for element in subform_Form.cleaned_data.get('parentesco'):
-                        subform.parentesco.add(element)
-
-                    subform.familiares_cancer = subform_Form.cleaned_data.get("familiares_otro")
-
-                    subform.familiares_cancer_tipo = subform_Form.cleaned_data.get("tipo")
-                    subform.familiares_cancer_parentesco = subform_Form.cleaned_data.get("parentesco_tipo")
-
-
-                    subform.save()
-
-
+                    subform_Form.save()
                     print("Cambios historia guardados")
 
 
