@@ -98,7 +98,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_hospital">Hospital</label>
-                                                        {{subform_h.hospital}}
+                                                        {{subform_h.clinic}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,7 +122,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_fecha_nacimiento">Fecha de nacimiento</label>
-                                                         {{subform_h.fecha_nacimiento}}
+                                                         {{subform_h.fecha_de_nacimiento}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -146,7 +146,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_otra_ident">Otra identidad</label>
-                                                         {{subform_h.otra_identidad}}
+                                                         {{subform_h.identidad_etnica_otro}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -154,7 +154,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_peso">Peso (kg)</label>
-                                                         {{subform_h.peso_kg}}
+                                                         {{subform_h.peso}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,7 +162,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_talla">Talla (m)</label>
-                                                         {{subform_h.talla_m}}
+                                                         {{subform_h.talla}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,7 +183,7 @@
                                                     <div class="form-group style98">
 
                                                         <label class="col-sm-2 col-form-label style96">Fumadora</label>
-                                                        {% for radio in subform_h.fumador%}
+                                                        {% for radio in subform_h.fuma%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -196,7 +196,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_edad_fumado">Edad que empezó a fumar</label>
-                                                        {{subform_h.edad_fumo}}
+                                                        {{subform_h.fuma_edad}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -204,7 +204,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Fuma actualmente</label>
-                                                        {% for radio in subform_h.fuma_actuamente %}
+                                                        {% for radio in subform_h.fuma_actualmente %}
                                                             <div class="form-check">
                                                                 {{radio.tag }}
                                                                 <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -218,7 +218,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_tiempo_fumado">Por cuánto tiempo ha fumado</label>
-                                                        {{subform_h.tiempo_fumando}}
+                                                        {{subform_h.fuma_cuanto}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -226,7 +226,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Bebe alcohol</label>
-                                                        {% for radio in subform_h.bebe_alcohol%}
+                                                        {% for radio in subform_h.bebidas%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -241,7 +241,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_frecuencia_bebe">Frecuencia en que bebe</label>
-                                                        {{subform_h.frecuencia}}
+                                                        {{subform_h.bebidas_cuanto}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -249,7 +249,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_otra_frecuencia">Otra frecuencia</label>
-                                                        {{subform_h.bebe_frecuencia}}
+                                                        {{subform_h.bebidas_cuanto_otro}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -257,7 +257,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Realiza actividad física</label>
-                                                        {% for radio in subform_h.actividades_fisicas %}
+                                                        {% for radio in subform_h.actividad_fisica %}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -272,7 +272,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_minutos_actividad">Minutos por semana de actividad física</label>
-                                                        {{subform_h.minutos_actividad_fisica}}
+                                                        {{subform_h.actividad_fisica_cuanto}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -280,7 +280,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Consume alimentos con mucha grasa</label>
-                                                        {% for radio in subform_h.alimentos_con_grasa%}
+                                                        {% for radio in subform_h.consume_alimentos_con_grasa%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -295,7 +295,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Consume vegetales, frutas y granos regularmente</label>
-                                                        {% for radio in subform_h.consume_vegetales_frts_grns%}
+                                                        {% for radio in subform_h.consume_veg_frut_gram%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -318,7 +318,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Toma Tamoxifeno</label>
-                                                        {% for radio in subform_h.toma_tamoxifeno%}
+                                                        {% for radio in subform_h.toma_medicamento_tamoxifeno%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -333,7 +333,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_med_1_t">Por cuánto tiempo</label>
-                                                        {{subform_h.cuanto_tiempo_tamoxifeno}}
+                                                        {{subform_h.cuanto_tamoxifeno}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -341,7 +341,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Toma Anastrozol</label>
-                                                        {% for radio in subform_h.toma_anastrozol%}
+                                                        {% for radio in subform_h.toma_medicamento_anastrozol%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -356,7 +356,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_med_2_t">Por cuánto tiempo</label>
-                                                        {{subform_h.cuanto_tiempo_anastrozol}}
+                                                        {{subform_h.cuanto_anastrozol}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -364,7 +364,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Toma Metformina</label>
-                                                        {% for radio in subform_h.toma_metformina%}
+                                                        {% for radio in subform_h.toma_medicamento_metformina%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -379,7 +379,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_med_3_t">Por cuánto tiempo</label>
-                                                        {{subform_h.cuanto_tiempo_metformina}}
+                                                        {{subform_h.cuanto_metformina}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -387,7 +387,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Toma Bifosfonatos</label>
-                                                        {% for radio in subform_h.toma_bifosfonatos%}
+                                                        {% for radio in subform_h.toma_medicamento_bifosfonatos%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -402,7 +402,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_med_4_t">Por cuánto tiempo</label>
-                                                        {{subform_h.cuanto_tiempo_bisfofonatos}}
+                                                        {{subform_h.cuanto_bifosfonatos}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -410,7 +410,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Toma Aspirina</label>
-                                                        {% for radio in subform_h.toma_aspirinas%}
+                                                        {% for radio in subform_h.toma_medicamento_aspirina%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -425,7 +425,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_med_5_t">Por cuánto tiempo</label>
-                                                        {{subform_h.cuanto_tiempo_aspirinas}}
+                                                        {{subform_h.cuanto_aspirina}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -507,7 +507,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Menopausia</label>
-                                                        {% for radio in subform_a.menopausia%}
+                                                        {% for radio in subform_a.menopausia_aplica%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -521,7 +521,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_meno">Edad (años) al momento de la menopausia</label>
-                                                        {{subform_a.edad_menopausaia}}
+                                                        {{subform_a.edad_menopausia}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -529,7 +529,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_partos">Cantidad de partos</label>
-                                                        {{subform_a.cantidad_partos}}
+                                                        {{subform_a.parto_cantidad}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -537,7 +537,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_edad_hijo">Edad (años) del último hijo</label>
-                                                        {{subform_a.edad_ultimo_hijo}}
+                                                        {{subform_a.edad_ult_hijo}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -546,7 +546,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_lact">Tiempo de lactancia del último hijo</label>
-                                                        {{subform_a.tiempo_lactancia}}
+                                                        {{subform_a.lactancia_tiempo}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -554,7 +554,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Lactancia en su último hijo</label>
-                                                        {% for radio in subform_a.lactancia_ult_hijo%}
+                                                        {% for radio in subform_a.lactancia_aplica%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -572,7 +572,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Anticonceptivos orales</label>
-                                                        {% for radio in subform_a.anticonceptivos_orales%}
+                                                        {% for radio in subform_a.anticonceptivos_aplica%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -586,7 +586,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_anti_t">Tiempo que los tomó</label>
-                                                        {{subform_a.tiempo_tomo}}
+                                                        {{subform_a.anticonceptivos_cuanto}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -594,7 +594,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_anti_u">Última vez que los usó</label>
-                                                        {{subform_a.ultima_vez_uso}}
+                                                        {{subform_a.anticonceptivos_ult_vez}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -602,7 +602,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Terapia hormonal para menopausia</label>
-                                                        {% for radio in subform_a.terapia_hormonal%}
+                                                        {% for radio in subform_a.terapia_hormonal_aplica%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -616,7 +616,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_terapia_t">Tipo de terapia</label>
-                                                        {{subform_a.tipo_terapia}}
+                                                        {{subform_a.terapia}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -624,7 +624,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_terapia_tiempo">Tiempo de uso</label>
-                                                        {{subform_a.tiempo_uso}}
+                                                        {{subform_a.cuanto_tiempo_terapia}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -632,7 +632,7 @@
                                                 <div class="col">
                                                     <div class="form-group style98">
                                                         <label class="col-sm-2 col-form-label style96">Biopsias de mama</label>
-                                                        {% for radio in subform_a.biopsia_mama%}
+                                                        {% for radio in subform_a.biopsia_aplica%}
                                                         <div class="form-check">
                                                             {{radio.tag }}
                                                             <label class="form-check-label" for="{{radio.id_for_label }}">{{radio.choice_label}}</label>
@@ -646,7 +646,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_biopsias">Número biopsias</label>
-                                                        {{subform_a.numero_biopsia}}
+                                                        {{subform_a.biopsia_cuantas}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -654,7 +654,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label for="inp_resultado_b">Resultado</label>
-                                                        {{subform_a.resultado}}
+                                                        {{subform_a.biopsia_resultado}}
                                                     </div>
                                                 </div>
                                             </div>

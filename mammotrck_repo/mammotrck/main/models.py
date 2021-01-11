@@ -38,13 +38,13 @@ HISTORIA_PERSONAL_FIELD_PARSER = {
     'cuanto_bifosfonatos': 'Por cuánto tiempo',
     'toma_medicamento_aspirina': 'Toma Aspirina',
     'cuanto_aspirina': 'Por cuánto tiempo',
-    'radiacion': 'Ha recibido tratamientos con radiación en el tórax',
+    'tratamiento_torax': 'Ha recibido tratamientos con radiación en el tórax',
 }
 
 ANTECEDENTES_FIELD_PARSER = {
     'edad_menstruacion': 'Edad (años) de la primera menstruación',
-    'manopausa_aplica': 'Menopausia',
-    'edad_manopausa': 'Edad (años) al momento de la menopausia',
+    'menopausia_aplica': 'Menopausia',
+    'edad_menopausia': 'Edad (años) al momento de la menopausia',
     'parto_cantidad': 'Cantidad de partos',
     'edad_ult_hijo': 'Edad (años) del último hijo',
     'lactancia_tiempo': 'Tiempo de lactancia del último hijo',
@@ -63,13 +63,13 @@ ANTECEDENTES_FIELD_PARSER = {
 }
 HISTORIA_FAMILIAR_FIELD_PARSER = {
     'prueba_genetica': 'Pruebas genéticas previas',
-    'prueba_genetica_resultado': 'Resultado',
+    'prueba_genetica_resultado': 'Resultado de prueba genética',
     'prueba_genetica_otro': 'Otro resultado',
     'familiares_mama': 'Familiares con cáncer de mama u ovario',
-    'parentesco': 'Parentesco',
+    'parentesco': 'Parentesco de familiares con cancer de mama',
     'familiares_cancer': 'Familiares con otro tipo de cáncer',
     'familiares_cancer_tipo': 'Tipo de cáncer',
-    'familiares_cancer_parentesco': 'Parentesco'
+    'familiares_cancer_parentesco': 'Parentesco de familiares con otro tipo de cancer'
 }
 
 
@@ -160,51 +160,51 @@ class SubForm_historia_personal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    clinic = models.ForeignKey(Clinic, on_delete=models.PROTECT, default=1, null=True) #TODO quitar default
-    nombre = models.CharField(max_length=40, null=True)
-    cedula = models.CharField(max_length=40, null=True)
-    fecha_de_nacimiento = models.DateField(null=True)
-    nacionalidad = models.CharField(max_length=40, null=True)
-    identidad_etnica = models.ForeignKey(Identidad_etnica, on_delete=models.PROTECT, default=1, null=True) #TODO blank=true, afecta forms
-    identidad_etnica_otro = models.CharField(max_length=40, null=True)
+    clinic = models.ForeignKey(Clinic, on_delete=models.PROTECT, default=1, null=True, blank=True) #TODO quitar default
+    nombre = models.CharField(max_length=40, null=True, blank=True)
+    cedula = models.CharField(max_length=40, null=True, blank=True)
+    fecha_de_nacimiento = models.DateField(null=True, blank=True)
+    nacionalidad = models.CharField(max_length=40, null=True, blank=True)
+    identidad_etnica = models.ForeignKey(Identidad_etnica, on_delete=models.PROTECT, default=1, null=True, blank=True)
+    identidad_etnica_otro = models.CharField(max_length=40, null=True, blank=True)
 
-    peso = models.PositiveSmallIntegerField(null=True)
-    talla = models.PositiveSmallIntegerField(null=True)
-    imc = models.FloatField(null=True)
+    peso = models.PositiveSmallIntegerField(null=True, blank=True)
+    talla = models.PositiveSmallIntegerField(null=True, blank=True)
+    imc = models.FloatField(null=True, blank=True)
 
     fuma = models.BooleanField(max_length=1, null=True, blank=True)
-    fuma_edad = models.PositiveSmallIntegerField(null=True)
+    fuma_edad = models.PositiveSmallIntegerField(null=True, blank=True)
     fuma_actualmente = models.BooleanField(max_length=1, null=True, blank=True)
-    fuma_cuanto = models.CharField(max_length=40, null=True)
+    fuma_cuanto = models.CharField(max_length=40, null=True, blank=True)
 
     bebidas = models.BooleanField(max_length=1, null=True, blank=True)
-    bebidas_cuanto = models.CharField(max_length=40, null=True)
-    bebidas_cuanto_otro = models.CharField(max_length=40, null=True)
+    bebidas_cuanto = models.CharField(max_length=40, null=True, blank=True)
+    bebidas_cuanto_otro = models.CharField(max_length=40, null=True, blank=True)
 
     actividad_fisica = models.BooleanField(max_length=1, null=True, blank=True)
-    actividad_fisica_cuanto = models.CharField(max_length=40, null=True)
+    actividad_fisica_cuanto = models.CharField(max_length=40, null=True, blank=True)
 
     consume_alimentos_con_grasa = models.BooleanField(max_length=1, null=True, blank=True)
     consume_veg_frut_gram = models.BooleanField(max_length=1, null=True, blank=True)
 
-    diabetes = models.CharField(max_length=40, null=True)
+    diabetes = models.CharField(max_length=40, null=True, blank=True)
 
     toma_medicamento_tamoxifeno = models.BooleanField(max_length=1, null=True, blank=True)
-    cuanto_tamoxifeno = models.CharField(max_length=40, null=True)
+    cuanto_tamoxifeno = models.CharField(max_length=40, null=True, blank=True)
 
     toma_medicamento_anastrozol = models.BooleanField(max_length=1, null=True, blank=True)
-    cuanto_anastrozol = models.CharField(max_length=40, null=True)
+    cuanto_anastrozol = models.CharField(max_length=40, null=True, blank=True)
 
     toma_medicamento_metformina = models.BooleanField(max_length=1, null=True, blank=True)
-    cuanto_metformina = models.CharField(max_length=40, null=True)
+    cuanto_metformina = models.CharField(max_length=40, null=True, blank=True)
 
     toma_medicamento_bifosfonatos = models.BooleanField(max_length=1, null=True, blank=True)
-    cuanto_bifosfonatos = models.CharField(max_length=40, null=True)
+    cuanto_bifosfonatos = models.CharField(max_length=40, null=True, blank=True)
 
     toma_medicamento_aspirina = models.BooleanField(max_length=1, null=True, blank=True)
-    cuanto_aspirina = models.CharField(max_length=40, null=True)
+    cuanto_aspirina = models.CharField(max_length=40, null=True, blank=True)
 
-    radiacion = models.BooleanField(max_length=1, null=True, blank=True)
+    tratamiento_torax = models.BooleanField(max_length=1, null=True, blank=True)
 
     form = models.OneToOneField(Form, on_delete=models.PROTECT, default=2, null=False, related_name='subform_hist_per')
 
@@ -223,12 +223,12 @@ class SubForm_antecedentes_g_o(models.Model):
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
 
-    manopausa_aplica = models.BooleanField(max_length=1, null=True, blank=True)
+    menopausia_aplica = models.BooleanField(max_length=1, null=True, blank=True)
     edad_menstruacion = models.PositiveSmallIntegerField(null=True)
-    edad_manopausa = models.PositiveSmallIntegerField(null=True)
+    edad_menopausia = models.PositiveSmallIntegerField(null=True)
 
 
-    parto_aplica = models.BooleanField(max_length=1, null=True, blank=True)
+    parto_aplica = models.BooleanField(max_length=1, null=True, blank=True) #
     parto_cantidad = models.PositiveSmallIntegerField(null=True)
     edad_ult_hijo = models.PositiveSmallIntegerField(null=True)
 
@@ -318,8 +318,8 @@ dependencias = {
     "lactancia_tiempo" : "lactancia_aplica",
     "anticonceptivos_cuanto" : "anticonceptivos_aplica",
     "anticonceptivos_ult_vez" : "anticonceptivos_aplica",
-    "edad_manopausa" : "manopausa_aplica",
-    "terapia_hormonal_aplica" : "manopausa_aplica",
+    "edad_menopausia" : "menopausia_aplica",
+    "terapia_hormonal_aplica" : "menopausia_aplica",
     "cuanto_tiempo_terapia" : "terapia_hormonal_aplica",
     "biopsia_cuantas" : "biopsia_aplica",
     "biopsia_resultado" : "biopsia_aplica",

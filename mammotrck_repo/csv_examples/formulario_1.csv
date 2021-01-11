@@ -1,15 +1,15 @@
 form_section,name_field,value
-form,id_form,MF235
+form,id_form,MF333
 historia_personal,clinic,2
-historia_personal,nombre,Nombre de prueba
-historia_personal,cedula,cedula
+historia_personal,nombre,Rosalia Fernandez
+historia_personal,cedula,22562256
 historia_personal,fecha_de_nacimiento,2020-10-10
 historia_personal,nacionalidad,0
 historia_personal,identidad_etnica,1
 historia_personal,identidad_etnica_otro,None
 historia_personal,peso,10
 historia_personal,talla,10
-historia_personal,imc,0.10000000149011612
+historia_personal,imc,0.100000001
 historia_personal,fuma,False
 historia_personal,fuma_edad,None
 historia_personal,fuma_actualmente,False

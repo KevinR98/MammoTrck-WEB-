@@ -25,327 +25,96 @@ def from_db_checkbox(db_source):
         return int(db_source)
 
 
-class SubForm_historia_personal_Form(forms.Form):
-
-    def __init__(self, *args,  **kwargs):
-
-        self.id_subform = None
-
-        if kwargs.get('id_subform'):
-            self.id_subform = kwargs.pop('id_subform')
-
-        super(SubForm_historia_personal_Form, self).__init__(*args, **kwargs)
-
-        self.fields['hospital'].choices = [(model.pk, model.name) for model in Clinic.objects.all()]
-        self.fields['identidad_etnica'].choices = [(model.pk, model.identidad) for model in Identidad_etnica.objects.all()]
-
-        if self.id_subform:
-            subform = SubForm_historia_personal.objects.filter(pk=self.id_subform).get()
-            print(subform.identidad_etnica)
-
-            self.initial['hospital'] = str(subform.clinic.pk)
-            self.fields['nombre'].initial = subform.nombre
-            self.fields['cedula'].initial = subform.cedula
-            self.fields['fecha_nacimiento'].initial = subform.fecha_de_nacimiento
-            self.initial['nacionalidad'] = subform.nacionalidad
-            self.initial['identidad_etnica'] = str(subform.identidad_etnica.pk)
-            self.fields['otra_identidad'].initial = subform.identidad_etnica_otro
-            self.fields['peso_kg'].initial = subform.peso
-            self.fields['talla_m'].initial = subform.talla
-            self.fields['imc'].initial = subform.imc
-            self.fields['fumador'].initial = from_db_checkbox(subform.fuma)
-            self.fields['edad_fumo'].initial = subform.fuma_edad
-            self.fields['fuma_actuamente'].initial = from_db_checkbox(subform.fuma_actualmente)
-            self.fields['tiempo_fumando'].initial = subform.fuma_cuanto
-            self.fields['bebe_alcohol'].initial = from_db_checkbox(subform.bebidas)
-            self.fields['frecuencia'].initial = subform.bebidas_cuanto
-            self.fields['bebe_frecuencia'].initial = subform.bebidas_cuanto_otro
-            self.fields['actividades_fisicas'].initial = from_db_checkbox(subform.actividad_fisica)
-            self.fields['minutos_actividad_fisica'].initial = subform.actividad_fisica_cuanto
-            self.fields['alimentos_con_grasa'].initial = from_db_checkbox(subform.consume_alimentos_con_grasa)
-            self.fields['consume_vegetales_frts_grns'].initial = from_db_checkbox(subform.consume_veg_frut_gram)
-            self.initial['diabetes'] = subform.diabetes
-            self.fields['toma_tamoxifeno'].initial = from_db_checkbox(subform.toma_medicamento_tamoxifeno)
-            self.fields['cuanto_tiempo_tamoxifeno'].initial = subform.cuanto_tamoxifeno
-            self.fields['toma_anastrozol'].initial = from_db_checkbox(subform.toma_medicamento_anastrozol)
-            self.fields['cuanto_tiempo_anastrozol'].initial = subform.cuanto_anastrozol
-            self.fields['toma_metformina'].initial = from_db_checkbox(subform.toma_medicamento_metformina)
-            self.fields['cuanto_tiempo_metformina'].initial = subform.cuanto_metformina
-            self.fields['toma_bifosfonatos'].initial = from_db_checkbox(subform.toma_medicamento_bifosfonatos)
-            self.fields['cuanto_tiempo_bisfofonatos'].initial = subform.cuanto_bifosfonatos
-            self.fields['toma_aspirinas'].initial = from_db_checkbox(subform.toma_medicamento_aspirina)
-            self.fields['cuanto_tiempo_aspirinas'].initial = subform.cuanto_aspirina
-
-            self.fields['tratamiento_torax'].initial = from_db_checkbox(subform.radiacion)
-
-
-    hospital = forms.ChoiceField(required=False,
-        widget=forms.Select(attrs={'class': 'form-control', 'id': 'inp_hospital', 'name': 'hospital'}))
-
-    nombre = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type':'text', 'class': 'form-control', 'id':'inp_nombre',
-               'name':'nombre', 'aria-describedby':'inp_nombre_help',
-               'placeholder': ''}))
-
-    cedula = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type':'text', 'class': 'form-control', 'id':'inp_cedula',
-               'name':'cedula', 'aria-describedby':'inp_cedula_help',
-               'placeholder': ''}))
-
-    fecha_nacimiento = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.DateInput(
-        attrs={'type': 'date', 'class': 'form-control', 'id': 'inp_fecha_nacimiento',
-               'name': 'fecha_nacimiento', 'aria-describedby': 'inp_fecha_nacimiento_help',
-               'placeholder': ''}))
-
-    nacionalidad = forms.CharField(required=False, empty_value=None,
-        widget=forms.Select(attrs={'class': 'form-control', 'id': 'inp_nacionalidad', 'name':'nacionalidad'},
-                            choices=[(i, element) for i, element in enumerate(NATIONALITIES)]))
-
-    identidad_etnica = forms.ChoiceField(required=False,
-        widget=forms.Select(attrs={'class': 'form-control', 'id': 'inp_etnia', 'name':'etnia'}))
-
-    otra_identidad = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type':'text', 'class': 'form-control', 'id':'inp_otra_identidad',
-               'name':'otra_identidad', 'aria-describedby':'inp_otra_identidad_help',
-               'placeholder': ''}))
-
-    peso_kg = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type':'number', 'class': 'form-control', 'id':'inp_peso',
-               'name':'peso', 'aria-describedby':'inp_peso_help',
-               'placeholder': ''}))
-
-    talla_m = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type':'number', 'class': 'form-control', 'id':'inp_talla',
-               'name':'talla', 'aria-describedby':'inp_talla_help',
-               'placeholder': ''}))
-
-    imc = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'number', 'step': 'any', 'class': 'form-control', 'id': 'inp_imc',
-               'name': 'imc', 'aria-describedby': 'inp_imc_help',
-               'placeholder': ''}))
-
-    fumador = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-
-
-    edad_fumo = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type':'number', 'class': 'form-control', 'id':'inp_edad_fumado',
-               'name':'edad_fumado', 'aria-describedby':'inp_edad_fumado_help',
-               'placeholder': ''}))
-
-    fuma_actuamente = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-    tiempo_fumando = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type':'text', 'class': 'form-control', 'id':'inp_tiempo_fumado',
-               'name':'tiempo_fumado', 'aria-describedby':'inp_tiempo_fumado_help',
-               'placeholder': ''}))
-
-    bebe_alcohol = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-
-    frecuencia = forms.CharField(required=False, empty_value=None,
-        widget=forms.Select(attrs={'class': 'form-control', 'id': 'inp_frecuencia_bebe', 'name':'frecuencia_bebe'},
-                            choices=FRECUENCIA_BEBE))
-
-    bebe_frecuencia = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type':'text', 'class': 'form-control', 'id':'inp_otra_frecuencia',
-               'name':'otra_frecuencia', 'aria-describedby':'inp_otra_frecuencia_help',
-               'placeholder': ''}))
-
-    actividades_fisicas = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-
-    minutos_actividad_fisica = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type':'number', 'class': 'form-control', 'id':'inp_minutos_actividad',
-               'name':'minutos_actividad', 'aria-describedby':'inp_minutos_actividad_help',
-               'placeholder': ''}))
-
-    alimentos_con_grasa = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-    consume_vegetales_frts_grns = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-
-    diabetes = forms.CharField(required=False, empty_value=None,
-        widget=forms.Select(attrs={'class': 'form-control', 'id': 'inp_diabetes','name':'diabetes'},
-                            choices=DIABETES))
-
-
-
-    toma_tamoxifeno = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-    cuanto_tiempo_tamoxifeno = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_med_1_t',
-               'name': 'med_1_t', 'aria-describedby': 'inp_med_1_t_help',
-               'placeholder': ''}))
-
-    toma_anastrozol= forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-    cuanto_tiempo_anastrozol = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_med_2_t',
-               'name': 'med_2_t', 'aria-describedby': 'inp_med_2_t_help',
-               'placeholder': ''}))
-
-    toma_metformina= forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-    cuanto_tiempo_metformina = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_med_3_t',
-               'name': 'med_3_t', 'aria-describedby': 'inp_med_3_t_help',
-               'placeholder': ''}))
-
-    toma_bifosfonatos = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-    cuanto_tiempo_bisfofonatos = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_med_4_t',
-               'name': 'med_4_t', 'aria-describedby': 'inp_med_4_t_help',
-               'placeholder': ''}))
-
-    toma_aspirinas = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-    cuanto_tiempo_aspirinas = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_med_5_t',
-               'name': 'med_5_t', 'aria-describedby': 'inp_med_5_t_help',
-               'placeholder': ''}))
-
-    tratamiento_torax = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-
-class SubForm_antecedentes_g_o_Form(forms.Form):
-    def __init__(self, *args, **kwargs):
-
-        self.id_subform = None
-
-        if kwargs.get('id_subform'):
-            self.id_subform = kwargs.pop('id_subform')
-
-        super(SubForm_antecedentes_g_o_Form, self).__init__(*args, **kwargs)
-
-        if self.id_subform:
-            print("Cargando datos go ....")
-
-            subform = SubForm_antecedentes_g_o.objects.filter(pk=self.id_subform).get()
-
-            self.fields['edad_menstruacion'].initial = subform.edad_menstruacion
-            self.fields['menopausia'].initial = from_db_checkbox(subform.manopausa_aplica)
-            self.fields['edad_menopausaia'].initial = subform.edad_manopausa
-            self.fields['cantidad_partos'].initial = subform.parto_cantidad
-            self.fields['edad_ultimo_hijo'].initial = subform.edad_ult_hijo
-            self.fields['tiempo_lactancia'].initial = subform.lactancia_tiempo
-            self.fields['lactancia_ult_hijo'].initial = from_db_checkbox(subform.lactancia_aplica)
-
-            self.fields['anticonceptivos_orales'].initial = from_db_checkbox(subform.anticonceptivos_aplica)
-
-            self.fields['tiempo_tomo'].initial = subform.anticonceptivos_cuanto
-            self.fields['ultima_vez_uso'].initial = subform.anticonceptivos_ult_vez
-            self.fields['terapia_hormonal'].initial = from_db_checkbox(subform.terapia_hormonal_aplica)
-
-            self.initial['tipo_terapia'] = subform.terapia
-
-            self.fields['tiempo_uso'].initial = subform.cuanto_tiempo_terapia
-
-            self.fields['biopsia_mama'].initial = from_db_checkbox(subform.biopsia_aplica)
-            self.fields['numero_biopsia'].initial = subform.biopsia_cuantas
-            self.fields['resultado'].initial = subform.biopsia_resultado
-
-            print("Datos cargados go ....")
-
-
-    edad_menstruacion = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type':'number', 'class': 'form-control', 'id':'inp_mens',
-               'name':'mens', 'aria-describedby':'inp_mens_help',
-               'placeholder': ''}))
-
-    menopausia = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-
-    edad_menopausaia = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_meno',
-               'name': 'meno', 'aria-describedby': 'inp_meno_help',
-               'placeholder': ''}))
-
-    cantidad_partos = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_partos',
-               'name': 'partos', 'aria-describedby': 'inp_partos_help',
-               'placeholder': ''}))
-
-    edad_ultimo_hijo = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_edad_hijo',
-               'name': 'edad_hijo', 'aria-describedby': 'inp_edad_hijo_help',
-               'placeholder': ''}))
-
-    tiempo_lactancia = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_lact',
-               'name': 'lact', 'aria-describedby': 'inp_lact_help',
-               'placeholder': ''}))
-
-    lactancia_ult_hijo = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-    anticonceptivos_orales = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-    tiempo_tomo = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_anti_t',
-               'name': 'anti_t', 'aria-describedby': 'inp_anti_t_help',
-               'placeholder': ''}))
-
-    ultima_vez_uso = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_anti_u',
-               'name': 'anti_u', 'aria-describedby': 'inp_anti_u_help',
-               'placeholder': ''}))
-
-    terapia_hormonal = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-    tipo_terapia = forms.CharField(required=False, empty_value=None,
-            widget=forms.Select(attrs={'class': 'form-control', 'id': 'inp_terapia_t', 'name':'terapia_t'},
-                                choices=TIPO_TERAPIA))
-
-    tiempo_uso = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_terapia_tiempo',
-               'name': 'terapia_tiempo', 'aria-describedby': 'inp_terapia_tiempo_help',
-               'placeholder': ''}))
-
-    biopsia_mama = forms.CharField(required=False, empty_value=None, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]))
-
-    numero_biopsia = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-        attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_biopsias',
-               'name': 'biopsias', 'aria-describedby': 'inp_biopsias_help',
-               'placeholder': ''}))
-
-    resultado = forms.CharField(required=False, empty_value=None, max_length=40, widget=forms.TextInput(
-            attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_resultado_b',
-                   'name': 'resultado_b', 'aria-describedby': 'inp_resultado_b_help',
-                   'placeholder': ''}))
-
+class SubForm_historia_personal_Form(forms.ModelForm):
+
+    # NOMBRES deben ser los mismos que el modelo
+    class Meta:
+        model = SubForm_historia_personal
+        fields = ['clinic', 'nombre', 'cedula', 'nacionalidad', 'fecha_de_nacimiento', 'identidad_etnica', 'identidad_etnica_otro', 'peso', 'talla',
+                  'imc', 'fuma', 'fuma_edad', 'fuma_actualmente', 'fuma_cuanto', 'bebidas', 'bebidas_cuanto', 'bebidas_cuanto_otro', 'actividad_fisica', 'actividad_fisica_cuanto',
+                  'consume_alimentos_con_grasa', 'consume_veg_frut_gram', 'diabetes', 'toma_medicamento_tamoxifeno', 'cuanto_tamoxifeno', 'toma_medicamento_anastrozol', 'cuanto_anastrozol',
+                  'toma_medicamento_metformina', 'cuanto_metformina', 'toma_medicamento_bifosfonatos', 'cuanto_bifosfonatos', 'toma_medicamento_aspirina', 'cuanto_aspirina', 'tratamiento_torax']
+
+        widgets = {
+            'clinic': forms.Select(attrs={'class': 'form-control', 'id': 'inp_hospital', 'name': 'hospital'}),
+            'nombre': forms.TextInput(attrs={'type':'text', 'class': 'form-control', 'id':'inp_nombre', 'name':'nombre', 'aria-describedby':'inp_nombre_help','placeholder': ''}) ,
+            'cedula': forms.TextInput(attrs={'type':'text', 'class': 'form-control', 'id':'inp_cedula','name':'cedula', 'aria-describedby':'inp_cedula_help','placeholder': ''}),
+            'fecha_de_nacimiento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control', 'id': 'inp_fecha_nacimiento','name': 'fecha_nacimiento', 'aria-describedby': 'inp_fecha_nacimiento_help','placeholder': ''}),
+            'nacionalidad': forms.Select(attrs={'class': 'form-control', 'id': 'inp_nacionalidad', 'name':'nacionalidad'}, choices=[(i, element) for i, element in enumerate(NATIONALITIES)]),
+            'identidad_etnica': forms.Select(attrs={'class': 'form-control', 'id': 'inp_etnia', 'name':'etnia'}),
+            'identidad_etnica_otro': forms.TextInput(attrs={'type':'text', 'class': 'form-control', 'id':'inp_otra_identidad','name':'otra_identidad', 'aria-describedby':'inp_otra_identidad_help','placeholder': ''}),
+            'peso': forms.TextInput(attrs={'type':'number', 'class': 'form-control', 'id':'inp_peso','name':'peso', 'aria-describedby':'inp_peso_help','placeholder': ''}),
+            'talla': forms.TextInput(attrs={'type':'number', 'class': 'form-control', 'id':'inp_talla', 'name':'talla', 'aria-describedby':'inp_talla_help', 'placeholder': ''}),
+            'imc': forms.TextInput(attrs={'type': 'number', 'step': 'any', 'class': 'form-control', 'id': 'inp_imc','name': 'imc', 'aria-describedby': 'inp_imc_help','placeholder': ''}),
+            'fuma': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'fuma_edad': forms.TextInput(attrs={'type':'number', 'class': 'form-control', 'id':'inp_edad_fumado','name':'edad_fumado', 'aria-describedby':'inp_edad_fumado_help','placeholder': ''}),
+            'fuma_actualmente': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'fuma_cuanto': forms.TextInput(attrs={'type':'text', 'class': 'form-control', 'id':'inp_tiempo_fumado','name':'tiempo_fumado', 'aria-describedby':'inp_tiempo_fumado_help','placeholder': ''}),
+            'bebidas': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'bebidas_cuanto': forms.Select(attrs={'class': 'form-control', 'id': 'inp_frecuencia_bebe', 'name':'frecuencia_bebe'}, choices=FRECUENCIA_BEBE),
+            'bebidas_cuanto_otro': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id':'inp_otra_frecuencia','name': 'otra_frecuencia', 'aria-describedby':'inp_otra_frecuencia_help','placeholder': ''}),
+            'actividad_fisica': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'actividad_fisica_cuanto': forms.TextInput(attrs={'type':'number', 'class': 'form-control', 'id': 'inp_minutos_actividad', 'name': 'minutos_actividad', 'aria-describedby':'inp_minutos_actividad_help','placeholder': ''}),
+            'consume_alimentos_con_grasa': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'consume_veg_frut_gram': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'diabetes': forms.Select(attrs={'class': 'form-control', 'id': 'inp_diabetes','name':'diabetes'}, choices=DIABETES),
+            'toma_medicamento_tamoxifeno': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'cuanto_tamoxifeno': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_med_1_t','name': 'med_1_t', 'aria-describedby': 'inp_med_1_t_help','placeholder': ''}),
+            'toma_medicamento_anastrozol': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'cuanto_anastrozol': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_med_2_t','name': 'med_2_t', 'aria-describedby': 'inp_med_2_t_help','placeholder': ''}),
+            'toma_medicamento_metformina': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'cuanto_metformina': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_med_3_t','name': 'med_3_t', 'aria-describedby': 'inp_med_3_t_help','placeholder': ''}),
+            'toma_medicamento_bifosfonatos': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'cuanto_bifosfonatos': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_med_4_t','name': 'med_4_t', 'aria-describedby': 'inp_med_4_t_help','placeholder': ''}),
+            'toma_medicamento_aspirina': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'cuanto_aspirina': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_med_5_t','name': 'med_5_t', 'aria-describedby': 'inp_med_5_t_help','placeholder': ''}),
+            'tratamiento_torax': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')])
+        }
+
+
+class SubForm_antecedentes_g_o_Form(forms.ModelForm):
+
+    class Meta:
+        model = SubForm_antecedentes_g_o
+        fields = ['menopausia_aplica', 'edad_menstruacion', 'edad_menopausia', 'parto_aplica', 'parto_cantidad', 'edad_ult_hijo',
+                  'lactancia_aplica', 'lactancia_tiempo', 'anticonceptivos_aplica', 'anticonceptivos_cuanto', 'anticonceptivos_ult_vez', 'terapia_hormonal_aplica',
+                  'terapia', 'cuanto_tiempo_terapia', 'biopsia_aplica', 'biopsia_cuantas', 'biopsia_resultado']
+        widgets = {
+            'menopausia_aplica': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'edad_menstruacion': forms.TextInput(attrs={'type':'number', 'class': 'form-control', 'id':'inp_mens','name':'mens', 'aria-describedby':'inp_mens_help','placeholder': ''}),
+            'edad_menopausia': forms.TextInput(attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_meno','name': 'meno', 'aria-describedby': 'inp_meno_help','placeholder': ''}),
+            'parto_aplica': forms.HiddenInput(),
+            'parto_cantidad': forms.TextInput(attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_partos','name': 'partos', 'aria-describedby': 'inp_partos_help','placeholder': ''}),
+            'edad_ult_hijo': forms.TextInput(attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_edad_hijo','name': 'edad_hijo', 'aria-describedby': 'inp_edad_hijo_help','placeholder': ''}),
+            'lactancia_aplica': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'lactancia_tiempo': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_lact','name': 'lact', 'aria-describedby': 'inp_lact_help','placeholder': ''}),
+            'anticonceptivos_aplica': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'anticonceptivos_cuanto': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_anti_t','name': 'anti_t', 'aria-describedby': 'inp_anti_t_help','placeholder': ''}),
+            'anticonceptivos_ult_vez' : forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_anti_u','name': 'anti_u', 'aria-describedby': 'inp_anti_u_help','placeholder': ''}),
+            'terapia_hormonal_aplica': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'terapia': forms.Select(attrs={'class': 'form-control', 'id': 'inp_terapia_t', 'name':'terapia_t'},choices=TIPO_TERAPIA),
+            'cuanto_tiempo_terapia': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_terapia_tiempo','name': 'terapia_tiempo', 'aria-describedby': 'inp_terapia_tiempo_help','placeholder': ''}),
+            'biopsia_aplica': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
+            'biopsia_cuantas': forms.TextInput(attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_biopsias','name': 'biopsias', 'aria-describedby': 'inp_biopsias_help','placeholder': ''}),
+            'biopsia_resultado': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_resultado_b','name': 'resultado_b', 'aria-describedby': 'inp_resultado_b_help','placeholder': ''})
+        }
 
 
 class SubForm_historia_familiar_Form(forms.Form):
 
-    def __init__(self, *args, **kwargs):
+    class Meta:
+        model = SubForm_historia_familiar
+        fields = ['prueba_genetica', 'prueba_genetica_resultado', 'prueba_genetica_otro', 'familiares_mama', 'parentesco',
+                  'familiares_cancer', 'familiares_cancer_tipo', 'familiares_cancer_parentesco']
+        widgets = {'prueba_genetica',
+                   'prueba_genetica_resultado',
+                   'prueba_genetica_otro',
+                   'familiares_mama',
+                   'parentesco',
+                  'familiares_cancer',
+                   'familiares_cancer_tipo',
+                   'familiares_cancer_parentesco'}
 
-        self.id_subform = None
-
-        if kwargs.get('id_subform'):
-            self.id_subform = kwargs.pop('id_subform')
-
-        super(SubForm_historia_familiar_Form, self).__init__(*args, **kwargs)
-        self.fields['resultado'].choices = [(model.pk, model.tipo_prueba_genetica) for model in Prueba_genetica.objects.all()]
-        self.fields['parentesco'].choices = [(model.pk, model.tipo_parentesco) for model in Parentesco.objects.all()]
-
-        if self.id_subform:
-            print("Cargando datos historia ....")
-            subform = SubForm_historia_familiar.objects.filter(pk=self.id_subform).get()
-
-            self.initial['pruebas_geneticas'] = from_db_checkbox(subform.prueba_genetica)
-
-            self.initial['resultado'] = [i.id for i in subform.prueba_genetica_resultado.all()]
-
-            self.fields['otro_resultado'].initial = subform.prueba_genetica_otro
-            self.fields['familiares'].initial = from_db_checkbox(subform.familiares_mama)
-
-            self.initial['parentesco'] = [i.id for i in subform.parentesco.all()]
-
-            self.fields['familiares_otro'].initial = from_db_checkbox(subform.familiares_cancer)
-            self.fields['tipo'].initial = subform.familiares_cancer_tipo
-            self.fields['parentesco_tipo'].initial = subform.familiares_cancer_parentesco
-            print("Datos cargados")
 
     pruebas_geneticas = forms.CharField(required=False, widget=forms.RadioSelect(choices=[('1', 'Sí'), ('0', 'No')]), empty_value=None)
 

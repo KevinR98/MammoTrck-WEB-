@@ -1,9 +1,9 @@
 form_section,name_field,value
-form,id_form,Codigo1235
+form,id_form,MF555
 historia_personal,clinic,2
-historia_personal,nombre,ghj
-historia_personal,cedula,ghjhgj
-historia_personal,fecha_de_nacimiento,2020-10-10
+historia_personal,nombre,Rosalia Fernandez
+historia_personal,cedula,22562256
+historia_personal,fecha_de_nacimiento,2020-10-02
 historia_personal,nacionalidad,0
 historia_personal,identidad_etnica,4
 historia_personal,identidad_etnica_otro,None
