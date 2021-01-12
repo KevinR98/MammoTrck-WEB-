@@ -25,7 +25,7 @@ from ... import models
 from ...models import User, Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
     Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco, Report, Mamografia, FIELD_PARSER
 from ...forms import RegistrationForm, SubForm_historia_personal_Form, SubForm_antecedentes_g_o_Form, \
-    SubForm_historia_familiar_Form, ReportForm, ROLES, NATIONALITIES, FRECUENCIA_BEBE, DIABETES, TIPO_TERAPIA
+    SubForm_historia_familiar_Form, ReportForm
 
 
 class web_client(View):
@@ -755,6 +755,7 @@ class web_client(View):
 
 
 def get_values_fk(field, element):
+
     if element == None or element == []:
         element = "Campo Vacío"
 
@@ -762,17 +763,17 @@ def get_values_fk(field, element):
         element = "Sí" if element else "No"
 
     elif field == 'nacionalidad':
-        element = NATIONALITIES[int(element)]
+        element = SubForm_historia_personal.NACIONALIDAD[int(element)]
 
     elif field == 'bebidas_cuanto':
         print(element)
-        element = FRECUENCIA_BEBE[int(element)][1]
+        element = SubForm_historia_personal.FRECUENCIA_BEBE[int(element)][1]
 
     elif field == 'diabetes':
-        element = DIABETES[int(element)][1]
+        element = SubForm_historia_personal.DIABETES[int(element)][1]
 
     elif field == 'terapia':
-        element = TIPO_TERAPIA[int(element)][1]
+        element = SubForm_antecedentes_g_o.TIPO_TERAPIA[int(element)][1]
 
     elif field == 'clinic':
         element = Clinic.objects.get(pk=element).name
@@ -796,3 +797,4 @@ def get_values_fk(field, element):
         element = str_element[:-1]
 
     return element
+

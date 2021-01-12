@@ -9,21 +9,6 @@ from .models import *
 
 ROLES = [('0', 'Asistente'), ('1', 'Médico'), ('2', 'Administrador')]
 
-NATIONALITIES = ['Afganistán',  'Albania',  'Alemania',  'Andorra',  'Angola',  'Anguila',  'Antártida',  'Antigua y Barbuda',  'Arabia Saudita',  'Argelia',  'Argentina',  'Armenia',  'Aruba',  'Australia',  'Austria',  'Azerbaiyán',  'Bélgica',  'Bahamas',  'Bahrein',  'Bangladesh',  'Barbados',  'Belice',  'Benín',  'Bhután',  'Bielorrusia',  'Birmania',  'Bolivia',  'Bosnia y Herzegovina',  'Botsuana',  'Brasil',  'Brunéi',  'Bulgaria',  'Burkina Faso',  'Burundi',  'Cabo Verde',  'Camboya',  'Camerún',  'Canadá',  'Chad',  'Chile',  'China',  'Chipre',  'Ciudad del Vaticano',  'Colombia',  'Comoras',  'República del Congo',  'República Democrática del Congo',  'Corea del Norte',  'Corea del Sur',  'Costa de Marfil',  'Costa Rica',  'Croacia',  'Cuba',  'Curazao',  'Dinamarca',  'Dominica',  'Ecuador',  'Egipto',  'El Salvador',  'Emiratos Árabes Unidos',  'Eritrea',  'Eslovaquia',  'Eslovenia',  'España',  'Estados Unidos de América',  'Estonia',  'Etiopía',  'Filipinas',  'Finlandia',  'Fiyi',  'Francia',  'Gabón',  'Gambia',  'Georgia',  'Ghana',  'Gibraltar',  'Granada',  'Grecia',  'Groenlandia',  'Guadalupe',  'Guam',  'Guatemala',  'Guayana Francesa',  'Guernsey',  'Guinea',  'Guinea Ecuatorial',  'Guinea-Bissau',  'Guyana',  'Haití',  'Honduras',  'Hong kong',  'Hungría',  'India',  'Indonesia',  'Irán',  'Irak',  'Irlanda',  'Isla Bouvet',  'Isla de Man',  'Isla de Navidad',  'Isla Norfolk',  'Islandia',  'Islas Bermudas',  'Islas Caimán',  'Islas Cocos (Keeling)',  'Islas Cook',  'Islas de Åland',  'Islas Feroe',  'Islas Georgias del Sur y Sandwich del Sur',  'Islas Heard y McDonald',  'Islas Maldivas',  'Islas Malvinas',  'Islas Marianas del Norte',  'Islas Marshall',  'Islas Pitcairn',  'Islas Salomón',  'Islas Turcas y Caicos',  'Islas Ultramarinas Menores de Estados Unidos',  'Islas Vírgenes Británicas',  'Islas Vírgenes de los Estados Unidos',  'Israel',  'Italia',  'Jamaica',  'Japón',  'Jersey',  'Jordania',  'Kazajistán',  'Kenia',  'Kirguistán',  'Kiribati',  'Kuwait',  'Líbano',  'Laos',  'Lesoto',  'Letonia',  'Liberia',  'Libia',  'Liechtenstein',  'Lituania',  'Luxemburgo',  'México',  'Mónaco',  'Macao',  'Macedônia',  'Madagascar',  'Malasia',  'Malawi',  'Mali',  'Malta',  'Marruecos',  'Martinica',  'Mauricio',  'Mauritania',  'Mayotte',  'Micronesia',  'Moldavia',  'Mongolia',  'Montenegro',  'Montserrat',  'Mozambique',  'Namibia',  'Nauru',  'Nepal',  'Nicaragua',  'Niger',  'Nigeria',  'Niue',  'Noruega',  'Nueva Caledonia',  'Nueva Zelanda',  'Omán',  'Países Bajos',  'Pakistán',  'Palau',  'Palestina',  'Panamá',  'Papúa Nueva Guinea',  'Paraguay',  'Perú',  'Polinesia Francesa',  'Polonia',  'Portugal',  'Puerto Rico',  'Qatar',  'Reino Unido',  'República Centroafricana',  'República Checa',  'República Dominicana',  'República de Sudán del Sur',  'Reunión',  'Ruanda',  'Rumanía',  'Rusia',  'Sahara Occidental',  'Samoa',  'Samoa Americana',  'San Bartolomé',  'San Cristóbal y Nieves',  'San Marino',  'San Martín (Francia)',  'San Pedro y Miquelón',  'San Vicente y las Granadinas',  'Santa Elena',  'Santa Lucía',  'Santo Tomé y Príncipe',  'Senegal',  'Serbia',  'Seychelles',  'Sierra Leona',  'Singapur',  'Sint Maarten',  'Siria',  'Somalia',  'Sri lanka',  'Sudáfrica',  'Sudán',  'Suecia',  'Suiza',  'Surinám',  'Svalbard y Jan Mayen',  'Swazilandia',  'Tayikistán',  'Tailandia',  'Taiwán',  'Tanzania',  'Territorio Británico del Océano Índico',  'Territorios Australes y Antárticas Franceses',  'Timor Oriental',  'Togo',  'Tokelau',  'Tonga',  'Trinidad y Tobago',  'Tunez',  'Turkmenistán',  'Turquía',  'Tuvalu',  'Ucrania',  'Uganda',  'Uruguay',  'Uzbekistán',  'Vanuatu',  'Venezuela',  'Vietnam',  'Wallis y Futuna',  'Yemen',  'Yibuti',  'Zambia',  'Zimbabue']
-FRECUENCIA_BEBE = [('0', 'Más de tres a la semana'), ('1', 'Más de dos al día'), ('2', 'Otro')]
-DIABETES = [('0', 'Tipo 1'), ('1', 'Tipo 2'), ('2', 'Ninguna')]
-TIPO_TERAPIA = [('0', 'Sistémico (Oral)'), ('1', 'Tópico (Crema o Parche)'), ('2', 'Intravaginal (Óvulos o Anillo)'), ('3', 'No sabe')]
-
-#'BRCA1, BRCA2, TP53, PTEN, CDH1, STK11, Otro'
-#'Madre', 'Tia (Materna)', 'Tia (Paterna)', 'Abuela (Materna)' ,'Abuela (Paterna)'
-
-
-def from_db_checkbox(db_source):
-    if db_source == None:
-        return None
-    else:
-        return int(db_source)
-
 
 class SubForm_historia_personal_Form(forms.ModelForm):
 
@@ -40,7 +25,7 @@ class SubForm_historia_personal_Form(forms.ModelForm):
             'nombre': forms.TextInput(attrs={'type':'text', 'class': 'form-control', 'id':'inp_nombre', 'name':'nombre', 'aria-describedby':'inp_nombre_help','placeholder': ''}) ,
             'cedula': forms.TextInput(attrs={'type':'text', 'class': 'form-control', 'id':'inp_cedula','name':'cedula', 'aria-describedby':'inp_cedula_help','placeholder': ''}),
             'fecha_de_nacimiento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control', 'id': 'inp_fecha_nacimiento','name': 'fecha_nacimiento', 'aria-describedby': 'inp_fecha_nacimiento_help','placeholder': ''}),
-            'nacionalidad': forms.Select(attrs={'class': 'form-control', 'id': 'inp_nacionalidad', 'name':'nacionalidad'}, choices=[(i, element) for i, element in enumerate(NATIONALITIES)]),
+            'nacionalidad': forms.Select(attrs={'class': 'form-control', 'id': 'inp_nacionalidad', 'name':'nacionalidad'}),
             'identidad_etnica': forms.Select(attrs={'class': 'form-control', 'id': 'inp_etnia', 'name':'etnia'}),
             'identidad_etnica_otro': forms.TextInput(attrs={'type':'text', 'class': 'form-control', 'id':'inp_otra_identidad','name':'otra_identidad', 'aria-describedby':'inp_otra_identidad_help','placeholder': ''}),
             'peso': forms.TextInput(attrs={'type':'number', 'class': 'form-control', 'id':'inp_peso','name':'peso', 'aria-describedby':'inp_peso_help','placeholder': ''}),
@@ -51,13 +36,13 @@ class SubForm_historia_personal_Form(forms.ModelForm):
             'fuma_actualmente': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
             'fuma_cuanto': forms.TextInput(attrs={'type':'text', 'class': 'form-control', 'id':'inp_tiempo_fumado','name':'tiempo_fumado', 'aria-describedby':'inp_tiempo_fumado_help','placeholder': ''}),
             'bebidas': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
-            'bebidas_cuanto': forms.Select(attrs={'class': 'form-control', 'id': 'inp_frecuencia_bebe', 'name':'frecuencia_bebe'}, choices=FRECUENCIA_BEBE),
+            'bebidas_cuanto': forms.Select(attrs={'class': 'form-control', 'id': 'inp_frecuencia_bebe', 'name':'frecuencia_bebe'}),
             'bebidas_cuanto_otro': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id':'inp_otra_frecuencia','name': 'otra_frecuencia', 'aria-describedby':'inp_otra_frecuencia_help','placeholder': ''}),
             'actividad_fisica': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
             'actividad_fisica_cuanto': forms.TextInput(attrs={'type':'number', 'class': 'form-control', 'id': 'inp_minutos_actividad', 'name': 'minutos_actividad', 'aria-describedby':'inp_minutos_actividad_help','placeholder': ''}),
             'consume_alimentos_con_grasa': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
             'consume_veg_frut_gram': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
-            'diabetes': forms.Select(attrs={'class': 'form-control', 'id': 'inp_diabetes','name':'diabetes'}, choices=DIABETES),
+            'diabetes': forms.Select(attrs={'class': 'form-control', 'id': 'inp_diabetes','name':'diabetes'}),
             'toma_medicamento_tamoxifeno': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
             'cuanto_tamoxifeno': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_med_1_t','name': 'med_1_t', 'aria-describedby': 'inp_med_1_t_help','placeholder': ''}),
             'toma_medicamento_anastrozol': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
@@ -92,7 +77,7 @@ class SubForm_antecedentes_g_o_Form(forms.ModelForm):
             'anticonceptivos_cuanto': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_anti_t','name': 'anti_t', 'aria-describedby': 'inp_anti_t_help','placeholder': ''}),
             'anticonceptivos_ult_vez' : forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_anti_u','name': 'anti_u', 'aria-describedby': 'inp_anti_u_help','placeholder': ''}),
             'terapia_hormonal_aplica': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
-            'terapia': forms.Select(attrs={'class': 'form-control', 'id': 'inp_terapia_t', 'name':'terapia_t'},choices=TIPO_TERAPIA),
+            'terapia': forms.Select(attrs={'class': 'form-control', 'id': 'inp_terapia_t', 'name':'terapia_t'}),
             'cuanto_tiempo_terapia': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'id': 'inp_terapia_tiempo','name': 'terapia_tiempo', 'aria-describedby': 'inp_terapia_tiempo_help','placeholder': ''}),
             'biopsia_aplica': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
             'biopsia_cuantas': forms.TextInput(attrs={'type': 'number', 'class': 'form-control', 'id': 'inp_biopsias','name': 'biopsias', 'aria-describedby': 'inp_biopsias_help','placeholder': ''}),
@@ -106,6 +91,7 @@ class SubForm_historia_familiar_Form(forms.ModelForm):
         model = SubForm_historia_familiar
         fields = ['prueba_genetica', 'prueba_genetica_resultado', 'prueba_genetica_otro', 'familiares_mama', 'parentesco',
                   'familiares_cancer', 'familiares_cancer_tipo', 'familiares_cancer_parentesco']
+
         widgets = {
             'prueba_genetica': forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')]),
             'prueba_genetica_resultado': forms.CheckboxSelectMultiple(),

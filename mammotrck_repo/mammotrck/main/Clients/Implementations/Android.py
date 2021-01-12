@@ -14,7 +14,7 @@ from django.utils.decorators import method_decorator
 from django.template.context_processors import csrf
 
 from ...models import Form, SubForm_historia_personal, SubForm_antecedentes_g_o, SubForm_historia_familiar, \
-    Clinic, Patient, Identidad_etnica, Prueba_genetica, Parentesco, dependencias, opcionales
+    Clinic, Patient, Prueba_genetica, Parentesco, dependencias, opcionales, Identidad_etnica
 from ...forms import SubForm_historia_personal_Form, SubForm_antecedentes_g_o_Form, \
     SubForm_historia_familiar_Form
 

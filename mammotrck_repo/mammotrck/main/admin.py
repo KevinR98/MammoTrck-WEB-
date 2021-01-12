@@ -4,9 +4,6 @@ from .models import *
 
 admin.site.register(Clinic)
 admin.site.register(Profile)
-
-
-
 admin.site.register(Patient)
 admin.site.register(Identidad_etnica)
 admin.site.register(SubForm_historia_personal)
