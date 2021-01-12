@@ -88,6 +88,7 @@ class Clinic(models.Model):
     name = models.CharField(max_length=40, null=True)
     acronym = models.CharField(max_length=40, null=True)
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User,
                                  on_delete=models.CASCADE,
@@ -208,25 +209,25 @@ class SubForm_historia_personal(models.Model):
     opciones_clinicas = ['Max Peralta', 'San Juan De Dios']
 
 
-    NACIONALIDAD = [(i, element) for i, element in enumerate(nacionalidades)]
-    IDENTIDAD_ETNICA = [(i, element) for i, element in enumerate(opciones_identidad_etnica)]
-    FRECUENCIA_BEBE = [(i, element) for i, element in enumerate(opciones_frecuencia_bebe)]
-    DIABETES = [(i, element) for i, element in enumerate(opciones_diabetes)]
-    CLINICA = [(i, element) for i, element in enumerate(opciones_clinicas)]
+    NACIONALIDAD = [(str(i), element) for i, element in enumerate(nacionalidades)]
+    IDENTIDAD_ETNICA = [(str(i), element) for i, element in enumerate(opciones_identidad_etnica)]
+    FRECUENCIA_BEBE = [(str(i), element) for i, element in enumerate(opciones_frecuencia_bebe)]
+    DIABETES = [(str(i), element) for i, element in enumerate(opciones_diabetes)]
+    CLINICA = [(str(i), element) for i, element in enumerate(opciones_clinicas)]
 
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    clinic = models.CharField(choices=CLINICA, max_length=5, null=True, default=1)
-    #clinic = models.ForeignKey(Clinic, on_delete=models.PROTECT, default=1, null=True, blank=True)
+    #clinic = models.CharField(choices=CLINICA, max_length=5, null=True, default=1)
+    clinic = models.ForeignKey(Clinic, on_delete=models.PROTECT, default=1, null=True)
 
     nombre = models.CharField(max_length=40, null=True, blank=True)
     cedula = models.CharField(max_length=40, null=True, blank=True)
     fecha_de_nacimiento = models.DateField(null=True, blank=True)
-    nacionalidad = models.CharField(choices=NACIONALIDAD, max_length=2, null=True, default=0)
+    nacionalidad = models.CharField(choices=NACIONALIDAD, max_length=3, null=True, default=0)
 
     #identidad_etnica = models.CharField(choices=IDENTIDAD_ETNICA, max_length=2, default=0)
-    identidad_etnica = models.ForeignKey(Identidad_etnica, on_delete=models.PROTECT, default=1, null=True, blank=True)
+    identidad_etnica = models.ForeignKey(Identidad_etnica, on_delete=models.PROTECT, default=1, null=True)
 
     identidad_etnica_otro = models.CharField(max_length=40, null=True, blank=True)
 
@@ -240,7 +241,7 @@ class SubForm_historia_personal(models.Model):
     fuma_cuanto = models.CharField(max_length=40, null=True, blank=True)
 
     bebidas = models.BooleanField(max_length=1, null=True, blank=True)
-    bebidas_cuanto = models.CharField(choices=FRECUENCIA_BEBE, max_length=2, default=0)
+    bebidas_cuanto = models.CharField(choices=FRECUENCIA_BEBE, max_length=3, default=0)
     bebidas_cuanto_otro = models.CharField(max_length=40, null=True, blank=True)
 
     actividad_fisica = models.BooleanField(max_length=1, null=True, blank=True)
@@ -249,7 +250,7 @@ class SubForm_historia_personal(models.Model):
     consume_alimentos_con_grasa = models.BooleanField(max_length=1, null=True, blank=True)
     consume_veg_frut_gram = models.BooleanField(max_length=1, null=True, blank=True)
 
-    diabetes = models.CharField(choices=DIABETES, max_length=2, default=0)
+    diabetes = models.CharField(choices=DIABETES, max_length=3, default=0)
 
     toma_medicamento_tamoxifeno = models.BooleanField(max_length=1, null=True, blank=True)
     cuanto_tamoxifeno = models.CharField(max_length=40, null=True, blank=True)
@@ -280,7 +281,7 @@ class SubForm_historia_personal(models.Model):
 class SubForm_antecedentes_g_o(models.Model):
     opciones_tipos_terapia = ['No sabe', 'Sistémico (Oral)', 'Tópico (Crema o Parche)', 'Intravaginal (Óvulos o Anillo)']
 
-    TIPO_TERAPIA = [(i, element) for i, element in enumerate(opciones_tipos_terapia)]
+    TIPO_TERAPIA = [(str(i), element) for i, element in enumerate(opciones_tipos_terapia)]
 
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
@@ -343,7 +344,7 @@ class SubForm_historia_familiar(models.Model):
 
     familiares_mama = models.BooleanField(max_length=1, null=True, blank=True)
 
-    parentesco = models.ManyToManyField(Parentesco,  null=True, default=None, blank=True) ##
+    parentesco = models.ManyToManyField(Parentesco, blank=True) ##
 
     familiares_cancer = models.BooleanField(max_length=1, null=True, blank=True)
 
